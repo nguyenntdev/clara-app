@@ -1,0 +1,2196 @@
+app:
+  description: Clinical Agent for Retrieval & Analysis
+  icon: 💊
+  icon_background: '#D3F8DF'
+  mode: advanced-chat
+  name: Project CLARA
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/google:0.0.9@d360bbc433f39be1b11909cb9c32e6be4a17ea06af083f9e1c7613bb802bf517
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_api_compatible:0.0.25@6c02d20ecf7eba40234be5201f25c2b6ea918ec09e0f8eb2a333efb495947d02
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.6.4@17f286b2d6699a258a2eba8bc1bff71b8f795b6aa7bee1464cbfa450b451303a
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5000
+        file_size_limit: 100
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: true
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: tool
+      id: 1760800938976-source-1760799463379-target
+      selected: false
+      source: '1760800938976'
+      sourceHandle: source
+      target: '1760799463379'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: template-transform
+      id: 1760799463379-source-1760803102598-target
+      selected: false
+      source: '1760799463379'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: knowledge-retrieval
+      id: 1760853855187-source-1711528915811-target
+      selected: false
+      source: '1760853855187'
+      sourceHandle: source
+      target: '1711528915811'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1711528915811-source-1760803102598-target
+      selected: false
+      source: '1711528915811'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: knowledge-retrieval
+      id: 1760858565608-source-1760858635397-target
+      selected: false
+      source: '1760858565608'
+      sourceHandle: source
+      target: '1760858635397'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1760858635397-source-1760803102598-target
+      selected: false
+      source: '1760858635397'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: knowledge-retrieval
+      id: 1760867601464-source-1760867619500-target
+      selected: false
+      source: '1760867601464'
+      sourceHandle: source
+      target: '1760867619500'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: knowledge-retrieval
+      id: 1760867596268-source-1760867631815-target
+      selected: false
+      source: '1760867596268'
+      sourceHandle: source
+      target: '1760867631815'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1760867631815-source-1760803102598-target
+      selected: false
+      source: '1760867631815'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1760867619500-source-1760803102598-target
+      selected: false
+      source: '1760867619500'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1711528917469-source-1711528919501-target
+      selected: false
+      source: '1711528917469'
+      sourceHandle: source
+      target: '1711528919501'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: knowledge-retrieval
+      id: 1760888349249-source-1760888790336-target
+      selected: false
+      source: '1760888349249'
+      sourceHandle: source
+      target: '1760888790336'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1760888790336-source-1760803102598-target
+      selected: false
+      source: '1760888790336'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1760939080958-source-1760888349249-target
+      selected: false
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760888349249'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1760939080958-source-1760867601464-target
+      selected: false
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760867601464'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1760939080958-source-1760853855187-target
+      selected: false
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760853855187'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1760939080958-source-1760858565608-target
+      selected: false
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760858565608'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1760939080958-source-1760867596268-target
+      selected: false
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760867596268'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1760939080958-source-1760800938976-target
+      selected: false
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760800938976'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: knowledge-retrieval
+      id: 1760964906318-source-1760965429499-target
+      selected: false
+      source: '1760964906318'
+      sourceHandle: source
+      target: '1760965429499'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1760965429499-source-1760803102598-target
+      selected: false
+      source: '1760965429499'
+      sourceHandle: source
+      target: '1760803102598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1711528914102-source-1763783065759-target
+      source: '1711528914102'
+      sourceHandle: source
+      target: '1763783065759'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: 1763783065759-source-1763783220129-target
+      source: '1763783065759'
+      sourceHandle: source
+      target: '1763783220129'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763783220129-true-1760939080958-target
+      source: '1763783220129'
+      sourceHandle: 'true'
+      target: '1760939080958'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763783220129-false-1763783564942-target
+      source: '1763783220129'
+      sourceHandle: 'false'
+      target: '1763783564942'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1763783564942-source-1763783628298-target
+      source: '1763783564942'
+      sourceHandle: source
+      target: '1763783628298'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1760939080958-source-1760964906318-target
+      source: '1760939080958'
+      sourceHandle: source
+      target: '1760964906318'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: 1760803102598-source-1711528917469-target
+      source: '1760803102598'
+      sourceHandle: source
+      target: '1711528917469'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables: []
+      height: 51
+      id: '1711528914102'
+      position:
+        x: 30
+        y: 1153.5
+      positionAbsolute:
+        x: 30
+        y: 1153.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - XlAYRtQcd39fJJEjyTPXLknYrtzN+zpC/fHq5E71GyMa5fNynKWSkaMia8AZtD72
+        desc: Allows you to query text content related to user questions from the
+          Knowledge
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen/Qwen3-Reranker-8B
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          score_threshold: 0.8
+          top_k: 4
+        query_variable_selector:
+        - '1760853855187'
+        - output
+        retrieval_mode: multiple
+        selected: false
+        single_retrieval_config:
+          model:
+            completion_params:
+              frequency_penalty: 0
+              max_tokens: 512
+              presence_penalty: 0
+              temperature: 0
+              top_p: 1
+            mode: chat
+            name: gpt-3.5-turbo
+            provider: openai
+        title: Knowledge Retrieval
+        type: knowledge-retrieval
+      dragging: false
+      height: 133
+      id: '1711528915811'
+      position:
+        x: 1781
+        y: 516.5
+      positionAbsolute:
+        x: 1781
+        y: 516.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1760803102598'
+          - output
+        desc: Invoking large language models to answer questions or process natural
+          language
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 100
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-3-pro-preview
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 27d3cb7f-58ae-4797-8f73-ffeec4cab058
+          role: system
+          text: "**Vai trò**\nBạn là **CLARA – Final Scientific Editor**. Từ **Context**\
+            \ đã cấp, hãy **lọc → chấm điểm → xếp hạng → tổng hợp** và xuất bản **BÁO\
+            \ CÁO (REPORT)** kèm **LẬP LUẬN & CITATION (≤ 8 mục)**. **Chỉ** dùng dữ\
+            \ liệu trong Context, **không** tư vấn y khoa cá nhân hoá.\n\n**Query**\n\
+            `{{#sys.query#}}`\n\n**Inputs (Context)**\n``\n\n---\n\n## 1) Quy tắc\
+            \ lọc & chấm điểm (giảm “tràn dữ liệu”)\n\n**Hard filters (loại ngay):**\n\
+            lệch chủ đề/quần thể/kết cục; sai mốc thời gian; **bản trùng** (định danh\
+            \ như **DOI/PMID/NCT/CUI/RxCUI/ICD-11 URI/openFDA recall_number/FAERS\
+            \ id**); **báo cáo không đạt chuẩn** báo cáo tương ứng (**PRISMA** cho\
+            \ tổng quan; **CONSORT** cho RCT; **STROBE** cho quan sát; **STARD** cho\
+            \ chẩn đoán). ([BMJ][1])\n\n**Công thức RelevanceScore (0–100) cho mỗi\
+            \ mục:**\n\n```\nScore = 20·DesignPriority + 20·OutcomeMatch + 15·PopulationMatch\n\
+            \        + 15·Recency + 10·SampleSize + 10·SettingRelevance + 10·QualityFlag\n\
+            ```\n\n* **DesignPriority:** SR/MA chất lượng cao = 1.0; RCT = 0.9; quan\
+            \ sát = 0.6; ca bệnh = 0.3.\n* **QualityFlag (ví dụ cách chấm):**\n\n\
+            \  * RCT → **RoB 2** (High risk = 0.3 … Low risk = 1.0). ([Risk of Bias][2])\n\
+            \  * Không ngẫu nhiên → **ROBINS-I** (Serious/Critical giảm mạnh điểm).\
+            \ ([Cochrane Methods][3])\n  * Tổng quan/hệ thống → **AMSTAR 2** (Yếu\
+            \ ở domain trọng yếu → hạ mạnh). ([amstar.ca][4])\n\n**Ngưỡng chọn để\
+            \ tổng hợp:**\n\n* **Y văn (bài báo/hướng dẫn):** lấy **6–8** mục điểm\
+            \ cao nhất (Score ≥ 70).\n* **ClinicalTrials:** ≤ **5** bản ghi đại diện.\n\
+            * **openFDA:** ≤ **5** bản ghi.\n* **UMLS/RxNorm/ICD-11 (từ điển mã):**\
+            \ **chỉ** giữ mục liên quan trực tiếp câu hỏi.\n\n**Quy tắc định danh\
+            \ trong báo cáo:**\n\n* **Thử nghiệm:** `[NCTxxxxxxxx]`\n* **UMLS:** `[CUI:\
+            \ Cxxxxxxx]` + (tuỳ chọn) `[SOURCE: CODE]`\n* **RxNorm:** `[RxCUI: xxxxxx]`\
+            \ (thêm **NDC** nếu có)\n* **ICD-11:** `[ICD-11: code]`\n* **openFDA:**\
+            \ `[Recall: D-xxxx-yyyy]` / `[FAERS: safetyreportid]` / `[SPL: spl_set_id]`\n\
+            \n---\n\n## 2) Thứ bậc **Nguồn dữ liệu Việt Nam** (ưu tiên khi có trong\
+            \ Context)\n\n1. **Cục Quản lý Khám, chữa bệnh – KCB (kcb.vn)**: chuyên\
+            \ mục **“Hướng dẫn chẩn đoán, điều trị”**; Quyết định/Thông tư đi kèm\
+            \ file PDF. **Ưu tiên cao nhất** khi câu hỏi liên quan chẩn đoán/điều\
+            \ trị. ([kcb.vn][5])\n2. **Cổng thông tin Bộ Y tế (moh.gov.vn)**: hệ thống\
+            \ văn bản BYT, tổng hợp văn bản quy phạm & quyết định. **Ưu tiên** khi\
+            \ cần căn cứ pháp lý/ban hành. ([Ministry of Health Vietnam][6])\n3. **Cục\
+            \ Quản lý Dược – DAV (dav.gov.vn)**: quyết định cấp/thu hồi/GĐKLH thuốc,\
+            \ thông báo dược; dùng cho **an toàn thuốc & đăng ký lưu hành**. ([Davao.gov][7])\n\
+            4. **Dược thư Quốc gia (duocthuquocgia.vn)**: tra cứu chuyên khảo/hoạt\
+            \ chất chuẩn hoá của Việt Nam (nếu Context có trích xuất). ([Dược Thư\
+            \ Quốc Gia Việt Nam][8])\n5. **Cục An toàn thực phẩm – VFA (vfa.gov.vn)**:\
+            \ cảnh báo/thu hồi sản phẩm thực phẩm, bổ sung góc **giám sát** (không\
+            \ chứng minh quan hệ nhân quả). ([VFA][9])\n6. **Hệ thống mã hoá lâm sàng\
+            \ – ICD (icd.kcb.vn)**: tham chiếu áp dụng mã hoá trong hệ thống y tế\
+            \ VN; nếu cần đối chiếu, có thể so sánh với **ICD-11 WHO**. ([ICD Vietnam][10])\n\
+            \n> **Nguyên tắc trình bày:** Nếu **VN guideline** mâu thuẫn với y văn\
+            \ quốc tế, **ưu tiên** khuyến nghị **VN**; nêu rõ khác biệt trong phần\
+            \ **Synthesis & Interpretation**.\n\n---\n\n## 3) ĐỊNH DẠNG KẾT QUẢ (tách\
+            \ hai phần rõ ràng)\n\n### \U0001F535 PHẦN I — REPORT (cho người đọc)\n\
+            \n\U0001F4DD **Yêu cầu độ dài:** Phần **REPORT phải dài và dày thông tin\
+            \ hơn CITATIONS**; ước lệ **≥ 4×** số từ của phần Citations và **không**\
+            \ rải citation trong thân bài.\n\n**Executive Summary (5–7 bullet logic,\
+            \ diễn tả dễ hiểu):**\n\n* Nêu **câu hỏi quyết định**.\n* 3–5 phát hiện\
+            \ **định lượng** quan trọng (nếu Context có; kèm ước lượng/CI/p).\n* **Kết\
+            \ luận:** Strong/Weak — For/Against (nếu đủ bằng chứng).\n* **GRADE**\
+            \ tổng thể: High/Moderate/Low/Very low (theo khung **GRADE/EtD**). ([BMJ][11])\n\
+            \n**Methods — Cách chọn bằng chứng (4–6 câu, văn xuôi):**\nMô tả nguồn\
+            \ trong **Context** (ưu tiên VN như trên), tiêu chí **đưa vào/loại trừ**,\
+            \ khung thời gian, **ngưỡng Score** (≥70 → “Key Studies”; 50–69 → “Appendix”),\
+            \ và xác nhận **không sử dụng** tài liệu **ngoài Context**. Dẫn chiếu\
+            \ chuẩn báo cáo: **PRISMA/CONSORT/STROBE/STARD** cho tính minh bạch (nhưng\
+            \ **không** thêm nguồn mới ngoài Context). ([BMJ][1])\n\n**Key Studies\
+            \ Table (≤ 8 dòng):**\n`Năm | Thiết kế | Quần thể | Can thiệp/Phơi nhiễm\
+            \ | Kết cục chính | Ước lượng (CI, p) | Chất lượng (RoB2/ROBINS-I/AMSTAR2)\
+            \ | ID (PMID/NCT)`\n(Sử dụng dữ liệu & ID **có sẵn** trong Context; nếu\
+            \ thiếu, ghi: **“(ID: không có trong Context)”**.)\n\n**Synthesis & Interpretation\
+            \ (≤ 400 từ, kiểu IMRaD rút gọn):**\nTổng hợp phát hiện chính; làm rõ\
+            \ tính nhất quán/khác biệt; bàn về **dị hợp** (nếu có); **chỉ** trình\
+            \ bày số liệu có trong Context; nếu thiếu, nói rõ **“Không đủ dữ liệu\
+            \ trong Context”**; nêu **hạn chế** ảnh hưởng suy luận.\n\n**Decision\
+            \ Block (GRADE + EtD rút gọn):**\n\n* **Recommendation:** Strong/Weak\
+            \ — For/Against (chỉ khi đủ dữ liệu).\n* **Reasons (bullet ngắn):** lợi\
+            \ ích/hại; giá trị–ưu tiên; chi phí–nguồn lực; khả thi; công bằng. (Theo\
+            \ **GRADE EtD**). ([BMJ][11])\n\n**Phần chuyên biệt theo intent (chỉ đưa\
+            \ nhóm xuất hiện trong Context):**\n\n* **ClinicalTrials:** Bảng `NCT\
+            \ | Tiêu đề | Condition | StudyType | Trạng thái | Quốc gia | Mốc (Start/Primary)`\
+            \ (≤ 5 dòng) + **3 nhận định tổng quát**.\n* **openFDA:** Bảng `recall_number\
+            \ | product | reason | class | date | source` (≤ 5 dòng); nhấn mạnh: **dữ\
+            \ liệu giám sát**, **không khẳng định** quan hệ nhân quả.\n* **ICD-11\
+            \ & RxNorm:** `Code – Title – (Definition ngắn nếu có) – URI / Tên → RxCUI/NDC`\
+            \ (chỉ mục **liên quan trực tiếp**).\n* **UMLS:** `CUI – Tên khái niệm\
+            \ – Semantic Types (≤3) – (Định nghĩa ngắn/nguồn nếu có) – URI`; kèm `[SOURCE:\
+            \ CODE]` khi phù hợp.\n\n**Appendix (tuỳ chọn, không tăng số citation):**\n\
+            Liệt kê các mục **Score 50–69** đã xem xét nhưng **không** đưa vào **Key\
+            \ Studies** (1–2 dòng/mục, không thêm trích dẫn).\n\n---\n\n### \U0001F7E3\
+            \ PHẦN II — LẬP LUẬN & CITATION (audit ngắn)\n\n* **Lập luận chọn lọc\
+            \ (≤ 8 bullet):** Tại sao mỗi mục vào **Key Studies**: **Score**, 1 lý\
+            \ do **thiết kế/chất lượng**, 1 lý do **phù hợp kết cục**; nếu loại nghiên\
+            \ cứu “gây chú ý”, nêu **1 câu** lý do (lệch quần thể/kết cục, RoB cao,\
+            \ v.v.).\n* **Citations (≤ 8 mục, kiểu Vancouver rút gọn):** **Chỉ** liệt\
+            \ kê mục **đã dùng** trong REPORT; gắn **định danh bắt buộc**: `[PMID/NCT/CUI/RxCUI/ICD-11\
+            \ URI/Recall/FAERS/SPL]`.\n* **Yêu cầu độ dài:** Phần **Citations** phải\
+            \ **ngắn gọn**, tối đa **¼** độ dài ngôn từ của **REPORT**.\n\n---\n\n\
+            ## 4) Quy tắc trình bày & an toàn\n\n* **Ngôn ngữ:** tiếng Việt, súc tích,\
+            \ trung lập; ưu tiên **bảng + đoạn văn ngắn**.\n* **Không bịa** ID/số\
+            \ liệu; thiếu ID trong Context → ghi **“(ID: không có trong Context)”**.\n\
+            * Nếu bằng chứng **không đủ**, nêu rõ và **đề xuất bước tiếp theo** (thiết\
+            \ kế/pha/kích thước mẫu/dữ liệu cần bổ sung).\n* **Không** đưa **lời khuyên\
+            \ điều trị cá nhân hoá**.\n\n**Chuẩn phương pháp tham chiếu (nội bộ):**\n\
+            **PRISMA 2020**, **CONSORT 2010**, **STROBE**, **STARD 2015**, **RoB 2**,\
+            \ **ROBINS-I**, **AMSTAR 2**, **GRADE-EtD**. (Dùng làm **khung đánh giá**\
+            \ chứ **không** để kéo thêm tài liệu ngoài Context.) ([BMJ][1])\n\n---\n\
+            \n## 5) Ghi chú vận hành (áp dụng vào pipeline hiện tại)\n\n* **Ưu tiên\
+            \ nguồn VN** trong bước hợp nhất bằng chứng (Evidence Combiner) khi nội\
+            \ dung **chẩn đoán/điều trị/quy định** nằm trong phạm vi quốc gia; tham\
+            \ chiếu **KCB** và **moh.gov.vn** để căn cứ văn bản ban hành & ngày hiệu\
+            \ lực. ([kcb.vn][5])\n* Với thuốc: kiểm tra **DAV** (quyết định cấp/thu\
+            \ hồi/GĐKLH), **Dược thư Quốc gia** (chuyên khảo), và khi có **cảnh báo\
+            \ an toàn thực phẩm** liên đới thì xem **VFA**. ([Davao.gov][7])\n* Với\
+            \ mã bệnh & phân loại: nếu Context có **ICD-11** từ WHO và/hoặc **icd.kcb.vn**,\
+            \ hiển thị **code + tiêu đề + URI**. ([ICD Online][12])\n\n---\n\n“**Bắt\
+            \ buộc**: tổng số từ phần **REPORT** (Executive Summary + Methods + Tables\
+            \ + Synthesis + Decision + Phần chuyên biệt + Appendix) **≥ 4 lần** tổng\
+            \ số từ phần **Citations**. Nếu vi phạm, rút gọn **Citations** hoặc mở\
+            \ rộng **Synthesis** bằng cách giải thích **lý do chấm điểm/chọn lọc**\
+            \ dựa trên Context. Trả lời toàn bộ bằng tiếng Việt, nếu là từ tiếng Anh\
+            \ không có nghĩa tương đương thì giữ nguyên.”\n\n---\n\n## Tài liệu/Chuẩn\
+            \ trích dẫn chính trong prompt này\n* **PRISMA 2020** (checklist, flow\
+            \ diagrams). ([PRISMA statement][13])\n* **CONSORT 2010** (báo cáo RCT).\
+            \ ([BMJ][14])\n* **STROBE** (quan sát). ([STROBE][15])\n* **STARD 2015**\
+            \ (chẩn đoán). ([BMJ Open][16])\n* **RoB 2**, **ROBINS-I** (độ chệch).\
+            \ ([Risk of Bias][2])\n* **AMSTAR 2** (đánh giá tổng quan). ([amstar.ca][4])\n\
+            * **GRADE — EtD** (khung khuyến nghị). ([BMJ][11])\n\nNo yapping\nLimit\
+            \ prose\nBe concious\nYou are matter of fact, concise, and not conversational."
+        - id: 36327492-8402-4968-a127-3f63ccd72a43
+          role: user
+          text: '{{#context#}}'
+        reasoning_format: separated
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        structured_output_enabled: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: false
+      height: 177
+      id: '1711528917469'
+      position:
+        x: 2445
+        y: 689.5
+      positionAbsolute:
+        x: 2445
+        y: 689.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1711528917469.text#}}'
+        desc: ''
+        selected: false
+        title: Answer
+        type: answer
+        variables: []
+      height: 101
+      id: '1711528919501'
+      position:
+        x: 2777
+        y: 689.5
+      positionAbsolute:
+        x: 2777
+        y: 689.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: GoogleSearch
+        tool_configurations: {}
+        tool_description: A tool for performing a Google SERP search and extracting
+          snippets and webpages.Input should be a search query.
+        tool_label: GoogleSearch
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: '{{#1760939080958.structured_output.identify.gl_country#}}'
+          hl:
+            type: mixed
+            value: '{{#1760939080958.structured_output.identify.hl_lang#}}'
+          location:
+            type: mixed
+            value: ''
+          query:
+            type: mixed
+            value: '{{#1760939080958.structured_output.identify.search_query#}}'
+        type: tool
+      height: 51
+      id: '1760799463379'
+      position:
+        x: 1781
+        y: 947.5
+      positionAbsolute:
+        x: 1781
+        y: 947.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{# Build Google query from detected keywords - safe Jinja2 #}\r\
+          \n{%- set kws = (detect.keywords | default([], true))[:8] -%}\r\n{%- set\
+          \ base = (kws | join(' ')) -%}\r\n{%- set domains = 'site:.gov OR site:.org\
+          \ OR site:.edu OR site:who.int' -%}\r\n{{ (base ~ ' ' ~ domains).strip()\
+          \ }}\r\n"
+        title: Template
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760939080958'
+          - structured_output
+          - identify
+          value_type: object
+          variable: detect
+      height: 51
+      id: '1760800938976'
+      position:
+        x: 1449
+        y: 928.5
+      positionAbsolute:
+        x: 1449
+        y: 928.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{# =========================\r\n   COMBINED EVIDENCE TEMPLATE (fixed\
+          \ NCT)\r\n   Inputs: google, kr, user_query\r\n   =========================\
+          \ #}\r\n\r\n# USER QUERY\r\n{{ user_query | default('') }}\r\n\r\n# EVIDENCE\
+          \ — ClinicalTrials.gov (External KB)\r\n{# --- pick records list from knowledge\
+          \ retrieval --- #}\r\n{%- set k = kr -%}\r\n{%- if k is mapping and (k.result\
+          \ is defined) -%}\r\n  {%- set k = k.result -%}\r\n{%- endif -%}\r\n\r\n\
+          {%- if k is sequence and (k|length) > 0 -%}\r\n  {%- for r in k[:8] -%}\r\
+          \n    {# ---- robust link ---- #}\r\n    {%- set link = r.metadata.doc_metadata.path\r\
+          \n                  | default(r.metadata.path)\r\n                  | default(r.source)\r\
+          \n                  | default(r.url)\r\n                  | default('')\
+          \ -%}\r\n\r\n    {# ---- NCT: prefer metadata.doc_metadata.nct_id, then\
+          \ metadata.nct_id, else parse from link/content ---- #}\r\n    {%- set nct\
+          \ = r.metadata.doc_metadata.nct_id\r\n                | default(r.metadata.nct_id)\r\
+          \n                | default('') -%}\r\n    {%- if not nct and link and ('NCT'\
+          \ in link) -%}\r\n      {%- set nct = (link.split('/')[-1]) -%}\r\n    {%-\
+          \ endif -%}\r\n    {%- if not nct and (r.content | default('')) and ('NCT:'\
+          \ in r.content) -%}\r\n      {%- set parts = r.content.split('NCT:') -%}\r\
+          \n      {%- if parts|length > 1 -%}\r\n        {%- set nct = (parts[1].split()\
+          \ | first) -%}\r\n      {%- endif -%}\r\n    {%- endif -%}\r\n    {%- if\
+          \ nct and not nct.startswith('NCT') -%}\r\n      {%- set nct = 'NCT' ~ nct\
+          \ -%}\r\n    {%- endif -%}\r\n\r\n    {# ---- status (nếu có) ---- #}\r\n\
+          \    {%- set status = r.metadata.doc_metadata.overall_status\r\n       \
+          \            | default(r.metadata.overall_status)\r\n                  \
+          \ | default('') -%}\r\n\r\n• {{ (r.title\r\n      | default(r.metadata.doc_metadata.title)\r\
+          \n      | default(r.document_name)\r\n      | default(r.id)\r\n      | default('Untitled'))\
+          \ | replace('\\n',' ') }}\r\n  — {{ (r.content | default('') | replace('\\\
+          n',' '))[:400] ~ ('…' if (r.content|length > 400) else '') }}\r\n  [{% if\
+          \ link %}{{ link }}{% endif %}{% if nct %} [{{ nct }}]{% endif %}{% if status\
+          \ %} ({{ status }}){% endif %}]\r\n  {%- endfor -%}\r\n{%- else -%}\r\n\
+          • (no clinicaltrials records)\r\n{%- endif -%}\r\n\r\n# EVIDENCE — Web Search\r\
+          \n{# --- pick object even if 'google' is a list --- #}\r\n{%- set g = google\
+          \ -%}\r\n{%- if g is sequence and (g|length) > 0 -%}\r\n  {%- set g = g[0]\
+          \ -%}\r\n{%- endif -%}\r\n\r\n{# --- choose items key by provider (SerpAPI\
+          \ vs Serper) --- #}\r\n{%- set items = [] -%}\r\n{%- if g.organic_results\
+          \ is defined and g.organic_results -%}\r\n  {%- set items = g.organic_results\
+          \ -%}\r\n{%- elif g.organic is defined and g.organic -%}\r\n  {%- set items\
+          \ = g.organic -%}\r\n{%- endif -%}\r\n\r\n{# --- emit plain text lines for\
+          \ LLM context --- #}\r\n{%- if items and (items|length) > 0 -%}\r\n  {%-\
+          \ for r in items[:8] -%}\r\n• {{ (r.title | default(r.link) | replace('\\\
+          n',' ')) }} — {{ (r.snippet | default('') | replace('\\n',' ')) }} [{{ r.link\
+          \ | default('') }}]\r\n  {%- endfor -%}\r\n{%- else -%}\r\n• (no web results)\r\
+          \n{%- endif -%}\r\n\r\n# EVIDENCE — openFDA\r\n{%- set k = openfda_kr -%}\r\
+          \n{%- if k is mapping and (k.result is defined) -%}{% set k = k.result %}{%\
+          \ endif -%}\r\n\r\n{%- if k is sequence and (k|length)>0 -%}\r\n  {%- for\
+          \ r in k[:8] -%}\r\n    {# metadata (tùy dataset) #}\r\n    {%- set ds =\
+          \ r.metadata.dataset | default(r.metadata.doc_metadata.dataset) | default('')\
+          \ -%}\r\n    {%- set recall = r.metadata.recall_number | default('') -%}\r\
+          \n    {%- set srs   = r.metadata.safetyreportid | default('') -%}\r\n  \
+          \  {%- set spl   = r.metadata.spl_set_id | default('') -%}\r\n• {{ r.title\
+          \ | default('Untitled') | replace('\\n',' ') }}\r\n  — {{ (r.content | default('')\
+          \ | replace('\\n',' '))[:400] ~ ('…' if (r.content|length>400) else '')\
+          \ }}\r\n  [{{ r.metadata.openfda_api_url | default('') }}]{% if ds %} ({{\
+          \ ds }}){% endif %}{% if recall %} [Recall: {{ recall }}]{% endif %}{% if\
+          \ srs %} [FAERS: {{ srs }}]{% endif %}{% if spl %} [SPL: {{ spl }}]{% endif\
+          \ %}\r\n  {%- endfor -%}\r\n{%- else -%}\r\n• (no openFDA records)\r\n{%-\
+          \ endif -%}\r\n\r\n# EVIDENCE — ICD-11\r\n{%- set k = icd_kr -%}\r\n{%-\
+          \ if k is mapping and (k.result is defined) -%}{% set k = k.result %}{%\
+          \ endif -%}\r\n\r\n{%- if k is sequence and (k|length) > 0 -%}\r\n  {%-\
+          \ for r in k[:8] -%}\r\n    {# ---- lấy code / title / uri / definition\
+          \ nếu có ---- #}\r\n    {%- set code  = r.metadata.doc_metadata.code\r\n\
+          \                  | default(r.metadata.code)\r\n                  | default('')\
+          \ -%}\r\n    {%- set title = r.title\r\n                  | default(r.metadata.doc_metadata.title)\r\
+          \n                  | default(r.document_name)\r\n                  | default('Untitled')\
+          \ -%}\r\n    {%- set uri   = r.metadata.doc_metadata.uri\r\n           \
+          \       | default(r.metadata.path)\r\n                  | default(r.source)\r\
+          \n                  | default(r.url)\r\n                  | default('')\
+          \ -%}\r\n    {%- set defn  = r.metadata.doc_metadata.definition\r\n    \
+          \              | default('') -%}\r\n• {{ title | replace('\\n',' ') }}{%\
+          \ if code %} [ICD-11: {{ code }}]{% endif %}\r\n  — {{ (r.content | default(defn)\
+          \ | replace('\\n',' '))[:400] ~ ('…' if ((r.content | default(defn))|length\
+          \ > 400) else '') }}\r\n  [{% if uri %}{{ uri }}{% endif %}]\r\n  {%- endfor\
+          \ -%}\r\n{%- else -%}\r\n• (no ICD-11 records)\r\n{%- endif -%}\r\n\r\n\
+          # EVIDENCE — RxNorm / RxClass\r\n{%- set k = rxnorm_kr -%}\r\n{%- if k is\
+          \ mapping and (k.result is defined) -%}{% set k = k.result %}{% endif -%}\r\
+          \n\r\n{%- if k is sequence and (k|length) > 0 -%}\r\n  {%- for r in k[:8]\
+          \ -%}\r\n    {%- set dm        = r.metadata.doc_metadata if r.metadata and\
+          \ (r.metadata.doc_metadata is defined) else {} -%}\r\n    {%- set rxcui\
+          \     = (dm.rxcui | default(r.metadata.rxcui) | default('')) -%}\r\n   \
+          \ {%- set ndc       = dm.ndc | default('') -%}\r\n    {%- set classId  \
+          \ = dm.classId | default('') -%}\r\n    {%- set className = dm.className\
+          \ | default('') -%}\r\n    {%- set classType = dm.classType | default('')\
+          \ -%}\r\n    {%- set src       = dm.source_url\r\n                     \
+          \ | default(r.metadata.path)\r\n                      | default(r.source)\r\
+          \n                      | default(r.url)\r\n                      | default('')\
+          \ -%}\r\n• {{ (r.title | default('RxNorm record')) | replace('\\n',' ')\
+          \ }}\r\n  — {{ (r.content | default('') | replace('\\n',' '))[:400] ~ ('…'\
+          \ if (r.content|length > 400) else '') }}\r\n  [{% if src %}{{ src }}{%\
+          \ endif %}]{% if rxcui %} [RxCUI: {{ rxcui }}]{% endif %}{% if ndc %} [NDC:\
+          \ {{ ndc }}]{% endif %}{% if classId %} [Class: {{ classId }}{% if className\
+          \ %} ({{ className }}){% endif %}{% if classType %} [{{ classType }}]{%\
+          \ endif %}]{% endif %}\r\n  {%- endfor -%}\r\n{%- else -%}\r\n• (no RxNorm/RxClass\
+          \ records)\r\n{%- endif -%}\r\n\r\n# EVIDENCE — UMLS\r\n{%- set k = umls_kr\
+          \ -%}\r\n{%- if k is mapping and (k.result is defined) -%}{% set k = k.result\
+          \ %}{% endif -%}\r\n\r\n{%- if k is sequence and (k|length) > 0 -%}\r\n\
+          \  {%- for r in k[:8] -%}\r\n    {# ---- metadata an toàn ---- #}\r\n  \
+          \  {%- set md  = r.metadata | default({}) -%}\r\n    {%- set dm  = md.doc_metadata\
+          \ if (md is mapping and (md.doc_metadata is defined)) else {} -%}\r\n\r\n\
+          \    {# ---- trường UMLS phổ biến ---- #}\r\n    {%- set cui    = dm.cui\
+          \ | default(dm.ui) | default('') -%}\r\n    {%- set root   = dm.rootSource\
+          \ | default(dm.root_source) | default('') -%}\r\n    {%- set code   = dm.code\
+          \ | default('') -%}\r\n    {%- set stys   = dm.semanticTypes | default([])\
+          \ -%}\r\n    {%- set defsrc = dm.definitionSource | default('') -%}\r\n\r\
+          \n    {# ---- link nguồn ---- #}\r\n    {%- set src = dm.path\r\n      \
+          \           | default(md.path)\r\n                 | default(r.source)\r\
+          \n                 | default(r.url)\r\n                 | default('') -%}\r\
+          \n\r\n    {# ---- tiêu đề fallback ---- #}\r\n    {%- set title = r.title\r\
+          \n                  | default(dm.name)\r\n                  | default(r.id)\r\
+          \n                  | default('Untitled') -%}\r\n\r\n• {{ title | replace('\\\
+          n',' ') }}\r\n  — {{ (r.content | default('') | replace('\\n',' '))[:400]\
+          \ ~ ('…' if (r.content|length > 400) else '') }}\r\n  [{% if src %}{{ src\
+          \ }}{% endif %}]\r\n  {%- if cui %} [CUI: {{ cui }}]{% endif -%}\r\n  {%-\
+          \ if root and code %} [{{ root }}: {{ code }}]{% elif root and (dm.ui|default(''))\
+          \ and (not (cui and (cui|string).startswith('C'))) %} [{{ root }}: {{ dm.ui\
+          \ }}]{% endif -%}\r\n  {%- if stys and (stys|length) > 0 %} [STY: {{ (stys|list)[:3]\
+          \ | join(', ') }}{% if (stys|length) > 3 %}, …{% endif %}]{% endif -%}\r\
+          \n  {%- if defsrc %} [Def: {{ defsrc }}]{% endif %}\r\n  {%- endfor -%}\r\
+          \n{%- else -%}\r\n• (no UMLS records)\r\n{%- endif -%}\r\n\r\n# EVIDENCE\
+          \ — Vietnam Guidelines/Docs\r\n{# --- pick records list from Knowledge Retrieval\
+          \ (VN) --- #}\r\n{%- set k = vn_kr if vn_kr is defined else kr_vn if kr_vn\
+          \ is defined else vn if vn is defined else [] -%}\r\n{%- if k is mapping\
+          \ and (k.result is defined) -%}{% set k = k.result %}{% endif -%}\r\n\r\n\
+          {%- if k is sequence and (k|length) > 0 -%}\r\n  {%- for r in k[:12] -%}\r\
+          \n    {# ---- safe metadata handles ---- #}\r\n    {%- set md  = r.metadata\
+          \ | default({}) -%}\r\n    {%- set dm  = md.doc_metadata if (md is mapping\
+          \ and (md.doc_metadata is defined)) else {} -%}\r\n\r\n    {# ---- robust\
+          \ link (ưu tiên source_url/path) ---- #}\r\n    {%- set link = dm.source_url\r\
+          \n                  | default(md.source_url)\r\n                  | default(dm.path)\r\
+          \n                  | default(md.path)\r\n                  | default(r.source)\r\
+          \n                  | default(r.url)\r\n                  | default('')\
+          \ -%}\r\n\r\n    {# ---- tiêu đề ưu tiên: document_title/title/document_name\
+          \ ---- #}\r\n    {%- set title = r.title\r\n                  | default(dm.document_title)\r\
+          \n                  | default(r.document_name)\r\n                  | default(r.id)\r\
+          \n                  | default('Untitled') -%}\r\n\r\n    {# ---- pháp quy:\
+          \ quyết định/công văn/thông tư… ---- #}\r\n    {%- set decision = dm.decision_no\r\
+          \n                     | default(dm.decision_number)\r\n               \
+          \      | default(dm.document_no)\r\n                     | default('') -%}\r\
+          \n    {%- set doc_type = dm.type\r\n                     | default(dm.document_type)\r\
+          \n                     | default('') -%}\r\n    {%- set issuer   = dm.source_organization\r\
+          \n                     | default(dm.organization)\r\n                  \
+          \   | default(md.source_organization)\r\n                     | default('')\
+          \ -%}\r\n    {%- set issued   = dm.issue_date\r\n                     |\
+          \ default(dm.issued_date)\r\n                     | default(dm.date)\r\n\
+          \                     | default('') -%}\r\n    {%- set page     = dm.page\r\
+          \n                     | default(dm.page_start)\r\n                    \
+          \ | default('') -%}\r\n\r\n• {{ title | replace('\\n',' ') }}\r\n  — {{\
+          \ (r.content | default(dm.abstract) | default('') | replace('\\n',' '))[:500]\
+          \ ~ ('…' if ((r.content | default(dm.abstract) | default(''))|length > 500)\
+          \ else '') }}\r\n  [{% if link %}{{ link }}{% endif %}]\r\n  {%- if decision\
+          \ %} [{{ decision }}]{% endif -%}\r\n  {%- if doc_type %} ({{ doc_type }}){%\
+          \ endif -%}\r\n  {%- if issuer %} [{{ issuer }}]{% endif -%}\r\n  {%- if\
+          \ issued %} [{{ issued }}]{% endif -%}\r\n  {%- if page %} [trang {{ page\
+          \ }}]{% endif -%}\r\n  {%- endfor -%}\r\n{%- else -%}\r\n• (no Vietnam guideline/official\
+          \ records)\r\n{%- endif -%}"
+        title: Combined Evidence
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760799463379'
+          - json
+          value_type: array[object]
+          variable: google
+        - value_selector:
+          - '1711528915811'
+          - result
+          value_type: array[object]
+          variable: kr
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: user_query
+        - value_selector:
+          - '1760858635397'
+          - result
+          value_type: array[object]
+          variable: openfda_kr
+        - value_selector:
+          - '1760867619500'
+          - result
+          value_type: array[object]
+          variable: icd_kr
+        - value_selector:
+          - '1760867631815'
+          - result
+          value_type: array[object]
+          variable: rxnorm_kr
+        - value_selector:
+          - '1760888790336'
+          - result
+          value_type: array[object]
+          variable: umls_kr
+        - value_selector:
+          - '1760965429499'
+          - result
+          value_type: array[object]
+          variable: vn_kr
+      height: 51
+      id: '1760803102598'
+      position:
+        x: 2113
+        y: 689.5
+      positionAbsolute:
+        x: 2113
+        y: 689.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{#-- lõi thuật ngữ --#}\r\n{{ so.term }}\r\n{#-- ràng buộc thời\
+          \ gian --#}\r\n{% if so.completion_year %}\r\n AREA[CompletionDate]RANGE[{{so.completion_year}}-01-01,{{so.completion_year}}-12-31]\r\
+          \n{% elif so.completion_range and so.completion_range.start_year and so.completion_range.end_year\
+          \ %}\r\n AREA[CompletionDate]RANGE[{{so.completion_range.start_year}}-01-01,{{so.completion_range.end_year}}-12-31]\r\
+          \n{% endif %}\r\n{#-- trạng thái --#}\r\n{% if so.status and so.status|length>0\
+          \ %} status:{{ so.status|join(',') }}{% endif %}"
+        title: Build query
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760939080958'
+          - structured_output
+          - clinicaltrials
+          value_type: object
+          variable: so
+      height: 51
+      id: '1760853855187'
+      position:
+        x: 1449
+        y: 538.5
+      positionAbsolute:
+        x: 1449
+        y: 538.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{%- set so = extract_openfda | default({}) -%}\r\n{%- set dataset\
+          \ = so.type | default('drug_enforcement') -%}\r\n{%- set q = so.q | default('')\
+          \ -%}\r\n{# Chuỗi gửi cho adapter: \"type:<dataset> <search-expression>\"\
+          \ #}\r\ntype:{{ dataset }} {{ q }}\r\n"
+        title: Build query
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760939080958'
+          - structured_output
+          - openfda
+          value_type: object
+          variable: so
+      height: 51
+      id: '1760858565608'
+      position:
+        x: 1449
+        y: 689.5
+      positionAbsolute:
+        x: 1449
+        y: 689.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - cJqqhHn1ho+aIs2NXenlDBu0reoJq+uqqd21Mdz0M8p7n/IkeMY1ZemCtd9mWq9Q
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen/Qwen3-Reranker-8B
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          score_threshold: 0.8
+          top_k: 4
+        query_variable_selector:
+        - '1760858565608'
+        - output
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 2
+        type: knowledge-retrieval
+      height: 89
+      id: '1760858635397'
+      position:
+        x: 1781
+        y: 689.5
+      positionAbsolute:
+        x: 1781
+        y: 689.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "op:{{ ek.op }}\r\n{%- if ek.name %} name:\"{{ ek.name }}\"{% endif\
+          \ -%}\r\n{%- if ek.search %} search:{{ ek.search }}{% endif -%}\r\n{%- if\
+          \ ek.ndc %} ndc:{{ ek.ndc }}{% endif -%}\r\n{%- if ek.rxcui %} rxcui:{{\
+          \ ek.rxcui }}{% endif -%}\r\n{%- if ek.relaSource %} relaSource:{{ ek.relaSource\
+          \ }}{% endif -%}\r\n{%- if ek.relas %} relas:{{ ek.relas }}{% endif -%}"
+        title: Build query
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760939080958'
+          - structured_output
+          - rxnorm
+          value_type: object
+          variable: ek
+      height: 51
+      id: '1760867596268'
+      position:
+        x: 1449
+        y: 818.5
+      positionAbsolute:
+        x: 1449
+        y: 818.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: '{{ ek.term }}'
+        title: Build query
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760939080958'
+          - structured_output
+          - icd11
+          value_type: object
+          variable: ek
+      height: 51
+      id: '1760867601464'
+      position:
+        x: 1449
+        y: 387.5
+      positionAbsolute:
+        x: 1449
+        y: 387.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - 8RT0x7LEHmIanqFyXU3YwpG5c2uQbgagZY7ND9j6E4KncubIIkE7GmQ4LiSoNoPU
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen/Qwen3-Reranker-8B
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          score_threshold: 0.8
+          top_k: 4
+        query_variable_selector:
+        - '1760867601464'
+        - output
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 3
+        type: knowledge-retrieval
+      height: 89
+      id: '1760867619500'
+      position:
+        x: 1781
+        y: 387.5
+      positionAbsolute:
+        x: 1781
+        y: 387.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - vMGBlLf1GZls5tFS0O9Telaid2okUS5RZ9TiH7foRMW7dZnf9zV7/vwygKLvRpCa
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen/Qwen3-Reranker-8B
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          score_threshold: 0.8
+          top_k: 4
+        query_variable_selector:
+        - '1760867596268'
+        - output
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 4
+        type: knowledge-retrieval
+      height: 89
+      id: '1760867631815'
+      position:
+        x: 1781
+        y: 818.5
+      positionAbsolute:
+        x: 1781
+        y: 818.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{# ========= UMLS Build Query (hardened, with fallbacks) =========\
+          \ #}\r\n{%- set ek = ek | default({}) -%}\r\n\r\n{# lấy tham số với mặc\
+          \ định an toàn #}\r\n{%- set op            = (ek.op | default('search'))\
+          \ | string | lower -%}\r\n{%- set limit         = (ek.limit | default(5))\
+          \ | int -%}\r\n{%- set sabs          = ek.sabs | default('') -%}\r\n{%-\
+          \ set searchType    = ek.searchType | default('words') -%}   {# 'normalizedString'\
+          \ chỉ cho tiếng Anh #}\r\n{%- set detail        = ek.detail | default('summary')\
+          \ -%}\r\n{%- set cui           = ek.cui | default('') -%}\r\n{%- set source\
+          \        = ek.source | default('') -%}\r\n{%- set code          = ek.code\
+          \ | default('') -%}\r\n{%- set target_source = ek.target_source | default('')\
+          \ -%}\r\n{%- set brief_flag    = (ek.brief if (ek is mapping and (ek.brief\
+          \ is defined)) else true) -%}\r\n{%- set brief         = 'true' if brief_flag\
+          \ else 'false' -%}\r\n\r\n{# dựng term: ek.term -> ek.search_query -> join(keywords)\
+          \ #}\r\n{%- set t0 = ek.term | default('', true) -%}\r\n{%- if not t0 %}{%\
+          \ set t0 = ek.search_query | default('', true) %}{% endif -%}\r\n{%- if\
+          \ not t0 and (ek.keywords is sequence) %}\r\n  {%- set t0 = (ek.keywords\
+          \ | reject('equalto','') | list | join(' ')) -%}\r\n{%- endif -%}\r\n{%-\
+          \ set term = (t0 | trim | replace('\"','\\\\\"')) -%}\r\n\r\n{# rẽ nhánh\
+          \ theo op #}\r\n{%- if op == 'cui' and cui %}\r\nop:cui cui:{{ cui }} detail:{{\
+          \ detail }} limit:{{ limit }} brief:{{ brief }}\r\n{%- elif op == 'crosswalk'\
+          \ and source and code %}\r\nop:crosswalk source:{{ source }} code:{{ code\
+          \ }}{% if target_source %} target_source:{{ target_source }}{% endif %}\
+          \ limit:{{ limit }} brief:{{ brief }}\r\n{%- else %}\r\n{# search mặc định;\
+          \ thêm sabs nếu có; searchType mặc định 'words' #}\r\nop:search term:\"\
+          {{ term }}\" {% if sabs %}sabs:{{ sabs }} {% endif %}searchType:{{ searchType\
+          \ }} limit:{{ limit }} brief:{{ brief }}\r\n{%- endif -%}\r\n{# =========\
+          \ /UMLS Build Query ========= #}"
+        title: Build query
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1760939080958'
+          - structured_output
+          - umls
+          value_type: object
+          variable: ek
+      height: 51
+      id: '1760888349249'
+      position:
+        x: 1449
+        y: 258.5
+      positionAbsolute:
+        x: 1449
+        y: 258.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - 1VyIxjBR3hsNBjC0dD4LEP9zHsQPphhiT83JBAUVkjUCpjCSL2HCW0L6/6lRdsVs
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen/Qwen3-Reranker-8B
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          score_threshold: 0.8
+          top_k: 4
+        query_variable_selector:
+        - '1760888349249'
+        - output
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 5
+        type: knowledge-retrieval
+      height: 89
+      id: '1760888790336'
+      position:
+        x: 1781
+        y: 258.5
+      positionAbsolute:
+        x: 1781
+        y: 258.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-3-pro-preview
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 159f740b-4410-4fbc-b472-7655c8016852
+          role: system
+          text: "NHIỆM VỤ\nBạn nhận message gốc của người dùng trong biến {{#context#}}\
+            \ và trả về MỘT JSON duy nhất, gồm 6 khối con:\n- identify: Nhận diện\
+            \ ngôn ngữ/địa lý + từ khóa chung (giữ trường cũ).\n- umls: Từ khóa/ý\
+            \ định cho UMLS/RxNorm/Clinical (giữ trường cũ).\n- icd11: Chuẩn bị truy\
+            \ vấn ICD-11 (giữ trường cũ).\n- rxnorm: Chọn phép truy vấn RxNorm (giữ\
+            \ trường cũ).\n- openfda: Truy vấn openFDA (giữ trường cũ).\n- clinicaltrials:\
+            \ Từ khóa + tham số ClinicalTrials.gov v2 (giữ trường cũ).\n\nQUY TẮC\
+            \ CHUNG\n- KHÔNG bịa địa danh; nếu không rõ: mặc định language=vi, lang_iso6391=vi,\
+            \ country=VN.\n- Tất cả chuỗi phải sạch ký tự thừa (#,!,?,…).\n- Không\
+            \ lặp từ khoá; sắp xếp theo mức liên quan cao→thấp.\n- Trả về đúng JSON;\
+            \ không thêm chú thích.\n\nRÀNG BUỘC & MẶC ĐỊNH THEO TỪNG KHỐI\n\n[1]\
+            \ identify (chuẩn BCP-47, ISO 639-1, ISO 3166-1 alpha-2)\n- language_bcp47:\
+            \ thẻ BCP-47 (ví dụ vi, en-US).\n- lang_iso639_1: mã 2 ký tự (vi, en).\n\
+            - country_iso3166_alpha2: mã quốc gia 2 ký tự (VN, US).\n- keywords: 3–8\
+            \ mục, ≤3 từ/mục, tiếng anh.\n- search_query: chuỗi search Google ngắn\
+            \ gọn, ưu tiên cụm đa từ; chỉ dùng dấu ngoặc kép khi cụm thật sự cố định.\n\
+            - gl_country: tham số “gl” = country_iso3166_alpha2 viết thường (vd vn).\n\
+            - hl_lang: tham số “hl” = lang_iso639_1 (vd vi).\n- notes: có thể null.\n\
+            \n[2] umls  (tất cả viết TIẾNG ANH)\n- lang_bcp47, lang_iso6391, country_iso2:\
+            \ như trên (en/vi, US/VN).\n- keywords: 1-3 mục, ≤3 từ, tiếng Anh, thường\
+            \ hóa lower-case.\n- search_query: ngắn, súc tích.\n- gl_country: 2 ký\
+            \ tự lower-case.\n- hl_lang: 2 ký tự ISO 639-1.\n- source: 1 trong [\"\
+            clinicaltrials\",\"openfda\",\"umls\",\"rxnorm\"] theo ý định người dùng.\n\
+            - params: tùy nguồn:\n  • clinicaltrials: status (RECRUITING/COMPLETED/...),\
+            \ limit (mặc định 5)  \n  • openfda: dataset (drug_enforcement/drug_event/drug_label),\
+            \ limit  \n  • umls: sabs (vd SNOMEDCT_US, RXNORM), limit  \n  • rxnorm:\
+            \ limit\n\n[3] icd11\n- Nếu phát hiện mã ICD-11 hợp lệ (chữ/số, có thể\
+            \ có dấu chấm; ví dụ 1A00, CA40.0, MG50.90), chuẩn hoá UPPERCASE, bỏ khoảng\
+            \ trắng → dùng chính mã làm term.\n- Nếu KHÔNG có mã: trích 1 cụm chẩn\
+            \ đoán chính (≤5 từ), ưu tiên chuẩn hoá sang tiếng Anh y khoa nếu chắc\
+            \ chắn; nếu không, giữ nguyên ngôn ngữ người dùng. Không chứa toán tử/ký\
+            \ tự đặc biệt.\n- top_k: mặc định 5; nếu người dùng nói “top N/lấy N”\
+            \ thì dùng N (1–20).\n\n[4] rxnorm\n- Chọn \"op\" theo yêu cầu:\n  • name_to_rxcui\
+            \ (search=0|1|9), field \"name\"  \n  • ndc_to_rxcui (field \"ndc\") \
+            \ \n  • rxcui_to_ndcs (field \"rxcui\")  \n  • ndc_status / ndc_properties\
+            \ (field \"ndc\")  \n  • rxclass_by_rxcui (fields rxcui, relaSource=MEDRT|ATC,\
+            \ relas=may_treat|has_mechanism|...)  \n- Các trường không dùng đặt null.\
+            \ top_k mặc định 5.\n\n[5] openfda\n- type: một trong [\"drug_enforcement\"\
+            ,\"drug_event\",\"drug_label\"].\n- q: BIỂU THỨC openFDA (không kèm “search=”).\
+            \ Dùng field thật:\n  • Recalls: classification, reason_for_recall, product_description,\
+            \ recalling_firm, recall_initiation_date:[YYYYMMDD+TO+YYYYMMDD]  \n  •\
+            \ Adverse events (FAERS): patient.reaction.reactionmeddrapt, patient.drug.medicinalproduct,\
+            \ receivedate:[YYYYMMDD+TO+YYYYMMDD], seriousness*  \n  • Labeling (SPL):\
+            \ openfda.brand_name, openfda.generic_name, indications_and_usage, warnings\
+            \  \n- time_window (tùy chọn): {field, from, to} để bạn tự chèn vào q.\
+            \  \n- top_k: 1–20 (mặc định 5). notes: tùy chọn.\n\n[6] clinicaltrials\
+            \ (API v2)\n- term: 6–10 từ khóa tiếng Anh cô đọng (không stopwords);\
+            \ chỉ 2–3 cụm chính nếu người dùng rất ngắn gọn.\n- status: ánh xạ cụm\
+            \ người dùng sang enum v2 [\"RECRUITING\",\"NOT_YET_RECRUITING\",\"ACTIVE_NOT_RECRUITING\"\
+            ,\"ENROLLING_BY_INVITATION\",\"COMPLETED\",\"TERMINATED\",\"SUSPENDED\"\
+            ,\"WITHDRAWN\",\"UNKNOWN\"].\n- Nếu có “completed in 2024” → completion_year=2024;\
+            \ có khoảng năm → completion_range {start_year,end_year}.\n- primary_completion:\
+            \ true nếu người dùng nhắc “primary completion”.\n- phase: [\"PHASE_1\"\
+            ,\"PHASE_2\",\"PHASE_3\",\"PHASE_4\",\"EARLY_PHASE_1\"] nếu đề cập.\n\
+            - countries: điền nếu người dùng nói rõ.\n\nNGUYÊN TẮC NGÔN NGỮ/QUỐC GIA\n\
+            - Ưu tiên suy luận từ ngữ cảnh (tên địa danh, đơn vị tiền tệ, miền ccTLD).\
+            \ Nếu không xác định: vi/VN.\n- BCP-47 hợp lệ (ví dụ en-US); ISO 639-1\
+            \ là 2 ký tự; ISO 3166-1 alpha-2 là 2 ký tự.\n\nĐẦU RA JSON (CHỈ JSON,\
+            \ KHÔNG MÔ TẢ):\n{\n  \"identify\": {\n    \"language_bcp47\": \"...\"\
+            ,\n    \"lang_iso639_1\": \"...\",\n    \"country_iso3166_alpha2\": \"\
+            ...\",\n    \"keywords\": [\"...\"],\n    \"search_query\": \"...\",\n\
+            \    \"gl_country\": \"...\",\n    \"hl_lang\": \"...\",\n    \"notes\"\
+            : null\n  },\n  \"umls\": {\n    \"lang_bcp47\": \"...\",\n    \"lang_iso6391\"\
+            : \"...\",\n    \"country_iso2\": \"...\",\n    \"keywords\": [\"...\"\
+            ],\n    \"search_query\": \"...\",\n    \"gl_country\": \"...\",\n   \
+            \ \"hl_lang\": \"...\",\n    \"source\": \"clinicaltrials|openfda|umls|rxnorm\"\
+            ,\n    \"params\": {\n      \"status\": \"RECRUITING|COMPLETED|...\",\n\
+            \      \"sabs\": \"SNOMEDCT_US|RXNORM|...\",\n      \"dataset\": \"drug_enforcement|drug_event|drug_label\"\
+            ,\n      \"limit\": 5\n    }\n  },\n  \"icd11\": {\n    \"term\": \"...\"\
+            ,\n    \"top_k\": 5\n  },\n  \"rxnorm\": {\n    \"op\": \"name_to_rxcui|ndc_to_rxcui|rxcui_to_ndcs|ndc_status|ndc_properties|drugs_by_name|rxclass_by_rxcui\"\
+            ,\n    \"name\": null,\n    \"ndc\": null,\n    \"rxcui\": null,\n   \
+            \ \"relaSource\": null,\n    \"relas\": null,\n    \"search\": null,\n\
+            \    \"top_k\": 5\n  },\n  \"openfda\": {\n    \"type\": \"drug_enforcement|drug_event|drug_label\"\
+            ,\n    \"q\": \"...\",\n    \"time_window\": {\n      \"field\": \"recall_initiation_date|receivedate|effective_time\"\
+            ,\n      \"from\": \"YYYYMMDD\",\n      \"to\": \"YYYYMMDD\"\n    },\n\
+            \    \"top_k\": 5,\n    \"notes\": \"\"\n  },\n  \"clinicaltrials\": {\n\
+            \    \"term\": \"...\",\n    \"status\": [\"RECRUITING\",\"COMPLETED\"\
+            ],\n    \"completion_year\": 2024,\n    \"completion_range\": { \"start_year\"\
+            : 2019, \"end_year\": 2024 },\n    \"primary_completion\": false,\n  \
+            \  \"phase\": [\"PHASE_3\"],\n    \"countries\": [\"United States\",\"\
+            Vietnam\"]\n  }\n}\n\nLUÔN NHỚ: TẤT CẢ KEYWORDS BẰNG TIẾNG ANH"
+        - id: 9619eec7-b2fb-4041-8adb-52a17af17e6f
+          role: user
+          text: '{{#sys.query#}}
+
+            {{#context#}}'
+        reasoning_format: tagged
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              clinicaltrials:
+                additionalProperties: false
+                properties:
+                  completion_range:
+                    additionalProperties: false
+                    properties:
+                      end_year:
+                        type: integer
+                      start_year:
+                        type: integer
+                    type: object
+                  completion_year:
+                    maximum: 2100
+                    minimum: 1990
+                    type: integer
+                  countries:
+                    items:
+                      type: string
+                    type: array
+                  phase:
+                    items:
+                      enum:
+                      - PHASE_1
+                      - PHASE_2
+                      - PHASE_3
+                      - PHASE_4
+                      - EARLY_PHASE_1
+                      type: string
+                    type: array
+                  primary_completion:
+                    type: boolean
+                  status:
+                    items:
+                      enum:
+                      - RECRUITING
+                      - NOT_YET_RECRUITING
+                      - ACTIVE_NOT_RECRUITING
+                      - ENROLLING_BY_INVITATION
+                      - COMPLETED
+                      - TERMINATED
+                      - SUSPENDED
+                      - WITHDRAWN
+                      - UNKNOWN
+                      type: string
+                    type: array
+                  term:
+                    type: string
+                required:
+                - term
+                type: object
+              icd11:
+                properties:
+                  term:
+                    type: string
+                  top_k:
+                    default: 5
+                    type: integer
+                required:
+                - term
+                type: object
+              identify:
+                properties:
+                  country_iso3166_alpha2:
+                    type: string
+                  gl_country:
+                    type: string
+                  hl_lang:
+                    type: string
+                  keywords:
+                    items:
+                      type: string
+                    maxItems: 8
+                    minItems: 3
+                    type: array
+                    uniqueItems: true
+                  lang_iso639_1:
+                    type: string
+                  language_bcp47:
+                    type: string
+                  notes:
+                    type:
+                    - string
+                    - 'null'
+                  search_query:
+                    type: string
+                required:
+                - language_bcp47
+                - lang_iso639_1
+                - country_iso3166_alpha2
+                - keywords
+                - search_query
+                - gl_country
+                - hl_lang
+                type: object
+              openfda:
+                properties:
+                  notes:
+                    type: string
+                  q:
+                    type: string
+                  time_window:
+                    properties:
+                      field:
+                        type: string
+                      from:
+                        pattern: ^[0-9]{8}$
+                        type: string
+                      to:
+                        pattern: ^[0-9]{8}$
+                        type: string
+                    type: object
+                  top_k:
+                    default: 5
+                    maximum: 20
+                    minimum: 1
+                    type: integer
+                  type:
+                    enum:
+                    - drug_enforcement
+                    - drug_event
+                    - drug_label
+                    type: string
+                required:
+                - type
+                - q
+                type: object
+              rxnorm:
+                properties:
+                  name:
+                    type:
+                    - string
+                    - 'null'
+                  ndc:
+                    type:
+                    - string
+                    - 'null'
+                  op:
+                    enum:
+                    - name_to_rxcui
+                    - ndc_to_rxcui
+                    - rxcui_to_ndcs
+                    - ndc_status
+                    - ndc_properties
+                    - drugs_by_name
+                    - rxclass_by_rxcui
+                    type: string
+                  relaSource:
+                    type:
+                    - string
+                    - 'null'
+                  relas:
+                    type:
+                    - string
+                    - 'null'
+                  rxcui:
+                    type:
+                    - string
+                    - 'null'
+                  search:
+                    type:
+                    - string
+                    - 'null'
+                  top_k:
+                    default: 5
+                    type: integer
+                required:
+                - op
+                type: object
+              umls:
+                properties:
+                  country_iso2:
+                    type: string
+                  gl_country:
+                    type: string
+                  hl_lang:
+                    type: string
+                  keywords:
+                    items:
+                      type: string
+                    maxItems: 8
+                    minItems: 3
+                    type: array
+                  lang_bcp47:
+                    type: string
+                  lang_iso6391:
+                    type: string
+                  params:
+                    properties:
+                      dataset:
+                        type: string
+                      limit:
+                        default: 5
+                        type: integer
+                      sabs:
+                        type: string
+                      status:
+                        type: string
+                    type: object
+                  search_query:
+                    type: string
+                  source:
+                    enum:
+                    - clinicaltrials
+                    - openfda
+                    - umls
+                    - rxnorm
+                    type: string
+                required:
+                - lang_bcp47
+                - lang_iso6391
+                - country_iso2
+                - keywords
+                - search_query
+                - gl_country
+                - hl_lang
+                - source
+                - params
+                type: object
+            required:
+            - identify
+            - umls
+            - icd11
+            - rxnorm
+            - openfda
+            - clinicaltrials
+            type: object
+        structured_output_enabled: true
+        title: Single Extractor & Router
+        type: llm
+        vision:
+          enabled: false
+      height: 117
+      id: '1760939080958'
+      position:
+        x: 1117
+        y: 258.5
+      positionAbsolute:
+        x: 1117
+        y: 258.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1760939080958'
+          - structured_output
+          - identify
+          - keywords
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-3-pro-preview
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 273a7f49-d95a-4e6a-abb6-0fd3e1e0494e
+          role: system
+          text: "Role & Goal\nBạn là bộ dịch và chuẩn hoá thuật ngữ y khoa cho từ.\
+            \ Nhận đầu vào là danh sách keywords tiếng Anh (có thể gồm bệnh, thuốc,\
+            \ thủ thuật, xét nghiệm, hội chứng, viết tắt). Trả về từ khoá tiếng Việt\
+            \ tương ứng để truy vấn kho tri thức y tế Việt Nam, kèm ánh xạ khái niệm\
+            \ (nếu có).\nQuy tắc bắt buộc\nDịch sang tiếng Việt chuẩn chuyên môn (vi-VN),\
+            \ giữ đúng dấu; không viết văn, chỉ trả JSON theo schema cung cấp.\nGiữ\
+            \ nguyên các chữ viết tắt/định danh (ví dụ: COPD, ARDS, ICU, NCT, PMID,\
+            \ RxCUI, ICD-11 URI); bổ sung mô tả tiếng Việt cho viết tắt.\nVới thuốc,\
+            \ ưu tiên tên gốc (INN); thêm biệt dược phổ biến (nếu cần). Với bệnh/khái\
+            \ niệm, tạo danh sách đồng nghĩa theo thực hành tra cứu (ví dụ: “tăng\
+            \ huyết áp” ≈ “cao huyết áp”).\nChuẩn hoá và (nếu có) gợi ý mã hoá: UMLS\
+            \ CUI, MeSH Descriptor/Entry terms, RxCUI, ICD-11 URI.\nLoại trùng; tối\
+            \ đa 50 mục.\nSinh thêm biến thể folded (không dấu, lower-case) để chống\
+            \ lỗi gõ/không dấu.\nThêm một chuỗi search_query_vi (gợi ý Boolean) kết\
+            \ hợp các từ khoá VN cho bước Knowledge Retrieval (ví dụ dùng OR, cụm\
+            \ trích dẫn \"...\").\nĐiền confidence (0–1) cho từng ánh xạ; nếu không\
+            \ chắc, đưa vào uncertain với lý do ngắn.\nĐầu ra: Trả duy nhất một JSON\
+            \ theo JSON Schema dưới đây (không thêm lời giải thích).\n\n{\n  \"type\"\
+            : \"object\",\n  \"additionalProperties\": false,\n  \"required\": [\"\
+            source_language\", \"target_language\", \"terms\", \"search_query_vi\"\
+            ],\n  \"properties\": {\n    \"source_language\": {\n      \"type\": \"\
+            string\",\n      \"enum\": [\"en\", \"en-US\", \"en-GB\"],\n      \"description\"\
+            : \"Ngôn ngữ đầu vào.\"\n    },\n    \"target_language\": {\n      \"\
+            type\": \"string\",\n      \"const\": \"vi-VN\",\n      \"description\"\
+            : \"Ngôn ngữ đích.\"\n    },\n    \"terms\": {\n      \"type\": \"array\"\
+            ,\n      \"description\": \"Danh sách thuật ngữ đã dịch/chuẩn hoá.\",\n\
+            \      \"items\": {\n        \"type\": \"object\",\n        \"additionalProperties\"\
+            : false,\n        \"required\": [\"source\", \"vi\", \"vi_folded\"],\n\
+            \        \"properties\": {\n          \"source\": {\n            \"type\"\
+            : \"string\",\n            \"description\": \"Từ khoá tiếng Anh gốc.\"\
+            \n          },\n          \"category\": {\n            \"type\": \"string\"\
+            ,\n            \"enum\": [\"disease\", \"drug\", \"procedure\", \"test\"\
+            , \"sign_symptom\", \"device\", \"public_health\", \"other\"],\n     \
+            \       \"description\": \"Nhóm khái niệm ước tính.\"\n          },\n\
+            \          \"vi\": {\n            \"type\": \"array\",\n            \"\
+            minItems\": 1,\n            \"uniqueItems\": true,\n            \"items\"\
+            : { \"type\": \"string\" },\n            \"description\": \"Các biến thể\
+            \ tiếng Việt chuẩn (có dấu), đã loại trùng.\"\n          },\n        \
+            \  \"vi_folded\": {\n            \"type\": \"array\",\n            \"\
+            minItems\": 1,\n            \"uniqueItems\": true,\n            \"items\"\
+            : { \"type\": \"string\" },\n            \"description\": \"Biến thể không\
+            \ dấu (lower-case) dùng cho tìm kiếm tolerant.\"\n          },\n     \
+            \     \"abbreviations\": {\n            \"type\": \"array\",\n       \
+            \     \"items\": { \"type\": \"string\" },\n            \"description\"\
+            : \"Viết tắt giữ nguyên (nếu có).\"\n          },\n          \"mesh\"\
+            : {\n            \"type\": \"object\",\n            \"additionalProperties\"\
+            : false,\n            \"properties\": {\n              \"descriptor\"\
+            : { \"type\": \"string\", \"description\": \"MeSH descriptor (nếu có).\"\
+            \ },\n              \"entry_terms\": {\n                \"type\": \"array\"\
+            ,\n                \"items\": { \"type\": \"string\" },\n            \
+            \    \"description\": \"Từ vào (entry terms)/đồng nghĩa liên quan.\"\n\
+            \              }\n            }\n          },\n          \"umls\": {\n\
+            \            \"type\": \"object\",\n            \"additionalProperties\"\
+            : false,\n            \"properties\": {\n              \"cui\": { \"type\"\
+            : \"string\", \"pattern\": \"^C\\\\d{7}$\", \"description\": \"UMLS Concept\
+            \ Unique Identifier nếu có.\" },\n              \"synonyms_en\": {\n \
+            \               \"type\": \"array\",\n                \"items\": { \"\
+            type\": \"string\" },\n                \"description\": \"Đồng nghĩa tiếng\
+            \ Anh (từ UMLS/khác) để đối chiếu.\"\n              }\n            }\n\
+            \          },\n          \"rxnorm\": {\n            \"type\": \"object\"\
+            ,\n            \"additionalProperties\": false,\n            \"properties\"\
+            : {\n              \"rxcui\": { \"type\": \"string\", \"description\"\
+            : \"RxCUI nếu là thuốc.\" },\n              \"generic\": { \"type\": \"\
+            string\", \"description\": \"Tên gốc/INN (nếu có).\" },\n            \
+            \  \"brands\": {\n                \"type\": \"array\",\n             \
+            \   \"items\": { \"type\": \"string\" },\n                \"description\"\
+            : \"Biệt dược liên quan (tuỳ chọn).\"\n              }\n            }\n\
+            \          },\n          \"icd11\": {\n            \"type\": \"object\"\
+            ,\n            \"additionalProperties\": false,\n            \"properties\"\
+            : {\n              \"uri\": { \"type\": \"string\", \"description\": \"\
+            ICD-11 entity URI (nếu biết).\" },\n              \"code\": { \"type\"\
+            : \"string\", \"description\": \"Mã tuyến tính (nếu có).\" }\n       \
+            \     }\n          },\n          \"confidence\": {\n            \"type\"\
+            : \"number\",\n            \"minimum\": 0,\n            \"maximum\": 1,\n\
+            \            \"description\": \"Độ tin cậy của ánh xạ/biên dịch.\"\n \
+            \         },\n          \"notes\": {\n            \"type\": \"string\"\
+            ,\n            \"description\": \"Ghi chú ngắn về lựa chọn dịch/chuẩn\
+            \ hoá.\"\n          }\n        }\n      }\n    },\n    \"search_query_vi\"\
+            : {\n      \"type\": \"string\",\n      \"description\": \"Câu truy vấn\
+            \ Boolean tiếng Việt gợi ý cho Knowledge Retrieval (dùng OR/\\\"...\\\"\
+            ).\"\n    },\n    \"uncertain\": {\n      \"type\": \"array\",\n     \
+            \ \"description\": \"Các mục không chắc chắn cần xác nhận.\",\n      \"\
+            items\": {\n        \"type\": \"object\",\n        \"required\": [\"source\"\
+            , \"reason\"],\n        \"properties\": {\n          \"source\": { \"\
+            type\": \"string\" },\n          \"reason\": { \"type\": \"string\" }\n\
+            \        },\n        \"additionalProperties\": false\n      }\n    }\n\
+            \  }\n}\n"
+        - id: ae8c4f84-96bb-4b0e-b685-517f94b84e74
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              search_query_vi:
+                description: Câu truy vấn Boolean tiếng Việt gợi ý cho Knowledge Retrieval
+                  (dùng OR/"...").
+                type: string
+              source_language:
+                description: Ngôn ngữ đầu vào.
+                enum:
+                - en
+                - en-US
+                - en-GB
+                type: string
+              target_language:
+                const: vi-VN
+                description: Ngôn ngữ đích.
+                type: string
+              terms:
+                description: Danh sách thuật ngữ đã dịch/chuẩn hoá.
+                items:
+                  additionalProperties: false
+                  properties:
+                    abbreviations:
+                      description: Viết tắt giữ nguyên (nếu có).
+                      items:
+                        type: string
+                      type: array
+                    category:
+                      description: Nhóm khái niệm ước tính.
+                      enum:
+                      - disease
+                      - drug
+                      - procedure
+                      - test
+                      - sign_symptom
+                      - device
+                      - public_health
+                      - other
+                      type: string
+                    confidence:
+                      description: Độ tin cậy của ánh xạ/biên dịch.
+                      maximum: 1
+                      minimum: 0
+                      type: number
+                    icd11:
+                      additionalProperties: false
+                      properties:
+                        code:
+                          description: Mã tuyến tính (nếu có).
+                          type: string
+                        uri:
+                          description: ICD-11 entity URI (nếu biết).
+                          type: string
+                      type: object
+                    mesh:
+                      additionalProperties: false
+                      properties:
+                        descriptor:
+                          description: MeSH descriptor (nếu có).
+                          type: string
+                        entry_terms:
+                          description: Từ vào (entry terms)/đồng nghĩa liên quan.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    notes:
+                      description: Ghi chú ngắn về lựa chọn dịch/chuẩn hoá.
+                      type: string
+                    rxnorm:
+                      additionalProperties: false
+                      properties:
+                        brands:
+                          description: Biệt dược liên quan (tuỳ chọn).
+                          items:
+                            type: string
+                          type: array
+                        generic:
+                          description: Tên gốc/INN (nếu có).
+                          type: string
+                        rxcui:
+                          description: RxCUI nếu là thuốc.
+                          type: string
+                      type: object
+                    source:
+                      description: Từ khoá tiếng Anh gốc.
+                      type: string
+                    umls:
+                      additionalProperties: false
+                      properties:
+                        cui:
+                          description: UMLS Concept Unique Identifier nếu có.
+                          pattern: ^C\d{7}$
+                          type: string
+                        synonyms_en:
+                          description: Đồng nghĩa tiếng Anh (từ UMLS/khác) để đối
+                            chiếu.
+                          items:
+                            type: string
+                          type: array
+                      type: object
+                    vi:
+                      description: Các biến thể tiếng Việt chuẩn (có dấu), đã loại
+                        trùng.
+                      items:
+                        type: string
+                      minItems: 1
+                      type: array
+                      uniqueItems: true
+                    vi_folded:
+                      description: Biến thể không dấu (lower-case) dùng cho tìm kiếm
+                        tolerant.
+                      items:
+                        type: string
+                      minItems: 1
+                      type: array
+                      uniqueItems: true
+                  required:
+                  - source
+                  - vi
+                  - vi_folded
+                  type: object
+                type: array
+              uncertain:
+                description: Các mục không chắc chắn cần xác nhận.
+                items:
+                  additionalProperties: false
+                  properties:
+                    reason:
+                      type: string
+                    source:
+                      type: string
+                  required:
+                  - source
+                  - reason
+                  type: object
+                type: array
+            required:
+            - source_language
+            - target_language
+            - terms
+            - search_query_vi
+            type: object
+        structured_output_enabled: true
+        title: Translate Keywords
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1760964906318'
+      position:
+        x: 1449
+        y: 1020.5
+      positionAbsolute:
+        x: 1449
+        y: 1020.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - LxLr/dd9jfO/B1w3iyfxup5YFOGrQPoxFKFviGqL+zlqZk6Nq7f1ORzdtYhOUYoT
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: Qwen/Qwen3-Reranker-8B
+            provider: langgenius/openai_api_compatible/openai_api_compatible
+          score_threshold: 0.8
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: text-embedding-3-large
+              embedding_provider_name: langgenius/openai/openai
+              vector_weight: 0.7
+            weight_type: customized
+        query_variable_selector:
+        - '1711528914102'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 6
+        type: knowledge-retrieval
+      height: 89
+      id: '1760965429499'
+      position:
+        x: 1781
+        y: 1038.5
+      positionAbsolute:
+        x: 1781
+        y: 1038.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-3-pro-preview
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 1cc77c18-e794-4c89-b14f-5c9c99347204
+          role: system
+          text: '
+
+            bạn là 1 chatbot monitoring, dựa trên câu hỏi của người dùng: {{#sys.query#}}
+            hãy cho biết đây là câu hỏi có cần thiết phải truy xuất dữ liệu y tế hay
+            không. Nếu có, trả lời dưới dạng JSON.'
+        - id: 354ea41d-39d3-4d07-a787-5440a4958d12
+          role: user
+          text: '{{#context#}}'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              r_decider:
+                description: need retriever or not
+                enum:
+                - 'yes'
+                - 'no'
+                type: string
+            required:
+            - r_decider
+            type: object
+        structured_output_enabled: true
+        title: R_DECIDER
+        type: llm
+        vision:
+          enabled: false
+      height: 117
+      id: '1763783065759'
+      position:
+        x: 362
+        y: 1153.5
+      positionAbsolute:
+        x: 362
+        y: 1153.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: cd484810-ad22-42f8-9b93-c4f85267598d
+            value: 'yes'
+            varType: object
+            variable_selector:
+            - '1763783065759'
+            - structured_output
+            - r_decider
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: IF/ELSE 2
+        type: if-else
+      height: 123
+      id: '1763783220129'
+      position:
+        x: 694
+        y: 1153.5
+      positionAbsolute:
+        x: 694
+        y: 1153.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-3-pro-preview
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 531113f4-502b-40ff-b553-03cd97250177
+          role: system
+          text: ' You are CLARA, a helpful and friendly medical assistant. '
+        - id: a8f51f71-210e-4260-a847-e9cc7e0b36bc
+          role: user
+          text: '{{#sys.query#}}
+
+            {{#context#}}'
+        selected: false
+        title: NORMAL CHAT
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763783564942'
+      position:
+        x: 1449
+        y: 1155.5
+      positionAbsolute:
+        x: 1449
+        y: 1155.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763783564942.text#}}'
+        selected: false
+        title: Answer 3
+        type: answer
+        variables: []
+      height: 101
+      id: '1763783628298'
+      position:
+        x: 1781
+        y: 1167.5
+      positionAbsolute:
+        x: 1781
+        y: 1167.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -154.0789903432609
+      y: -72.063410580165
+      zoom: 0.5305007982786394
+  rag_pipeline_variables: []

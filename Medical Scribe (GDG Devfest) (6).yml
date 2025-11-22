@@ -1,0 +1,2286 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Medical Scribe (GDG Devfest)
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.6.4@17f286b2d6699a258a2eba8bc1bff71b8f795b6aa7bee1464cbfa450b451303a
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5000
+        file_size_limit: 100
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1763799922966-source-llm-target
+      selected: false
+      source: '1763799922966'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: llm-source-1763800904244-target
+      selected: false
+      source: llm
+      sourceHandle: source
+      target: '1763800904244'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1763800904244-true-answer-target
+      selected: false
+      source: '1763800904244'
+      sourceHandle: 'true'
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1763800904244-false-1763801237188-target
+      selected: false
+      source: '1763800904244'
+      sourceHandle: 'false'
+      target: '1763801237188'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1763801237188-true-1763801590027-target
+      selected: false
+      source: '1763801237188'
+      sourceHandle: 'true'
+      target: '1763801590027'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: template-transform
+      id: 1763801590027-source-1763802817213-target
+      selected: false
+      source: '1763801590027'
+      sourceHandle: source
+      target: '1763802817213'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: 1763802817213-source-1763801795791-target
+      selected: false
+      source: '1763802817213'
+      sourceHandle: source
+      target: '1763801795791'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1763801237188-false-1763802817213-target
+      selected: false
+      source: '1763801237188'
+      sourceHandle: 'false'
+      target: '1763802817213'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1763801795791-source-1763802945681-target
+      selected: false
+      source: '1763801795791'
+      sourceHandle: source
+      target: '1763802945681'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1763802945681-source-1763803754384-target
+      selected: false
+      source: '1763802945681'
+      sourceHandle: source
+      target: '1763803754384'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1763803836243-source-1763804168711-target
+      selected: false
+      source: '1763803836243'
+      sourceHandle: source
+      target: '1763804168711'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1763804168711-source-1763804449838-target
+      selected: false
+      source: '1763804168711'
+      sourceHandle: source
+      target: '1763804449838'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1763803754384-source-1763808107990-target
+      selected: false
+      source: '1763803754384'
+      sourceHandle: source
+      target: '1763808107990'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1763808107990-source-1763811812908-target
+      selected: false
+      source: '1763808107990'
+      sourceHandle: source
+      target: '1763811812908'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1763812453361-source-1763812737094-target
+      selected: false
+      source: '1763812453361'
+      sourceHandle: source
+      target: '1763812737094'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: 1763812737094-source-1763803836243-target
+      selected: false
+      source: '1763812737094'
+      sourceHandle: source
+      target: '1763803836243'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: knowledge-retrieval
+      id: 1763811812908-source-1763823575062-target
+      selected: false
+      source: '1763811812908'
+      sourceHandle: source
+      target: '1763823575062'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: knowledge-retrieval
+      id: 1763811812908-source-1763823618307-target
+      selected: false
+      source: '1763811812908'
+      sourceHandle: source
+      target: '1763823618307'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: knowledge-retrieval
+      id: 1763811812908-source-1763823646400-target
+      selected: false
+      source: '1763811812908'
+      sourceHandle: source
+      target: '1763823646400'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: knowledge-retrieval
+      id: 1763811812908-source-1763823674800-target
+      selected: false
+      source: '1763811812908'
+      sourceHandle: source
+      target: '1763823674800'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: knowledge-retrieval
+      id: 1763811812908-source-1763823697319-target
+      selected: false
+      source: '1763811812908'
+      sourceHandle: source
+      target: '1763823697319'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1763823646400-source-1763828512463-target
+      selected: false
+      source: '1763823646400'
+      sourceHandle: source
+      target: '1763828512463'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1763823575062-source-1763828512463-target
+      selected: false
+      source: '1763823575062'
+      sourceHandle: source
+      target: '1763828512463'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1763823618307-source-1763828512463-target
+      selected: false
+      source: '1763823618307'
+      sourceHandle: source
+      target: '1763828512463'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1763823674800-source-1763828512463-target
+      selected: false
+      source: '1763823674800'
+      sourceHandle: source
+      target: '1763828512463'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: template-transform
+      id: 1763823697319-source-1763828512463-target
+      selected: false
+      source: '1763823697319'
+      sourceHandle: source
+      target: '1763828512463'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: llm
+      id: 1763828512463-source-1763812453361-target
+      source: '1763828512463'
+      sourceHandle: source
+      target: '1763812453361'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: Mô tả ca / ghi chú cho CLARA
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: case_description
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - audio
+          - video
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hint: ''
+          label: visit_audio
+          max_length: 5
+          options: []
+          placeholder: ''
+          required: false
+          type: file-list
+          variable: visit_audio
+      height: 113
+      id: '1763799922966'
+      position:
+        x: 30
+        y: 386
+      positionAbsolute:
+        x: 30
+        y: 386
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763799922966'
+          - case_description
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            json_schema: "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"\
+              is_medical_context\": {\n      \"type\": \"boolean\",\n      \"description\"\
+              : \"true nếu đây là nội dung liên quan khám bệnh, hỏi bệnh, ca lâm sàng,\
+              \ mô phỏng y khoa.\"\n    },\n    \"language\": {\n      \"type\": \"\
+              string\",\n      \"description\": \"Ngôn ngữ chính: vi, en, hoặc mixed.\"\
+              ,\n      \"enum\": [\n        \"vi\",\n        \"en\",\n        \"mixed\"\
+              ,\n        \"unknown\"\n      ]\n    },\n    \"has_audio\": {\n    \
+              \  \"type\": \"boolean\",\n      \"description\": \"true nếu workflow\
+              \ nhận được file audio; nếu không chắc thì dùng giá trị truyền vào.\"\
+              \n    },\n    \"note\": {\n      \"type\": \"string\",\n      \"description\"\
+              : \"Giải thích ngắn cách bạn phân loại.\"\n    }\n  },\n  \"required\"\
+              : [\n    \"is_medical_context\",\n    \"language\",\n    \"has_audio\"\
+              \n  ]\n}"
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 3e28c313-0706-484b-b391-4700f230c38e
+          role: system
+          text: 'Bạn là bộ phân loại input cho hệ thống ghi chép y khoa CLARA Medical
+            Scribe.
+
+            Nhiệm vụ:
+
+            Xác định xem nội dung người dùng cung cấp có liên quan đến hội thoại /
+            ca lâm sàng hay không (is_medical_context=true) {{#sys.query#}} hoặc {{#context#}}.
+
+            Đoán ngôn ngữ chính: tiếng Việt hay tiếng Anh.
+
+            Ghi nhận việc có file audio hay không (do hệ thống cung cấp).
+
+            has_audio = true nếu {{#1763799922966.visit_audio#}} không rỗng, còn lại
+            false
+
+            Trả về DUY NHẤT 1 JSON đúng schema đã cấu hình.'
+        - id: 12d4a0a6-6b57-4e38-abd9-954024a7726b
+          role: user
+          text: 'User query:
+
+            {{#sys.query#}}
+
+
+            Context:
+
+            {{#1763799922966.case_description#}}
+
+
+            Audio:
+
+            {{#1763799922966.visit_audio#}}'
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              has_audio:
+                description: true nếu workflow nhận được file audio; nếu không chắc
+                  thì dùng giá trị truyền vào.
+                type: boolean
+              is_medical_context:
+                description: true nếu đây là nội dung liên quan khám bệnh, hỏi bệnh,
+                  ca lâm sàng, mô phỏng y khoa.
+                type: boolean
+              language:
+                description: 'Ngôn ngữ chính: vi, en, hoặc mixed.'
+                enum:
+                - vi
+                - en
+                - mixed
+                - unknown
+                type: string
+              note:
+                description: Giải thích ngắn cách bạn phân loại.
+                type: string
+            required:
+            - is_medical_context
+            - language
+            - has_audio
+            type: object
+        structured_output_enabled: true
+        title: Input_Classifier
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: 360.7057887053794
+        y: 386
+      positionAbsolute:
+        x: 360.7057887053794
+        y: 386
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: CLARA chỉ xử lý nội dung y khoa / ca lâm sàng.
+        selected: false
+        title: ANSWER_NotMedical
+        type: answer
+        variables: []
+      height: 115
+      id: answer
+      position:
+        x: 1117
+        y: 258
+      positionAbsolute:
+        x: 1117
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: b74c9075-e73f-416d-9bd0-d0e8a67b81f3
+            value: 'false'
+            varType: object
+            variable_selector:
+            - llm
+            - structured_output
+            - is_medical_context
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 123
+      id: '1763800904244'
+      position:
+        x: 694
+        y: 386
+      positionAbsolute:
+        x: 694
+        y: 386
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 938c1abe-1196-411c-8100-6a69300c137a
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - '1763799922966'
+            - visit_audio
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: IF_HasAudio
+        type: if-else
+      height: 123
+      id: '1763801237188'
+      position:
+        x: 1449
+        y: 406
+      positionAbsolute:
+        x: 1449
+        y: 406
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: Bearer sk-McyM7OGluespwyk9XJW3HWHXjp0oheXg42xbEZflho95v50v
+          form: llm
+          human_description:
+            en_US: API key for Yescale / OpenAI. Hard-coded default.
+            ja_JP: API key for Yescale / OpenAI. Hard-coded default.
+            pt_BR: API key for Yescale / OpenAI. Hard-coded default.
+            zh_Hans: API key for Yescale / OpenAI. Hard-coded default.
+          label:
+            en_US: Authorization
+            ja_JP: Authorization
+            pt_BR: Authorization
+            zh_Hans: Authorization
+          llm_description: API key for Yescale / OpenAI. Hard-coded default.
+          max: null
+          min: null
+          name: Authorization
+          options: []
+          placeholder:
+            en_US: API key for Yescale / OpenAI. Hard-coded default.
+            ja_JP: API key for Yescale / OpenAI. Hard-coded default.
+            pt_BR: API key for Yescale / OpenAI. Hard-coded default.
+            zh_Hans: API key for Yescale / OpenAI. Hard-coded default.
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+            ja_JP: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+            pt_BR: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+            zh_Hans: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+          label:
+            en_US: file
+            ja_JP: file
+            pt_BR: file
+            zh_Hans: file
+          llm_description: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav,
+            webm).
+          max: null
+          min: null
+          name: file
+          options: []
+          placeholder:
+            en_US: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+            ja_JP: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+            pt_BR: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+            zh_Hans: Audio file (flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, webm).
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: file
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: STT model id.
+            ja_JP: STT model id.
+            pt_BR: STT model id.
+            zh_Hans: STT model id.
+          label:
+            en_US: model
+            ja_JP: model
+            pt_BR: model
+            zh_Hans: model
+          llm_description: STT model id.
+          max: null
+          min: null
+          name: model
+          options: []
+          placeholder:
+            en_US: STT model id.
+            ja_JP: STT model id.
+            pt_BR: STT model id.
+            zh_Hans: STT model id.
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional text prompt to guide the transcription style (same language
+              as audio).
+            ja_JP: Optional text prompt to guide the transcription style (same language
+              as audio).
+            pt_BR: Optional text prompt to guide the transcription style (same language
+              as audio).
+            zh_Hans: Optional text prompt to guide the transcription style (same language
+              as audio).
+          label:
+            en_US: prompt
+            ja_JP: prompt
+            pt_BR: prompt
+            zh_Hans: prompt
+          llm_description: Optional text prompt to guide the transcription style (same
+            language as audio).
+          max: null
+          min: null
+          name: prompt
+          options: []
+          placeholder:
+            en_US: Optional text prompt to guide the transcription style (same language
+              as audio).
+            ja_JP: Optional text prompt to guide the transcription style (same language
+              as audio).
+            pt_BR: Optional text prompt to guide the transcription style (same language
+              as audio).
+            zh_Hans: Optional text prompt to guide the transcription style (same language
+              as audio).
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          Authorization: ''
+          file: ''
+          model: ''
+          prompt: ''
+        provider_id: e0a1121a-7aa1-4cbb-834a-eb43fe9d46b8
+        provider_name: TranscribeAudio
+        provider_type: api
+        selected: false
+        title: TranscribeAudio
+        tool_configurations: {}
+        tool_description: Uploads an audio file and returns the transcription text.
+        tool_label: TranscribeAudio
+        tool_name: TranscribeAudio
+        tool_node_version: '2'
+        tool_parameters:
+          Authorization:
+            type: mixed
+            value: Bearer sk-McyM7OGluespwyk9XJW3HWHXjp0oheXg42xbEZflho95v50v
+          file:
+            type: variable
+            value:
+            - '1763799922966'
+            - visit_audio
+          model:
+            type: mixed
+            value: gpt-4o-mini-transcribe
+          prompt:
+            type: mixed
+            value: ''
+        type: tool
+      height: 51
+      id: '1763801590027'
+      position:
+        x: 1872
+        y: 258
+      positionAbsolute:
+        x: 1872
+        y: 258
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763802817213'
+          - output
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: c7337803-18bd-4d61-9962-23cf77bfa33e
+          role: system
+          text: "Transcript thô (từ ASR / STT):\n\n{{#1763802817213.output#}}\n\n\
+            Bạn là module `TRANSCRIPT_NORMALIZER` trong hệ thống CLARA Medical Scribe,\
+            \ chuyên xử lý transcript hội thoại bác sĩ – bệnh nhân bằng tiếng Việt.\n\
+            \nNhiệm vụ:\n\n1. Chuẩn hóa transcript:\n   - Thêm dấu câu, xuống dòng\
+            \ hợp lý.\n   - Sửa các lỗi chính tả rõ ràng (ví dụ: \"tiểu đuòng\" →\
+            \ \"tiểu đường\", \"ap\" → \"áp\"), nhưng KHÔNG thay đổi ý nghĩa nội dung.\n\
+            \n2. Tách cuộc hội thoại thành các lượt thoại (turn) theo đúng trình tự\
+            \ thời gian và gán nhãn speaker:\n   - `\"BS\"` = bác sĩ hoặc nhân viên\
+            \ y tế.\n   - `\"BN\"` = bệnh nhân.\n   - `\"KHAC\"` = người nhà hoặc\
+            \ người khác (không phải bác sĩ/bệnh nhân).\n   - Phân loại:\n     - Câu\
+            \ hỏi chuyên môn, giải thích, chỉ định → thường là \"BS\".\n     - Câu\
+            \ trả lời về triệu chứng, tiền sử, thói quen, lo lắng → thường là \"BN\"\
+            .\n\n3. Mỗi lượt thoại (turn):\n   - Chỉ thuộc về một người.\n   - Có\
+            \ hai trường:\n     - `speaker`: một trong `\"BS\"`, `\"BN\"`, `\"KHAC\"\
+            `.\n     - `utterance`: đoạn lời nói đã chuẩn hóa (đã có dấu câu phù hợp).\n\
+            \n4. Ngoài mảng `turns`, tạo thêm một trường:\n   - `normalized_transcript`:\
+            \ một chuỗi (string) chứa toàn bộ hội thoại đã chuẩn hóa (cùng ngôn ngữ,\
+            \ đầy đủ nội dung).\n\nRàng buộc bắt buộc:\n\n- KHÔNG được thêm nội dung\
+            \ y khoa mới.\n- KHÔNG tóm tắt, KHÔNG rút gọn nội dung.\n- KHÔNG dịch\
+            \ sang ngôn ngữ khác (giữ nguyên tiếng Việt).\n- KHÔNG trả về JSON schema,\
+            \ KHÔNG mô tả schema.\n- KHÔNG dùng các key như `\"type\"`, `\"properties\"\
+            `, `\"required\"`, `\"description\"` ở cấp cao nhất.\n- Chỉ trả về MỘT\
+            \ đối tượng JSON duy nhất"
+        - id: a7d1a24a-7810-43ae-adcb-3a46c9919f79
+          role: user
+          text: 'Transcript thô:
+
+            {{#context#}}
+
+            '
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              normalized_transcript:
+                type: string
+              turns:
+                items:
+                  properties:
+                    speaker:
+                      enum:
+                      - BS
+                      - BN
+                      - KHAC
+                      type: string
+                    utterance:
+                      type: string
+                  required:
+                  - speaker
+                  - utterance
+                  type: object
+                type: array
+            required:
+            - normalized_transcript
+            - turns
+            type: object
+        structured_output_enabled: true
+        title: Transcript_Normalizer
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763801795791'
+      position:
+        x: 2536
+        y: 258
+      positionAbsolute:
+        x: 2536
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{{ arg1 }}\r\n{{ arg2 }}"
+        title: Transcript
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1763801590027'
+          - text
+          value_type: string
+          variable: arg1
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: arg2
+      height: 51
+      id: '1763802817213'
+      position:
+        x: 2204
+        y: 258
+      positionAbsolute:
+        x: 2204
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763801795791'
+          - structured_output
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 2e1e9e28-1d95-46b5-af09-98678049d417
+          role: system
+          text: "Bạn là module ẩn danh hóa (de-identification) cho transcript hội\
+            \ thoại y khoa.\n\nNgữ cảnh đầu vào là {{#1763801795791.structured_output#}}\
+            \ JSON có dạng:\n{\n  \"normalized_transcript\": string,  // toàn bộ hội\
+            \ thoại đã chuẩn hoá\n  \"turns\": [\n    { \"speaker\": \"BN\" | \"BS\"\
+            \ | \"KHAC\", \"utterance\": string },\n    ...\n  ]\n}\n\nNhiệm vụ của\
+            \ bạn:\n- Giữ nguyên cấu trúc JSON (các field và mảng y như đầu vào).\n\
+            - Chỉ sửa NỘI DUNG CHUỖI (string) để ẩn danh:\n  - Tên riêng bệnh nhân,\
+            \ bác sĩ, người nhà.\n  - Số điện thoại, email, địa chỉ cụ thể, số hồ\
+            \ sơ bệnh án, mã định danh cá nhân (CMND/CCCD, BHYT...).\n  - Tên bệnh\
+            \ viện/phòng khám quá cụ thể, nếu có.\n- Thay các thông tin đó bằng chuỗi\
+            \ \"[REDACTED]\".\n- Tuyệt đối không xoá, không thêm mới thông tin lâm\
+            \ sàng (triệu chứng, diễn tiến, chẩn đoán...).\n- Không tóm tắt, không\
+            \ dịch sang ngôn ngữ khác.\n\nQUAN TRỌNG:\n- Đầu ra phải là MỘT JSON OBJECT\
+            \ DUY NHẤT, phù hợp với JSON Schema đã cấu hình trong Structured Output.\n\
+            - KHÔNG được in lại JSON Schema, KHÔNG thêm trường \"type\", \"properties\"\
+            , \"required\" ở level gốc.\n- Ví dụ dạng đầu ra (minh hoạ):\n  {\n  \
+            \  \"normalized_transcript\": \"BN: [REDACTED], dạo này em hay đau ngực...\"\
+            ,\n    \"turns\": [\n      { \"speaker\": \"BN\", \"utterance\": \"Chào\
+            \ bác sĩ, em là [REDACTED]...\" },\n      { \"speaker\": \"BS\", \"utterance\"\
+            : \"Em mô tả rõ hơn cơn đau giúp bác sĩ nhé.\" }\n    ]\n  }\nChỉ trả\
+            \ về JSON, không giải thích thêm.\n"
+        - id: eb16e5ee-001f-4ca9-b7d3-25d0f71d98aa
+          role: user
+          text: 'Transcript chuẩn hóa: {{#context#}}'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              allergies:
+                description: Dị ứng thuốc/thức ăn, dạng list text đã ẩn danh.
+                items:
+                  type: string
+                type: array
+              assessment:
+                description: 'Assessment: list problem + impression.'
+                items:
+                  additionalProperties: false
+                  properties:
+                    impression:
+                      description: Nhận định/giải thích chi tiết hơn.
+                      type: string
+                    problem:
+                      description: Vấn đề/chẩn đoán tóm tắt.
+                      type: string
+                  required:
+                  - problem
+                  - impression
+                  type: object
+                type: array
+              chief_complaint:
+                description: Lý do vào khám / triệu chứng chính, đã được ẩn danh nếu
+                  có PII.
+                type: string
+              family_history:
+                description: Tiền sử gia đình (bệnh tim mạch, ĐTĐ, đột quỵ...), đã
+                  ẩn danh.
+                type: string
+              history_of_present_illness:
+                description: Diễn tiến bệnh hiện tại (HPI), đã ẩn danh.
+                type: string
+              labs_and_imaging:
+                description: Thông tin cận lâm sàng (xét nghiệm, ECG, siêu âm, CT...),
+                  đã ẩn danh.
+                type: string
+              medications:
+                description: Thuốc đang dùng, mỗi phần tử là 1 thuốc.
+                items:
+                  additionalProperties: false
+                  properties:
+                    dose:
+                      description: 'Liều thuốc, dạng text tự do (ví dụ: 5mg, 1 viên...).'
+                      type: string
+                    frequency:
+                      description: 'Số lần/lịch dùng (ví dụ: 1 lần/ngày, sáng/tối...).'
+                      type: string
+                    name:
+                      description: Tên thuốc (có thể là generic hoặc brand, nhưng
+                        đã ẩn danh nếu trùng tên riêng).
+                      type: string
+                  required:
+                  - name
+                  - dose
+                  - frequency
+                  type: object
+                type: array
+              past_medical_history:
+                description: Tiền sử bệnh, dạng list các dòng text đã ẩn danh.
+                items:
+                  type: string
+                type: array
+              physical_exam:
+                description: Khám lâm sàng tóm tắt, đã ẩn danh.
+                type: string
+              plan:
+                additionalProperties: false
+                description: Kế hoạch quản lý.
+                properties:
+                  education_and_counseling:
+                    description: Tư vấn/giáo dục sức khỏe.
+                    items:
+                      type: string
+                    type: array
+                  follow_up:
+                    description: Kế hoạch tái khám/theo dõi.
+                    type: string
+                  investigations:
+                    description: Các CLS đã/định chỉ định.
+                    items:
+                      type: string
+                    type: array
+                  treatments:
+                    description: Kế hoạch điều trị/thuốc.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - investigations
+                - treatments
+                - education_and_counseling
+                - follow_up
+                type: object
+              review_of_systems:
+                description: ROS dạng list text (mỗi dòng có thể là 1 hệ cơ quan).
+                items:
+                  type: string
+                type: array
+              social_history:
+                description: Thói quen sinh hoạt, hút thuốc, rượu bia..., đã ẩn danh.
+                type: string
+              visit_type:
+                description: Loại lần khám (khám ngoại trú, tái khám, cấp cứu...).
+                type: string
+              vital_signs:
+                additionalProperties: false
+                description: Dấu hiệu sinh tồn (VS).
+                properties:
+                  bp:
+                    description: 'Huyết áp (BP), ví dụ: 150/90 mmHg.'
+                    type: string
+                  hr:
+                    description: Mạch / nhịp tim (HR).
+                    type: string
+                  rr:
+                    description: Nhịp thở (RR).
+                    type: string
+                  spo2:
+                    description: SpO2.
+                    type: string
+                  temperature:
+                    description: Nhiệt độ.
+                    type: string
+                type: object
+            required:
+            - chief_complaint
+            - visit_type
+            - history_of_present_illness
+            - past_medical_history
+            - medications
+            - allergies
+            - family_history
+            - social_history
+            - review_of_systems
+            - vital_signs
+            - physical_exam
+            - labs_and_imaging
+            - assessment
+            - plan
+            type: object
+        structured_output_enabled: true
+        title: PII_Redactor
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763802945681'
+      position:
+        x: 2868
+        y: 258
+      positionAbsolute:
+        x: 2868
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763802945681'
+          - text
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: fb2385cb-c70d-467a-8e2a-c97e28ce2f06
+          role: system
+          text: "Bạn là bác sĩ nội khoa hỗ trợ ghi chép (medical scribe) cho CLARA.\n\
+            \nNhiệm vụ:\n- Nhận transcript hội thoại bác sĩ – bệnh nhân (đã ẩn danh)\
+            \ hoặc note sơ bộ.\n- Trích xuất & cấu trúc lại thông tin lâm sàng thành\
+            \ các mục:\n  - chief_complaint\n  - visit_type\n  - history_of_present_illness\n\
+            \  - past_medical_history\n  - medications\n  - allergies\n  - family_history\n\
+            \  - social_history\n  - review_of_systems\n  - vital_signs\n  - physical_exam\n\
+            \  - labs_and_imaging\n  - assessment\n  - plan\n\nQuy tắc:\n- KHÔNG bịa\
+            \ thêm dữ liệu. Thiếu thì để trống chuỗi \"\" hoặc ghi rõ \"không đề cập\"\
+            .\n- Không thêm khuyến cáo điều trị mới; chỉ ghi lại những gì đã được\
+            \ nhắc.\n- Dùng tiếng Việt (vì transcript là tiếng Việt).\n- Output PHẢI\
+            \ là JSON đúng schema đã cấu hình trong Structured Output của node (không\
+            \ bọc thêm text, không giải thích)."
+        - id: 207f264a-428d-48e9-9096-154323217360
+          role: user
+          text: Transcript hội thoại bác sĩ–bệnh nhân (đã ẩn danh) {{#context#}}
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              allergies:
+                description: Dị ứng thuốc/thức ăn nếu có.
+                items:
+                  type: string
+                type: array
+              assessment:
+                description: Nhận định / chẩn đoán làm việc.
+                items:
+                  properties:
+                    impression:
+                      description: Nhận định chi tiết cho vấn đề đó.
+                      type: string
+                    problem:
+                      description: Vấn đề/chẩn đoán.
+                      type: string
+                  required:
+                  - problem
+                  - impression
+                  type: object
+                type: array
+              chief_complaint:
+                description: Lý do vào khám chính của bệnh nhân.
+                type: string
+              family_history:
+                description: Tiền sử gia đình.
+                type: string
+              history_of_present_illness:
+                description: Diễn tiến bệnh hiện tại (HPI).
+                type: string
+              labs_and_imaging:
+                description: Cận lâm sàng, xét nghiệm, chẩn đoán hình ảnh.
+                type: string
+              medications:
+                description: Các thuốc đang dùng.
+                items:
+                  properties:
+                    dose:
+                      description: 'Liều dùng (ví dụ: 500mg).'
+                      type: string
+                    frequency:
+                      description: 'Cách dùng / tần suất (ví dụ: sáng, tối).'
+                      type: string
+                    name:
+                      description: Tên thuốc hoặc hoạt chất.
+                      type: string
+                  required:
+                  - name
+                  - dose
+                  - frequency
+                  type: object
+                type: array
+              past_medical_history:
+                description: Bệnh sử cũ, danh sách các bệnh/chẩn đoán trước đây.
+                items:
+                  type: string
+                type: array
+              physical_exam:
+                description: Khám lâm sàng.
+                type: string
+              plan:
+                description: Kế hoạch xử trí.
+                properties:
+                  education_and_counseling:
+                    description: Giáo dục, tư vấn cho bệnh nhân.
+                    items:
+                      type: string
+                    type: array
+                  follow_up:
+                    description: Kế hoạch tái khám/theo dõi.
+                    type: string
+                  investigations:
+                    description: Danh sách cận lâm sàng/xét nghiệm dự kiến.
+                    items:
+                      type: string
+                    type: array
+                  treatments:
+                    description: Điều trị đã/bị đề cập.
+                    items:
+                      type: string
+                    type: array
+                required:
+                - investigations
+                - treatments
+                - education_and_counseling
+                - follow_up
+                type: object
+              review_of_systems:
+                description: Các triệu chứng toàn thân theo hệ thống.
+                items:
+                  type: string
+                type: array
+              social_history:
+                description: 'Thói quen sinh hoạt: hút thuốc, rượu bia, nghề nghiệp...'
+                type: string
+              visit_type:
+                description: 'Loại lần khám, ví dụ: Khám ngoại trú, cấp cứu...'
+                type: string
+              vital_signs:
+                description: Dấu hiệu sinh tồn.
+                properties:
+                  bp:
+                    description: Huyết áp.
+                    type: string
+                  hr:
+                    description: Nhịp tim.
+                    type: string
+                  rr:
+                    description: Nhịp thở.
+                    type: string
+                  spo2:
+                    description: SpO2.
+                    type: string
+                  temperature:
+                    description: Nhiệt độ.
+                    type: string
+                required:
+                - bp
+                - hr
+                - rr
+                - temperature
+                - spo2
+                type: object
+            required:
+            - chief_complaint
+            - visit_type
+            - history_of_present_illness
+            - past_medical_history
+            - medications
+            - allergies
+            - family_history
+            - social_history
+            - review_of_systems
+            - vital_signs
+            - physical_exam
+            - labs_and_imaging
+            - assessment
+            - plan
+            type: object
+        structured_output_enabled: true
+        title: Clinical_Structurer
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763803754384'
+      position:
+        x: 3200
+        y: 258
+      positionAbsolute:
+        x: 3200
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763803754384'
+          - text
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 4e70774e-a7f6-40db-9a5f-d197ef89096d
+          role: system
+          text: "Bạn là module soát lỗi cho note lâm sàng giáo dục.\nNhiệm vụ:\n-\
+            \ Kiểm tra tính nhất quán nội bộ giữa các mục (chief complaint – HPI –\
+            \ assessment – plan).\n- Không thêm dữ liệu mới; chỉ được:\n  + Gợi ý\
+            \ dạng “Có vẻ thiếu thông tin về X (không thấy nhắc trong transcript)”.\n\
+            - Tạo 2 phần:\n  + clean_note: bản note sạch sẽ, mạch lạc, hoàn chỉnh\
+            \ câu chữ nhưng không thay đổi thông tin so với note_struct (trả về 1\
+            \ chuỗi văn bản).\n  + missing_info_notes: danh sách gạch đầu dòng các\
+            \ thông tin nên hỏi thêm / còn thiếu (mỗi phần tử là 1 chuỗi).\n  + safety_disclaimer:\
+            \ đoạn cảnh báo cố định rằng đây chỉ là công cụ hỗ trợ ghi chép, không\
+            \ thay thế bác sĩ.\n\nTrả về DUY NHẤT JSON đúng schema đã cấu hình (clean_note,\
+            \ missing_info_notes, safety_disclaimer), không thêm text ngoài JSON."
+        - id: d5d2a2c4-d006-493b-8318-284d1d6b9f96
+          role: user
+          text: 'Clinical Structure: {{#context#}}
+
+            Redacted note (gốc): {{#1763802945681.text#}}
+
+            '
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              clean_note:
+                description: Bản note sạch sẽ, mạch lạc, không thêm hoặc thay đổi
+                  thông tin so với note_struct (một đoạn text duy nhất).
+                type: string
+              missing_info_notes:
+                description: Danh sách gạch đầu dòng các thông tin còn thiếu hoặc
+                  nên hỏi thêm.
+                items:
+                  type: string
+                type: array
+              safety_disclaimer:
+                description: Đoạn cảnh báo cố định rằng đây chỉ là công cụ hỗ trợ
+                  ghi chép, không thay thế bác sĩ.
+                type: string
+            required:
+            - clean_note
+            - missing_info_notes
+            - safety_disclaimer
+            type: object
+        structured_output_enabled: true
+        title: Note_Reviewer
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763803836243'
+      position:
+        x: 5524
+        y: 518
+      positionAbsolute:
+        x: 5524
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{# n = clinical struct, r = review #}\r\n\r\n## CLARA Medical Scribe\
+          \ – Note buổi khám\r\n\r\n### 1. Chief complaint (CC)\r\n{{ n.chief_complaint\
+          \ | default(\"Không ghi\") }}\r\n\r\n---\r\n\r\n### 2. History of Present\
+          \ Illness (HPI)\r\n{{ n.history_of_present_illness | default(\"Không ghi\"\
+          ) }}\r\n\r\n---\r\n\r\n### 3. Past medical history\r\n{{ n.past_medical_history\
+          \ | default(\"Không đề cập\") }}\r\n\r\n---\r\n\r\n### 4. Medications (thuốc\
+          \ đang dùng)\r\n{{ n.medications | default(\"Không đề cập\") }}\r\n\r\n\
+          ---\r\n\r\n### 5. Allergies (dị ứng)\r\n{{ n.allergies | default(\"Không\
+          \ đề cập\") }}\r\n\r\n---\r\n\r\n### 6. Family history\r\n{{ n.family_history\
+          \ | default(\"Không đề cập\") }}\r\n\r\n---\r\n\r\n### 7. Social history\r\
+          \n{{ n.social_history | default(\"Không đề cập\") }}\r\n\r\n---\r\n\r\n\
+          ### 8. Review of systems\r\n{{ n.review_of_systems | default(\"Không đề\
+          \ cập\") }}\r\n\r\n---\r\n\r\n### 9. Vital signs\r\n{% if n.vital_signs\
+          \ is defined %}\r\n{{ n.vital_signs }}\r\n{% else %}\r\n- Huyết áp (BP):\
+          \ Không ghi  \r\n- Mạch (HR): Không ghi  \r\n- Nhịp thở (RR): Không ghi\
+          \  \r\n- SpO₂: Không ghi  \r\n- Nhiệt độ: Không ghi\r\n{% endif %}\r\n\r\
+          \n---\r\n\r\n### 10. Physical exam (khám lâm sàng)\r\n{{ n.physical_exam\
+          \ | default(\"Không đề cập\") }}\r\n\r\n---\r\n\r\n### 11. Labs / Imaging\
+          \ (cận lâm sàng)\r\n{{ n.labs_and_imaging | default(\"Không đề cập\") }}\r\
+          \n\r\n---\r\n\r\n### 12. Assessment (đánh giá / chẩn đoán làm việc)\r\n\
+          {{ n.assessment | default(\"Không đề cập\") }}\r\n\r\n---\r\n\r\n### 13.\
+          \ Plan\r\n\r\n{% set plan = n.plan | default({}) %}\r\n\r\n**13.1. Investigations\
+          \ (cận lâm sàng dự kiến):**\r\n{% if plan.investigations is defined %}\r\
+          \n{{ plan.investigations }}\r\n{% else %}\r\nKhông đề cập\r\n{% endif %}\r\
+          \n\r\n**13.2. Treatments (điều trị / thuốc):**\r\n{% if plan.treatments\
+          \ is defined %}\r\n{{ plan.treatments }}\r\n{% else %}\r\nKhông đề cập\r\
+          \n{% endif %}\r\n\r\n**13.3. Education & counseling (giáo dục / tư vấn):**\r\
+          \n{% if plan.education_and_counseling is defined %}\r\n{{ plan.education_and_counseling\
+          \ }}\r\n{% else %}\r\nKhông đề cập\r\n{% endif %}\r\n\r\n**13.4. Follow-up\
+          \ (tái khám / theo dõi):**\r\n{% if plan.follow_up is defined %}\r\n{{ plan.follow_up\
+          \ }}\r\n{% else %}\r\nKhông đề cập\r\n{% endif %}\r\n\r\n---\r\n\r\n###\
+          \ 14. Bản note đã biên tập (clean note)\r\n\r\n{{ r.clean_note | default(\"\
+          \") }}\r\n\r\n---\r\n\r\n### 15. Thông tin còn thiếu / cần hỏi thêm\r\n\r\
+          \n{% if r.missing_info_notes is defined and r.missing_info_notes and r.missing_info_notes|length\
+          \ > 0 %}\r\n{% for item in r.missing_info_notes %}\r\n- {{ item }}\r\n{%\
+          \ endfor %}\r\n{% else %}\r\n- Không có nhận xét thêm.\r\n{% endif %}\r\n\
+          \r\n---\r\n\r\n{{ r.safety_disclaimer | default(\"\") }}\r\n\r\n{% if evidence_block\
+          \ %}\r\n---\r\n{{ evidence_block }}\r\n{% endif %}\r\n"
+        title: TEMPLATE node để định dạng note
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1763803754384'
+          - structured_output
+          value_type: object
+          variable: n
+        - value_selector:
+          - '1763803836243'
+          - structured_output
+          value_type: object
+          variable: r
+        - value_selector:
+          - '1763812737094'
+          - output
+          value_type: string
+          variable: evidence_block
+      height: 51
+      id: '1763804168711'
+      position:
+        x: 5856
+        y: 518
+      positionAbsolute:
+        x: 5856
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763804168711.output#}}'
+        selected: false
+        title: Answer_Final
+        type: answer
+        variables: []
+      height: 101
+      id: '1763804449838'
+      position:
+        x: 6188
+        y: 518
+      positionAbsolute:
+        x: 6188
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763803754384'
+          - structured_output
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 92f7339c-23a2-42db-b6ce-cf3078623f1b
+          role: system
+          text: "Bạn là module TERMINOLOGY_EXTRACTOR cho CLARA.\n\nNhiệm vụ:\n- Nhận\
+            \ note lâm sàng đã cấu trúc (output từ CLINICAL_STRUCTURER: assessment,\
+            \ plan, medications).\n- Trích ra danh sách entity y khoa quan trọng cần\
+            \ mã hóa / lookup:\n  - Loại \"disease\": bệnh, hội chứng, chẩn đoán.\n\
+            \  - Loại \"drug\": thuốc, hoạt chất, chế phẩm.\n- Chuẩn hóa tiếng Anh\
+            \ y khoa (normalized_en) cho từng entity.\n- Đặt các cờ:\n  - need_icd11:\
+            \ cho entity type = \"disease\" nếu cần mã ICD-11.\n  - need_rxnorm: cho\
+            \ entity type = \"drug\" nếu cần mã RxNorm.\n  - need_openfda: cho entity\
+            \ type = \"drug\" nếu cần tra openFDA (safety/recall).\n  - need_umls:\
+            \ true cho mọi entity quan trọng.\n  - need_trials: true cho disease chính\
+            \ (is_primary = true) cần tìm clinical trials.\n\nQuy tắc:\n- Không bịa\
+            \ thêm bệnh / thuốc không xuất hiện trong note.\n- Nếu chưa chắc về normalized_en,\
+            \ dùng bản dịch gần nhất, có thể chỉnh sau.\n- Nếu một entity chỉ để tham\
+            \ khảo, có thể set các cờ need_* = false.\n- Nếu không có entity nào phù\
+            \ hợp, trả về \"entities\": [].\n\nRẤT QUAN TRỌNG:\n- Trả về DUY NHẤT\
+            \ một JSON **data** đúng schema Structured Output đã cấu hình (không in\
+            \ lại JSON Schema, không giải thích thêm)."
+        - id: a6d2f9f2-ed11-4d42-a4ce-002e40d0e29e
+          role: user
+          text: 'CLINICAL_STRUCTURER: {{#context#}}'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              entities:
+                description: List of extracted medical entities (diseases and drugs)
+                  that need coding / lookup.
+                items:
+                  additionalProperties: false
+                  properties:
+                    id:
+                      description: A unique identifier for the entity (e.g. e1, e2,
+                        ...).
+                      type: string
+                    is_primary:
+                      description: True nếu đây là chẩn đoán chính / lý do chính đến
+                        khám.
+                      type: boolean
+                    need_icd11:
+                      description: True nếu entity này cần query ICD-11 (áp dụng cho
+                        disease).
+                      type: boolean
+                    need_openfda:
+                      description: True nếu entity này cần tra cứu openFDA (thường
+                        cho thuốc / safety).
+                      type: boolean
+                    need_rxnorm:
+                      description: True nếu entity này cần query RxNorm (áp dụng cho
+                        drug).
+                      type: boolean
+                    need_trials:
+                      description: True nếu entity (thường là disease chính) cần tra
+                        clinical trials.
+                      type: boolean
+                    need_umls:
+                      description: True nếu entity này cần mapping sang UMLS CUI.
+                      type: boolean
+                    normalized_en:
+                      description: The normalized medical term in English (best-guess).
+                      type: string
+                    original_text:
+                      description: The term exactly as it appeared in the original
+                        note.
+                      type: string
+                    type:
+                      description: 'Entity type: disease or drug.'
+                      enum:
+                      - disease
+                      - drug
+                      type: string
+                  required:
+                  - id
+                  - type
+                  - original_text
+                  - normalized_en
+                  - is_primary
+                  - need_icd11
+                  - need_rxnorm
+                  - need_umls
+                  - need_openfda
+                  - need_trials
+                  type: object
+                type: array
+            required:
+            - entities
+            type: object
+        structured_output_enabled: true
+        title: TERMINOLOGY_EXTRACTOR
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763808107990'
+      position:
+        x: 3532
+        y: 258
+      positionAbsolute:
+        x: 3532
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763808107990'
+          - structured_output
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 8fde2ed3-752a-4f37-a521-b26d3331fa4d
+          role: system
+          text: "Bạn là module BUILD_QUERIES cho hệ thống CLARA.\n\nNhiệm vụ:\n- Chọn\
+            \ ra:\n  - 1 bệnh (disease) chính để làm query cho ICD-11, UMLS và ClinicalTrials\
+            \ (thường là chẩn đoán quan trọng nhất).\n  - 1 thuốc (drug) chính để\
+            \ làm query cho RxNorm, UMLS và openFDA (thường là thuốc điều trị chính\
+            \ hoặc cần quan tâm về an toàn).\n- Sinh ra các keyword phrase chính,\
+            \ nhỏ, có thể search được để query text, tương thích với từng API:\n \
+            \ 1. icd11_query: dùng tiếng Anh y khoa, tập trung vào disease chính.\n\
+            \  2. rxnorm_query: tên thuốc chính bằng tiếng Anh, không kèm liều.\n\
+            \  3. umls_query: có thể dùng disease chính hoặc thuốc chính, ưu tiên\
+            \ disease nếu có.\n  4. openfda_query: tên loại thuốc không kèm liều.\n\
+            \  5. trials_query: thường là bệnh chính.\n     \nQuy tắc:\n- Không bịa\
+            \ thêm bệnh/thuốc không xuất hiện trong entities.\n- Ưu tiên dùng trường\
+            \ normalized_en nếu có; nếu không có, tự dịch ngắn gọn sang tiếng Anh\
+            \ y khoa.\n- Nếu không đủ thông tin để tạo query cho 1 loại API, để trường\
+            \ tương ứng = null.\n\nChỉ trả về DUY NHẤT JSON đúng schema đã cho, không\
+            \ giải thích thêm.\n"
+        - id: 3fd275a0-7b33-4409-bbaa-d0f469ddf5c8
+          role: user
+          text: '- Nhận {{#context#}}, clinical structurer: {{#1763803754384.structured_output#}}'
+        selected: false
+        structured_output:
+          schema:
+            properties:
+              icd11_query:
+                description: 'Tên bệnh chính (English) để query ICD-11 Clinical Tables,
+                  ví dụ: "stable angina pectoris".'
+                type: string
+              openfda_query:
+                description: 'Tên thuốc chính để query openFDA drug event, ví dụ:
+                  "metformin" hoặc "dapagliflozin".'
+                type: string
+              rxnorm_query:
+                description: 'Tên thuốc chính (English) để query RxNorm, ví dụ: "metformin".'
+                type: string
+              trials_query:
+                description: 'Cụm từ bệnh + (tuỳ chọn) thuốc để query ClinicalTrials,
+                  ví dụ: "type 2 diabetes mellitus dapagliflozin" hoặc "stable angina
+                  pectoris".'
+                type: string
+              umls_query:
+                description: 'Term tổng quát (English) để query UMLS, thường là bệnh
+                  chính hoặc khái niệm trung tâm, ví dụ: "type 2 diabetes mellitus".'
+                type: string
+            required:
+            - rxnorm_query
+            - icd11_query
+            - umls_query
+            - openfda_query
+            - trials_query
+            type: object
+        structured_output_enabled: true
+        title: Build_Queries
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763811812908'
+      position:
+        x: 3864
+        y: 258
+      positionAbsolute:
+        x: 3864
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1763808107990'
+          - structured_output
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-pro
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 980b80b0-fec6-4625-822a-e97fcba63843
+          role: system
+          text: "Bạn là CODING_EVIDENCE_COMBINER cho CLARA.\n\nInput:\n- Danh sách\
+            \ entities từ TERMINOLOGY_EXTRACTOR (id, type, normalized_en…).\n- Kết\
+            \ quả raw từ các API: ICD-11, RxNorm, UMLS, openFDA, ClinicalTrials tương\
+            \ ứng từng entity.\n\nNhiệm vụ với mỗi entity:\n- Tổng hợp các candidate\
+            \ từ từng hệ thống (ICD-11, RxNorm, UMLS, openFDA, ClinicalTrials).\n\
+            - Đổ vào các mảng icd11_candidates, rxnorm_candidates, umls_candidates,\
+            \ trials_summary đúng schema.\n- openfda_summary: 1–2 câu tóm tắt cảnh\
+            \ báo / ADR quan trọng, nếu không có thì dùng chuỗi rỗng.\n- best_guess:\n\
+            \  - Chỉ điền code khi thấy tương đối chắc chắn dựa trên candidates.\n\
+            \  - Nếu không đủ chắc chắn hoặc không có kết quả: để null (hoặc chuỗi\
+            \ rỗng nếu schema không cho null).\n- comment: giải thích ngắn về mức\
+            \ độ tin cậy / giới hạn mapping.\n\nQuy tắc:\n- Không bịa mã mới khi API\
+            \ không trả kết quả.\n- Không suy luận quá mức từ thông tin không có.\n\
+            - Tất cả chỉ dùng cho giáo dục / tham khảo, không dùng cho mã hóa thanh\
+            \ toán hoặc kê đơn trực tiếp.\nTrường best_guess.icd11, best_guess.rxnorm,\
+            \ best_guess.umls_cui nếu không có mã phù hợp, hãy:\nhoặc bỏ hẳn field\
+            \ đó,\nhoặc trả \"\" (chuỗi rỗng).\nKhông dùng giá trị null cho các trường\
+            \ này.\nTrả về DUY NHẤT JSON đúng schema đã cấu hình trong Structured\
+            \ Output, không thêm giải thích ngoài JSON."
+        - id: 51dbc468-dab3-48c3-bc9a-2e4068f22b51
+          role: user
+          text: 'Entities:
+
+            {{#context#}}
+
+            Kết quả ICD-11 raw, RxNorm raw, UMLS raw, openFDA raw, ClinicalTrials
+            raw:
+
+            {{#1763828512463.output#}}'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              entity_summaries:
+                items:
+                  additionalProperties: false
+                  properties:
+                    best_guess:
+                      additionalProperties: false
+                      properties:
+                        icd11:
+                          description: Best ICD-11 code for this entity if available,
+                            otherwise empty string or omit.
+                          type: string
+                        rxnorm:
+                          description: Best RxNorm RXCUI for this entity if available,
+                            otherwise empty string or omit.
+                          type: string
+                        umls_cui:
+                          description: Best UMLS CUI for this entity if available,
+                            otherwise empty string or omit.
+                          type: string
+                      type: object
+                    comment:
+                      description: Brief explanation of confidence, limitations, or
+                        why a best_guess was or was not chosen.
+                      type: string
+                    entity_id:
+                      type: string
+                    icd11_candidates:
+                      items:
+                        properties:
+                          code:
+                            type: string
+                          score:
+                            type: number
+                          title:
+                            type: string
+                        required:
+                        - code
+                        - title
+                        - score
+                        type: object
+                      type: array
+                    openfda_summary:
+                      description: 1-2 sentence summary of most important warnings
+                        / adverse events. Empty string if not applicable or no data.
+                      type: string
+                    original_text:
+                      type: string
+                    rxnorm_candidates:
+                      items:
+                        properties:
+                          name:
+                            type: string
+                          rxcui:
+                            type: string
+                          score:
+                            type: number
+                          tty:
+                            type: string
+                        required:
+                        - rxcui
+                        - name
+                        - tty
+                        - score
+                        type: object
+                      type: array
+                    trials_summary:
+                      items:
+                        properties:
+                          location_countries:
+                            items:
+                              type: string
+                            type: array
+                          nct_id:
+                            type: string
+                          overall_status:
+                            type: string
+                          phase:
+                            type: string
+                          title:
+                            type: string
+                        required:
+                        - nct_id
+                        - title
+                        - phase
+                        - overall_status
+                        - location_countries
+                        type: object
+                      type: array
+                    type:
+                      enum:
+                      - disease
+                      - drug
+                      type: string
+                    umls_candidates:
+                      items:
+                        properties:
+                          cui:
+                            type: string
+                          preferred_term:
+                            type: string
+                          score:
+                            type: number
+                        required:
+                        - cui
+                        - preferred_term
+                        - score
+                        type: object
+                      type: array
+                  required:
+                  - entity_id
+                  - original_text
+                  - type
+                  - icd11_candidates
+                  - rxnorm_candidates
+                  - umls_candidates
+                  - openfda_summary
+                  - trials_summary
+                  - best_guess
+                  - comment
+                  type: object
+                type: array
+              global_warnings:
+                items:
+                  type: string
+                type: array
+            required:
+            - entity_summaries
+            - global_warnings
+            type: object
+        structured_output_enabled: true
+        title: CODING_EVIDENCE_COMBINER
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763812453361'
+      position:
+        x: 4860
+        y: 518
+      positionAbsolute:
+        x: 4860
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{# evidence_block = {\r\n     \"entity_summaries\": [... hoặc {\"\
+          items\":[...]}],\r\n     \"global_warnings\": [... hoặc {\"items\":[...]}]\r\
+          \n   }\r\n#}\r\n\r\n{% set eb = evidence_block | default({}) %}\r\n\r\n\
+          {# Lấy danh sách entity_summaries #}\r\n{% set es = [] %}\r\n{% if eb.entity_summaries\
+          \ is defined %}\r\n  {% set es = eb.entity_summaries %}\r\n{% endif %}\r\
+          \n{% if es and es.keys is defined and ('items' in es) %}\r\n  {% set es\
+          \ = es['items'] %}\r\n{% endif %}\r\n{% if es is string %}\r\n  {% set es\
+          \ = [] %}\r\n{% endif %}\r\n\r\n{# Lấy danh sách global_warnings #}\r\n\
+          {% set gw = [] %}\r\n{% if eb.global_warnings is defined %}\r\n  {% set\
+          \ gw = eb.global_warnings %}\r\n{% endif %}\r\n{% if gw and gw.keys is defined\
+          \ and ('items' in gw) %}\r\n  {% set gw = gw['items'] %}\r\n{% endif %}\r\
+          \n{% if gw is string %}\r\n  {% set gw = [gw] %}\r\n{% endif %}\r\n\r\n\
+          ---\r\n\r\n## Gợi ý mã hóa & bằng chứng (tham khảo)\r\n\r\n{% if es and\
+          \ es|length > 0 %}\r\n{% for e in es %}\r\n\r\n### {{ loop.index }}. {{\
+          \ e.original_text | default(e.entity_id | default('Entity không tên')) }}\r\
+          \n\r\n**ID nội bộ:** {{ e.entity_id | default('N/A') }}\r\n\r\n{# ICD-11\
+          \ #}\r\n{% if e.icd11_candidates is defined and e.icd11_candidates %}\r\n\
+          \  {% set icd = e.icd11_candidates %}\r\n  {% if icd.keys is defined and\
+          \ ('items' in icd) %}\r\n    {% set icd = icd['items'] %}\r\n  {% endif\
+          \ %}\r\n  {% if icd and icd|length > 0 %}\r\n**ICD-11 (ứng viên):**\r\n\
+          \  {% for c in icd %}\r\n- {{ c.code | default('') }}{% if c.title %} –\
+          \ {{ c.title }}{% endif %}{% if c.score is defined %} (score ~ {{ (c.score*100)|round(1)\
+          \ }}%){% endif %}\r\n  {% endfor %}\r\n  {% endif %}\r\n{% endif %}\r\n\r\
+          \n{# RxNorm #}\r\n{% if e.rxnorm_candidates is defined and e.rxnorm_candidates\
+          \ %}\r\n  {% set rx = e.rxnorm_candidates %}\r\n  {% if rx.keys is defined\
+          \ and ('items' in rx) %}\r\n    {% set rx = rx['items'] %}\r\n  {% endif\
+          \ %}\r\n  {% if rx and rx|length > 0 %}\r\n**RxNorm (ứng viên):**\r\n  {%\
+          \ for r in rx %}\r\n- {% if r.rxcui %}RXCUI {{ r.rxcui }}{% else %}(chưa\
+          \ có RXCUI){% endif %}{% if r.name %} – {{ r.name }}{% endif %}{% if r.tty\
+          \ %} ({{ r.tty }}){% endif %}{% if r.score is defined %} (score ~ {{ (r.score*100)|round(1)\
+          \ }}%){% endif %}\r\n  {% endfor %}\r\n  {% endif %}\r\n{% endif %}\r\n\r\
+          \n{# UMLS #}\r\n{% if e.umls_candidates is defined and e.umls_candidates\
+          \ %}\r\n  {% set uu = e.umls_candidates %}\r\n  {% if uu.keys is defined\
+          \ and ('items' in uu) %}\r\n    {% set uu = uu['items'] %}\r\n  {% endif\
+          \ %}\r\n  {% if uu and uu|length > 0 %}\r\n**UMLS (ứng viên):**\r\n  {%\
+          \ for u in uu %}\r\n- {{ u.cui | default('CUI?') }}{% if u.preferred_term\
+          \ %} – {{ u.preferred_term }}{% endif %}{% if u.score is defined %} (score\
+          \ ~ {{ (u.score*100)|round(1) }}%){% endif %}\r\n  {% endfor %}\r\n  {%\
+          \ endif %}\r\n{% endif %}\r\n\r\n{# Clinical trials #}\r\n{% set trials_raw\
+          \ = e.trials_summary | default({}) %}\r\n{% set trials = [] %}\r\n{% if\
+          \ trials_raw and trials_raw.keys is defined and ('items' in trials_raw)\
+          \ %}\r\n  {% set trials = trials_raw['items'] %}\r\n{% elif trials_raw and\
+          \ (trials_raw is sequence) and not (trials_raw is string) %}\r\n  {% set\
+          \ trials = trials_raw %}\r\n{% endif %}\r\n{% if trials and trials|length\
+          \ > 0 %}\r\n**Thử nghiệm lâm sàng liên quan:**\r\n{% for t in trials %}\r\
+          \n- {{ t.nct_id | default('NCT?') }} – {{ t.title | default('Không có tiêu\
+          \ đề') }}\r\n  - Giai đoạn: {{ t.phase | default('N/A') }}\r\n  - Tình trạng:\
+          \ {{ t.overall_status | default('N/A') }}\r\n  - Quốc gia: {{ t.location_countries\
+          \ | default('N/A') }}\r\n{% endfor %}\r\n{% endif %}\r\n\r\n{# openFDA #}\r\
+          \n{% if e.openfda_summary %}\r\n**Tóm tắt an toàn (openFDA):**\r\n  {% if\
+          \ e.openfda_summary.description is defined %}\r\n{{ e.openfda_summary.description\
+          \ }}\r\n  {% else %}\r\n{{ e.openfda_summary }}\r\n  {% endif %}\r\n{% endif\
+          \ %}\r\n\r\n{# best_guess #}\r\n{% if e.best_guess is defined %}\r\n**Best\
+          \ guess (nếu có):**\r\n- ICD-11: {{ e.best_guess.icd11 | default('N/A')\
+          \ }}\r\n- RxNorm: {{ e.best_guess.rxnorm | default('N/A') }}\r\n- UMLS CUI:\
+          \ {{ e.best_guess.umls_cui | default('N/A') }}\r\n{% endif %}\r\n\r\n{#\
+          \ comment #}\r\n{% if e.comment %}\r\n> Ghi chú: {% if e.comment.description\
+          \ is defined %}{{ e.comment.description }}{% else %}{{ e.comment }}{% endif\
+          \ %}\r\n{% endif %}\r\n\r\n---\r\n{% endfor %}\r\n{% else %}\r\nKhông có\
+          \ entity nào để mã hoá / tra cứu.\r\n{% endif %}\r\n\r\n{% if gw and gw|length\
+          \ > 0 %}\r\n> **Cảnh báo chung:**\r\n{% for w in gw %}\r\n> - {{ w }}\r\n\
+          {% endfor %}\r\n{% endif %}\r\n\r\n> *Tất cả gợi ý trên chỉ phục vụ nghiên\
+          \ cứu / giáo dục, không dùng trực tiếp cho mã hóa thanh toán hoặc kê đơn.\
+          \ Luôn cần bác sĩ và coder kiểm tra lại.*\r\n"
+        title: TEMPLATE_EVIDENCE
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1763812453361'
+          - structured_output
+          value_type: object
+          variable: evidence_block
+      height: 51
+      id: '1763812737094'
+      position:
+        x: 5192
+        y: 518
+      positionAbsolute:
+        x: 5192
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - 8RT0x7LEHmIanqFyXU3YwpG5c2uQbgagZY7ND9j6E4KncubIIkE7GmQ4LiSoNoPU
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          score_threshold: null
+          top_k: 5
+        query_variable_selector:
+        - '1763811812908'
+        - structured_output
+        - icd11_query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval
+        type: knowledge-retrieval
+      height: 89
+      id: '1763823575062'
+      position:
+        x: 4196
+        y: 258
+      positionAbsolute:
+        x: 4196
+        y: 258
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - vMGBlLf1GZls5tFS0O9Telaid2okUS5RZ9TiH7foRMW7dZnf9zV7/vwygKLvRpCa
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          top_k: 4
+        query_variable_selector:
+        - '1763811812908'
+        - structured_output
+        - rxnorm_query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 2
+        type: knowledge-retrieval
+      height: 89
+      id: '1763823618307'
+      position:
+        x: 4196
+        y: 388
+      positionAbsolute:
+        x: 4196
+        y: 388
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - 1VyIxjBR3hsNBjC0dD4LEP9zHsQPphhiT83JBAUVkjUCpjCSL2HCW0L6/6lRdsVs
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          top_k: 4
+        query_variable_selector:
+        - '1763811812908'
+        - structured_output
+        - umls_query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 3
+        type: knowledge-retrieval
+      height: 89
+      id: '1763823646400'
+      position:
+        x: 4196
+        y: 518
+      positionAbsolute:
+        x: 4196
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - cJqqhHn1ho+aIs2NXenlDBu0reoJq+uqqd21Mdz0M8p7n/IkeMY1ZemCtd9mWq9Q
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          top_k: 4
+        query_variable_selector:
+        - '1763811812908'
+        - structured_output
+        - openfda_query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 4
+        type: knowledge-retrieval
+      height: 89
+      id: '1763823674800'
+      position:
+        x: 4196
+        y: 648
+      positionAbsolute:
+        x: 4196
+        y: 648
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - XlAYRtQcd39fJJEjyTPXLknYrtzN+zpC/fHq5E71GyMa5fNynKWSkaMia8AZtD72
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          top_k: 4
+        query_variable_selector:
+        - '1763811812908'
+        - structured_output
+        - trials_query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval 5
+        type: knowledge-retrieval
+      height: 89
+      id: '1763823697319'
+      position:
+        x: 4196
+        y: 778
+      positionAbsolute:
+        x: 4196
+        y: 778
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        selected: false
+        template: "{# ======================================\r\n   COMBINED EVIDENCE\
+          \ TEMPLATE – CLARA MS\r\n   Inputs: user_query, trials_kr, openfda_kr, icd_kr,\
+          \ rxnorm_kr, umls_kr\r\n   ====================================== #}\r\n\
+          \r\n{# ---------- USER QUERY (optional) ---------- #}\r\n{% if user_query\
+          \ is defined and user_query %}\r\n# USER QUERY\r\n{{ user_query }}\r\n\r\
+          \n{% endif %}\r\n\r\n{# ---------- ClinicalTrials Evidence ---------- #}\r\
+          \n# EVIDENCE — ClinicalTrials.gov\r\n\r\n{% set k = trials_kr %}\r\n{% if\
+          \ k is mapping and (k.result is defined) %}\r\n  {% set k = k.result %}\r\
+          \n{% endif %}\r\n\r\n{% if k is sequence and (k|length) > 0 %}\r\n  {% for\
+          \ r in k[:8] %}\r\n    {# metadata shortcut #}\r\n    {% set md  = r.metadata\
+          \ | default({}) %}\r\n    {% set dm  = md.doc_metadata if (md is mapping\
+          \ and (md.doc_metadata is defined)) else {} %}\r\n\r\n    {# title #}\r\n\
+          \    {% set title = r.title\r\n                  | default(dm.brief_title)\r\
+          \n                  | default(dm.official_title)\r\n                  |\
+          \ default(r.document_name)\r\n                  | default(r.id)\r\n    \
+          \              | default('Untitled trial') %}\r\n\r\n    {# NCT id #}\r\n\
+          \    {% set nct = dm.nct_id\r\n                | default(md.nct_id)\r\n\
+          \                | default('') %}\r\n    {% if not nct and md.url is defined\
+          \ and ('NCT' in md.url) %}\r\n      {% set nct = md.url.split('/')[-1] %}\r\
+          \n    {% endif %}\r\n    {% if nct and not nct.startswith('NCT') %}\r\n\
+          \      {% set nct = 'NCT' ~ nct %}\r\n    {% endif %}\r\n\r\n    {# status\
+          \ / phase #}\r\n    {% set status = dm.overall_status | default(md.overall_status)\
+          \ | default('') %}\r\n    {% set phase  = dm.phase | default(md.phase) |\
+          \ default('') %}\r\n\r\n    {# link #}\r\n    {% set link = dm.source_url\r\
+          \n                 | default(md.source_url)\r\n                 | default(dm.path)\r\
+          \n                 | default(md.path)\r\n                 | default(r.source)\r\
+          \n                 | default(r.url)\r\n                 | default('') %}\r\
+          \n\r\n• {{ title | replace('\\n',' ') }}{% if nct %} [{{ nct }}]{% endif\
+          \ %}\r\n  — {{ (r.content | default(dm.brief_summary) | default('') | replace('\\\
+          n',' '))[:400]\r\n       ~ ('…' if ((r.content | default(dm.brief_summary)\
+          \ | default(''))|length > 400) else '') }}\r\n  [{% if link %}{{ link }}{%\
+          \ endif %}]{% if status %} ({{ status }}){% endif %}{% if phase %} [Phase:\
+          \ {{ phase }}]{% endif %}\r\n  {% endfor %}\r\n{% else %}\r\n• (no ClinicalTrials\
+          \ records)\r\n{% endif %}\r\n\r\n{# ---------- openFDA Evidence ----------\
+          \ #}\r\n# EVIDENCE — openFDA\r\n\r\n{% set k = openfda_kr %}\r\n{% if k\
+          \ is mapping and (k.result is defined) %}\r\n  {% set k = k.result %}\r\n\
+          {% endif %}\r\n\r\n{% if k is sequence and (k|length) > 0 %}\r\n  {% for\
+          \ r in k[:8] %}\r\n    {% set md = r.metadata | default({}) %}\r\n    {%\
+          \ set dm = md.doc_metadata if (md is mapping and (md.doc_metadata is defined))\
+          \ else {} %}\r\n\r\n    {% set dataset = dm.dataset | default(md.dataset)\
+          \ | default('') %}\r\n    {% set recall  = dm.recall_number | default(md.recall_number)\
+          \ | default('') %}\r\n    {% set srs    = dm.safetyreportid | default(md.safetyreportid)\
+          \ | default('') %}\r\n    {% set spl    = dm.spl_set_id | default(md.spl_set_id)\
+          \ | default('') %}\r\n    {% set link   = dm.openfda_api_url\r\n       \
+          \            | default(md.openfda_api_url)\r\n                   | default(dm.source_url)\r\
+          \n                   | default(md.source_url)\r\n                   | default(dm.path)\r\
+          \n                   | default(md.path)\r\n                   | default(r.source)\r\
+          \n                   | default(r.url)\r\n                   | default('')\
+          \ %}\r\n    {% set title  = r.title\r\n                   | default(dm.document_title)\r\
+          \n                   | default(r.document_name)\r\n                   |\
+          \ default(r.id)\r\n                   | default('openFDA record') %}\r\n\
+          \r\n• {{ title | replace('\\n',' ') }}\r\n  — {{ (r.content | default(dm.abstract)\
+          \ | default('') | replace('\\n',' '))[:400]\r\n       ~ ('…' if ((r.content\
+          \ | default(dm.abstract) | default(''))|length > 400) else '') }}\r\n  [{%\
+          \ if link %}{{ link }}{% endif %}]{% if dataset %} ({{ dataset }}){% endif\
+          \ %}{% if recall %} [Recall: {{ recall }}]{% endif %}{% if srs %} [FAERS:\
+          \ {{ srs }}]{% endif %}{% if spl %} [SPL: {{ spl }}]{% endif %}\r\n  {%\
+          \ endfor %}\r\n{% else %}\r\n• (no openFDA records)\r\n{% endif %}\r\n\r\
+          \n{# ---------- ICD-11 Evidence ---------- #}\r\n# EVIDENCE — ICD-11\r\n\
+          \r\n{% set k = icd_kr %}\r\n{% if k is mapping and (k.result is defined)\
+          \ %}\r\n  {% set k = k.result %}\r\n{% endif %}\r\n\r\n{% if k is sequence\
+          \ and (k|length) > 0 %}\r\n  {% for r in k[:8] %}\r\n    {% set md = r.metadata\
+          \ | default({}) %}\r\n    {% set dm = md.doc_metadata if (md is mapping\
+          \ and (md.doc_metadata is defined)) else {} %}\r\n\r\n    {% set code  =\
+          \ dm.code | default(md.code) | default('') %}\r\n    {% set title = r.title\r\
+          \n                  | default(dm.title)\r\n                  | default(r.document_name)\r\
+          \n                  | default(r.id)\r\n                  | default('ICD-11\
+          \ record') %}\r\n    {% set uri   = dm.uri\r\n                  | default(dm.source_url)\r\
+          \n                  | default(md.source_url)\r\n                  | default(dm.path)\r\
+          \n                  | default(md.path)\r\n                  | default(r.source)\r\
+          \n                  | default(r.url)\r\n                  | default('')\
+          \ %}\r\n    {% set defn  = dm.definition | default('') %}\r\n\r\n• {{ title\
+          \ | replace('\\n',' ') }}{% if code %} [ICD-11: {{ code }}]{% endif %}\r\
+          \n  — {{ (r.content | default(defn) | default('') | replace('\\n',' '))[:400]\r\
+          \n       ~ ('…' if ((r.content | default(defn) | default(''))|length > 400)\
+          \ else '') }}\r\n  [{% if uri %}{{ uri }}{% endif %}]\r\n  {% endfor %}\r\
+          \n{% else %}\r\n• (no ICD-11 records)\r\n{% endif %}\r\n\r\n{# ----------\
+          \ RxNorm / RxClass Evidence ---------- #}\r\n# EVIDENCE — RxNorm / RxClass\r\
+          \n\r\n{% set k = rxnorm_kr %}\r\n{% if k is mapping and (k.result is defined)\
+          \ %}\r\n  {% set k = k.result %}\r\n{% endif %}\r\n\r\n{% if k is sequence\
+          \ and (k|length) > 0 %}\r\n  {% for r in k[:8] %}\r\n    {% set md  = r.metadata\
+          \ | default({}) %}\r\n    {% set dm  = md.doc_metadata if (md is mapping\
+          \ and (md.doc_metadata is defined)) else {} %}\r\n\r\n    {% set rxcui \
+          \    = dm.rxcui | default(md.rxcui) | default('') %}\r\n    {% set ndc \
+          \      = dm.ndc | default(md.ndc) | default('') %}\r\n    {% set classId\
+          \   = dm.classId | default(md.classId) | default('') %}\r\n    {% set className\
+          \ = dm.className | default(md.className) | default('') %}\r\n    {% set\
+          \ classType = dm.classType | default(md.classType) | default('') %}\r\n\
+          \    {% set src       = dm.source_url\r\n                      | default(md.source_url)\r\
+          \n                      | default(dm.path)\r\n                      | default(md.path)\r\
+          \n                      | default(r.source)\r\n                      | default(r.url)\r\
+          \n                      | default('') %}\r\n    {% set title     = r.title\r\
+          \n                      | default(dm.document_title)\r\n               \
+          \       | default(r.document_name)\r\n                      | default(r.id)\r\
+          \n                      | default('RxNorm record') %}\r\n\r\n• {{ title\
+          \ | replace('\\n',' ') }}\r\n  — {{ (r.content | default(dm.abstract) |\
+          \ default('') | replace('\\n',' '))[:400]\r\n       ~ ('…' if ((r.content\
+          \ | default(dm.abstract) | default(''))|length > 400) else '') }}\r\n  [{%\
+          \ if src %}{{ src }}{% endif %}]{% if rxcui %} [RxCUI: {{ rxcui }}]{% endif\
+          \ %}{% if ndc %} [NDC: {{ ndc }}]{% endif %}{% if classId %} [Class: {{\
+          \ classId }}{% if className %} ({{ className }}){% endif %}{% if classType\
+          \ %} [{{ classType }}]{% endif %}]{% endif %}\r\n  {% endfor %}\r\n{% else\
+          \ %}\r\n• (no RxNorm/RxClass records)\r\n{% endif %}\r\n\r\n{# ----------\
+          \ UMLS Evidence ---------- #}\r\n# EVIDENCE — UMLS\r\n\r\n{% set k = umls_kr\
+          \ %}\r\n{% if k is mapping and (k.result is defined) %}\r\n  {% set k =\
+          \ k.result %}\r\n{% endif %}\r\n\r\n{% if k is sequence and (k|length) >\
+          \ 0 %}\r\n  {% for r in k[:8] %}\r\n    {% set md  = r.metadata | default({})\
+          \ %}\r\n    {% set dm  = md.doc_metadata if (md is mapping and (md.doc_metadata\
+          \ is defined)) else {} %}\r\n\r\n    {% set cui    = dm.cui | default(dm.ui)\
+          \ | default(md.cui) | default('') %}\r\n    {% set root   = dm.rootSource\
+          \ | default(dm.root_source) | default(md.rootSource) | default('') %}\r\n\
+          \    {% set code   = dm.code | default('') %}\r\n    {% set stys   = dm.semanticTypes\
+          \ | default(dm.semantic_types) | default([]) %}\r\n    {% set defsrc = dm.definitionSource\
+          \ | default(dm.definition_source) | default('') %}\r\n\r\n    {% set src\
+          \ = dm.source_url\r\n                | default(md.source_url)\r\n      \
+          \          | default(dm.path)\r\n                | default(md.path)\r\n\
+          \                | default(r.source)\r\n                | default(r.url)\r\
+          \n                | default('') %}\r\n\r\n    {% set title = r.title\r\n\
+          \                  | default(dm.name)\r\n                  | default(r.document_name)\r\
+          \n                  | default(r.id)\r\n                  | default('UMLS\
+          \ record') %}\r\n\r\n• {{ title | replace('\\n',' ') }}\r\n  — {{ (r.content\
+          \ | default(dm.definition) | default('') | replace('\\n',' '))[:400]\r\n\
+          \       ~ ('…' if ((r.content | default(dm.definition) | default(''))|length\
+          \ > 400) else '') }}\r\n  [{% if src %}{{ src }}{% endif %}]{% if cui %}\
+          \ [CUI: {{ cui }}]{% endif %}\r\n  {% if root and code %} [{{ root }}: {{\
+          \ code }}]{% endif %}\r\n  {% if stys and (stys|length) > 0 %} [STY: {{\
+          \ (stys|list)[:3] | join(', ') }}{% if (stys|length) > 3 %}, …{% endif %}]{%\
+          \ endif %}\r\n  {% if defsrc %} [Def: {{ defsrc }}]{% endif %}\r\n  {% endfor\
+          \ %}\r\n{% else %}\r\n• (no UMLS records)\r\n{% endif %}"
+        title: Template 4
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1763823575062'
+          - result
+          value_type: array[object]
+          variable: icd_kr
+        - value_selector:
+          - '1763823618307'
+          - result
+          value_type: array[object]
+          variable: rxnorm_kr
+        - value_selector:
+          - '1763823646400'
+          - result
+          value_type: array[object]
+          variable: umls_kr
+        - value_selector:
+          - '1763823674800'
+          - result
+          value_type: array[object]
+          variable: openfda_kr
+        - value_selector:
+          - '1763823697319'
+          - result
+          value_type: array[object]
+          variable: trials_kr
+        - value_selector:
+          - '1763802945681'
+          - text
+          value_type: string
+          variable: user_query
+      height: 51
+      id: '1763828512463'
+      position:
+        x: 4498
+        y: 518
+      positionAbsolute:
+        x: 4498
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -1268.9524917570122
+      y: -12.820869331440065
+      zoom: 0.49863682122110253
+  rag_pipeline_variables: []
