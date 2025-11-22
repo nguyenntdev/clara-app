@@ -342,7 +342,7 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
 
                   <div className="relative overflow-hidden rounded-lg aspect-[16/9] md:aspect-[21/9] bg-slate-900">
                       <img 
-                          src="team.jpg" 
+                          src="https://i.ibb.co/DPTm2SB7/image.jpg" 
                           onError={(e) => {
                             e.currentTarget.src = 'https://placehold.co/1200x600/020617/38bdf8?text=CLARA+TEAM&font=roboto';
                             e.currentTarget.onerror = null; // Prevent infinite loop
