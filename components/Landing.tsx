@@ -9,7 +9,9 @@ import {
   BoltIcon,
   GlobeAltIcon,
   ArrowRightIcon,
-  SparklesIcon
+  SparklesIcon,
+  BuildingLibraryIcon,
+  CodeBracketIcon
 } from '@heroicons/react/24/outline';
 import { CONSTANTS } from '../types';
 
@@ -98,9 +100,9 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
           </div>
           
           <div className="hidden md:flex gap-10 text-[10px] text-slate-400 font-mono tracking-[0.2em]">
-            <button onClick={() => document.getElementById('about')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Mission</button>
             <button onClick={() => document.getElementById('modules')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Modules</button>
-            <button onClick={() => document.getElementById('tech')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Core</button>
+            <button onClick={() => document.getElementById('cases')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Cases</button>
+            <button onClick={() => document.getElementById('team')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Team</button>
           </div>
           
           <button 
@@ -148,6 +150,23 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
              SYSTEM ARCHITECTURE
           </button>
         </div>
+      </section>
+
+      {/* Partners / Trust Section */}
+      <section className="py-10 border-y border-slate-800/50 bg-[#02040a]/80 backdrop-blur-sm relative z-10">
+         <div className="max-w-7xl mx-auto px-6">
+            <p className="text-center text-[10px] font-mono tracking-[0.3em] text-slate-500 mb-8 uppercase">Strategic Partners & Technology Ecosystem</p>
+            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+               <div className="flex items-center gap-2">
+                  <GlobeAltIcon className="w-6 h-6" />
+                  <span className="font-display font-bold text-lg">Google Developer Groups</span>
+               </div>
+               <div className="flex items-center gap-2">
+                  <CodeBracketIcon className="w-6 h-6" />
+                  <span className="font-display font-bold text-lg">HACKATHON 2025</span>
+               </div>
+            </div>
+         </div>
       </section>
 
       {/* Modules Section */}
@@ -232,7 +251,7 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
         </div>
       </section>
 
-      {/* Use Cases Section (Visual Grid) */}
+      {/* Use Cases Section */}
       <section id="cases" className="py-32 px-4 bg-[#050914] relative border-t border-slate-900">
          <div className="max-w-7xl mx-auto relative z-10">
             <h2 className="font-display text-2xl text-slate-500 font-bold mb-16 tracking-widest">DEPLOYMENT SCENARIOS</h2>
@@ -294,6 +313,64 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
                 </div>
             </div>
          </div>
+      </section>
+
+      {/* TEAM SECTION */}
+      <section id="team" className="py-32 relative z-10 border-t border-slate-900 bg-[#020617]">
+          <div className="max-w-7xl mx-auto px-6">
+              <div className="flex items-end justify-between mb-16">
+                  <h2 className="font-display text-3xl md:text-5xl font-bold text-white leading-none">
+                      <span className="text-cyan-500 block text-lg font-mono mb-2 tracking-widest">THE ARCHITECTS</span>
+                      HUMAN<br/>INTELLIGENCE
+                  </h2>
+                  <div className="hidden md:block w-32 h-1 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="w-1/2 h-full bg-cyan-500 animate-scan-vertical"></div>
+                  </div>
+              </div>
+
+              <div className="glass-panel p-2 md:p-4 rounded-xl border border-cyan-500/20 max-w-6xl mx-auto relative group">
+                  {/* Tech decorative corners */}
+                  <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-500/50 -translate-x-1 -translate-y-1"></div>
+                  <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-500/50 translate-x-1 -translate-y-1"></div>
+                  <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-500/50 -translate-x-1 translate-y-1"></div>
+                  <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500/50 translate-x-1 translate-y-1"></div>
+
+                  <div className="relative overflow-hidden rounded-lg aspect-[16/9] md:aspect-[21/9] bg-slate-900">
+                      {/* 
+                         IMPORTANT: 
+                         To display the team photo, please rename your file to 'team.jpg' 
+                         and place it in the public root folder of the application.
+                      */}
+                      <img 
+                          src="/image.jpg" 
+                          alt="CLARA Team: Nguyen Ngoc Thien, Vu Van An, Nguyen Hai Duy, Trinh Minh Quang" 
+                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90"></div>
+                      
+                      <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                              <div className="text-center md:text-left group/member">
+                                  <div className="text-cyan-400 font-mono text-[10px] mb-2 tracking-widest border-b border-cyan-500/20 pb-1 inline-block">LEAD ENGINEER</div>
+                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-cyan-300 transition-colors">Nguyen Ngoc Thien</div>
+                              </div>
+                              <div className="text-center md:text-left group/member">
+                                  <div className="text-purple-400 font-mono text-[10px] mb-2 tracking-widest border-b border-purple-500/20 pb-1 inline-block">AI RESEARCHER</div>
+                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-purple-300 transition-colors">Vu Van An</div>
+                              </div>
+                              <div className="text-center md:text-left group/member">
+                                  <div className="text-blue-400 font-mono text-[10px] mb-2 tracking-widest border-b border-blue-500/20 pb-1 inline-block">FULLSTACK DEV</div>
+                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-blue-300 transition-colors">Nguyen Hai Duy</div>
+                              </div>
+                              <div className="text-center md:text-left group/member">
+                                  <div className="text-emerald-400 font-mono text-[10px] mb-2 tracking-widest border-b border-emerald-500/20 pb-1 inline-block">PRODUCT DESIGN</div>
+                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-emerald-300 transition-colors">Trinh Minh Quang</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </section>
 
       {/* Footer / Tech */}

@@ -381,6 +381,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
   return (
     <div className="flex h-screen bg-[#030712] text-slate-200 font-sans overflow-hidden bg-grid relative">
       
+      {/* Ambient Side Lighting */}
+      <div className={`fixed top-0 left-0 w-64 md:w-96 h-full bg-gradient-to-r ${isScribe ? 'from-purple-900/15' : 'from-cyan-900/15'} to-transparent blur-[80px] pointer-events-none z-0`} />
+      <div className={`fixed top-0 right-0 w-64 md:w-96 h-full bg-gradient-to-l ${isScribe ? 'from-purple-900/15' : 'from-cyan-900/15'} to-transparent blur-[80px] pointer-events-none z-0`} />
+
       {/* Settings Panel */}
       <div 
         className={`
