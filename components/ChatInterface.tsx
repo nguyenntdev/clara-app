@@ -30,6 +30,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('PROCESSING');
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
@@ -60,6 +61,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
   useEffect(() => {
       const initSession = async () => {
           setIsLoading(true);
+          setLoadingText("INITIALIZING SYSTEMS...");
           
           // 1. Load Parameters
           try {
@@ -117,7 +119,29 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isLoading]);
+  }, [messages, isLoading, loadingText]);
+
+  // Dynamic Loading Text Effect
+  useEffect(() => {
+    let interval: any;
+    if (isLoading) {
+      const steps = [
+        "ESTABLISHING SECURE UPLINK...",
+        "PARSING CLINICAL CONTEXT...",
+        "QUERYING MEDICAL KNOWLEDGE...",
+        "CROSS-REFERENCING GUIDELINES...",
+        "SYNTHESIZING EVIDENCE...",
+        "FORMATTING OUTPUT..."
+      ];
+      let i = 0;
+      setLoadingText(steps[0]);
+      interval = setInterval(() => {
+        i = (i + 1) % steps.length;
+        setLoadingText(steps[i]);
+      }, 3000); // Cycle every 3 seconds
+    }
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   // Load voices
   useEffect(() => {
@@ -167,6 +191,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
   }
 
   const handleSendMessage = async (text: string = inputValue) => {
+    // Check if files are still uploading
+    if (files.some(f => f.isUploading)) return;
     if ((!text.trim() && files.length === 0) || isLoading) return;
 
     const userMsg: Message = {
@@ -195,8 +221,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
       })) || [];
 
       // Send to Dify
-      // Increase timeout for Scribe mode (360s), default for Research (300s)
-      const requestTimeout = mode === 'scribe' ? 360000 : 300000;
+      // Increase timeout for Scribe mode (900s / 15 mins), Research (600s / 10 mins)
+      const requestTimeout = mode === 'scribe' ? 900000 : 600000;
       
       const response = await sendMessageToDify(apiKey, text, conversationId, difyFiles as any, requestTimeout);
       
@@ -242,15 +268,16 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
         name: file.name,
         type: fileType,
         mimeType: file.type,
-        url: tempUrl
+        url: tempUrl,
+        isUploading: true // Set uploading state
       }]);
 
       try {
         const userId = localStorage.getItem('clara_user_id') || 'user_1';
         const uploadRes = await uploadFileToDify(apiKey, file, userId);
         
-        // Update file with actual ID from Dify
-        setFiles(prev => prev.map(f => f.id === tempId ? { ...f, id: uploadRes.id } : f));
+        // Update file with actual ID from Dify and clear uploading state
+        setFiles(prev => prev.map(f => f.id === tempId ? { ...f, id: uploadRes.id, isUploading: false } : f));
       } catch (err) {
         console.error("Upload failed", err);
         setFiles(prev => prev.filter(f => f.id !== tempId)); // Remove on fail
@@ -368,6 +395,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
           <div key={f.id} className={`relative group ${isUploadPreview ? 'w-16 h-16 md:w-20 md:h-20 flex-shrink-0' : 'w-full max-w-[200px] mb-2'}`}>
             <div className={`rounded bg-slate-900 border border-slate-700 overflow-hidden flex flex-col items-center justify-center ${isUploadPreview ? 'h-full' : 'p-2'}`}>
               
+              {/* Loading Overlay for Uploads */}
+              {f.isUploading && (
+                <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm z-10 transition-all">
+                  <ArrowPathIcon className="w-6 h-6 text-cyan-400 animate-spin" />
+                </div>
+              )}
+
               {f.type === 'image' && (
                   <img src={f.url} alt={f.name} className={`${isUploadPreview ? 'w-full h-full object-cover' : 'max-h-64 object-contain'}`} />
               )}
@@ -375,7 +409,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
               {f.type === 'audio' && (
                   <div className="flex flex-col items-center gap-2 p-2 w-full">
                       <MusicalNoteIcon className="w-8 h-8 text-cyan-500" />
-                      {!isUploadPreview && <audio controls src={f.url} className="w-full h-8" />}
+                      {!isUploadPreview && !f.isUploading && <audio controls src={f.url} className="w-full h-8" />}
                       <span className="text-xs text-slate-400 truncate w-full text-center">{f.name}</span>
                   </div>
               )}
@@ -398,7 +432,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
             {isUploadPreview && (
                 <button 
                 onClick={() => setFiles(files.filter(file => file.id !== f.id))}
-                className="absolute -top-1 -right-1 bg-red-500 rounded-full p-0.5 text-white shadow-sm hover:scale-110 transition-transform"
+                disabled={f.isUploading}
+                className="absolute -top-1 -right-1 bg-red-500 rounded-full p-0.5 text-white shadow-sm hover:scale-110 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                 <XMarkIcon className="w-3 h-3" />
                 </button>
@@ -406,6 +441,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
           </div>
       );
   }
+
+  const isUploading = files.some(f => f.isUploading);
 
   return (
     <div className="flex h-screen bg-[#020617] text-slate-200 font-sans overflow-hidden">
@@ -503,7 +540,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                </h1>
                <div className="flex items-center gap-2 text-[10px] md:text-xs font-mono text-cyan-500 mt-1">
                  <span className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-cyan-400 animate-ping' : 'bg-cyan-500'}`}/>
-                 {isLoading ? 'NEURAL PROCESSING...' : 'SYSTEM ONLINE'}
+                 {isLoading ? 'NEURAL PROCESSING ACTIVE' : 'SYSTEM ONLINE'}
                </div>
              </div>
           </div>
@@ -531,7 +568,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                      <div className="w-12 h-12 border-4 border-slate-800 rounded-full"></div>
                      <div className="w-12 h-12 border-4 border-cyan-500 rounded-full border-t-transparent animate-spin absolute top-0 left-0"></div>
                   </div>
-                  <p className="font-mono text-xs tracking-widest animate-pulse">ESTABLISHING UPLINK</p>
+                  <p className="font-mono text-xs tracking-widest animate-pulse">{loadingText}</p>
               </div>
           )}
           {messages.map((msg) => (
@@ -615,7 +652,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                    <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
                    <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                    <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
-                   <span className="text-xs font-mono text-cyan-500 ml-2 tracking-widest">ANALYZING</span>
+                   <span className="text-xs font-mono text-cyan-500 ml-2 tracking-widest uppercase">{loadingText}</span>
                 </div>
              </div>
           )}
@@ -624,7 +661,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
 
         {/* Input Area */}
         <div className="p-3 md:p-6 bg-[#020617] relative z-20">
-          <div className="glass-panel rounded-2xl p-2 flex flex-col gap-2 relative shadow-lg shadow-cyan-900/5 border-slate-700/50 transition-all focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/20">
+          <div className={`glass-panel rounded-2xl p-2 flex flex-col gap-2 relative shadow-lg shadow-cyan-900/5 border-slate-700/50 transition-all focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/20 ${isLoading ? 'opacity-80' : ''}`}>
             
             {/* File Preview in Input */}
             {files.length > 0 && (
@@ -637,7 +674,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                {/* Upload Button */}
                <button 
                  onClick={() => fileInputRef.current?.click()}
-                 className="p-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-colors flex-shrink-0"
+                 disabled={isLoading || isUploading}
+                 className="p-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-colors flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
                  title="Upload File"
                >
                  <PaperClipIcon className="w-5 h-5" />
@@ -662,15 +700,17 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                      handleSendMessage();
                    }
                  }}
+                 disabled={isLoading}
                  placeholder={mode === 'research' ? "Ask about medical protocols..." : "Type clinical notes..."}
-                 className="flex-1 bg-transparent text-white placeholder-slate-500 focus:outline-none resize-none py-3 max-h-32 min-h-[48px] scrollbar-hide text-sm md:text-base leading-relaxed"
+                 className="flex-1 bg-transparent text-white placeholder-slate-500 focus:outline-none resize-none py-3 max-h-32 min-h-[48px] scrollbar-hide text-sm md:text-base leading-relaxed disabled:opacity-50"
                  rows={1}
                />
                
                {/* STT Button */}
                <button 
                  onClick={toggleRecording}
-                 className={`p-3 rounded-xl transition-all flex-shrink-0 ${isRecording ? 'bg-red-500/20 text-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.5)]' : 'text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50'}`}
+                 disabled={isLoading}
+                 className={`p-3 rounded-xl transition-all flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed ${isRecording ? 'bg-red-500/20 text-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.5)]' : 'text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50'}`}
                  title="Voice Input"
                >
                  <MicrophoneIcon className="w-5 h-5" />
@@ -679,10 +719,14 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                {/* Send Button */}
                <button 
                  onClick={() => handleSendMessage()}
-                 disabled={(!inputValue.trim() && files.length === 0) || isLoading}
+                 disabled={(!inputValue.trim() && files.length === 0) || isLoading || isUploading}
                  className="p-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-900/20 active:scale-95 flex-shrink-0"
                >
-                 <PaperAirplaneIcon className="w-5 h-5" />
+                 {isUploading ? (
+                   <ArrowPathIcon className="w-5 h-5 animate-spin" />
+                 ) : (
+                   <PaperAirplaneIcon className="w-5 h-5" />
+                 )}
                </button>
             </div>
           </div>

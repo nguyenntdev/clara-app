@@ -13,6 +13,7 @@ export interface UploadedFile {
   url?: string;
   type: 'image' | 'document' | 'audio' | 'video';
   mimeType?: string;
+  isUploading?: boolean;
 }
 
 export interface AppState {

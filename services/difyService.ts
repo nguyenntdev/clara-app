@@ -10,9 +10,9 @@ const getUserId = () => {
   return userId;
 };
 
-// Timeout helper (Default 300s)
+// Timeout helper (Default 600s / 10 mins)
 const fetchWithTimeout = async (resource: string, options: RequestInit & { timeout?: number } = {}) => {
-  const { timeout = 300000, ...rest } = options;
+  const { timeout = 600000, ...rest } = options;
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -112,7 +112,7 @@ export const sendMessageToDify = async (
   query: string,
   conversationId: string | null,
   files: { type: string; transfer_method: string; url?: string; upload_file_id?: string }[] = [],
-  timeout: number = 300000
+  timeout: number = 600000
 ) => {
   const url = `${CONSTANTS.API_ENDPOINT}/chat-messages`;
   
