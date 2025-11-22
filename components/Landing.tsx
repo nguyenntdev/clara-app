@@ -1,5 +1,16 @@
 import React from 'react';
-import { BeakerIcon, DocumentTextIcon, CpuChipIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { 
+  BeakerIcon, 
+  DocumentTextIcon, 
+  CpuChipIcon, 
+  ShieldCheckIcon,
+  UserGroupIcon,
+  AcademicCapIcon,
+  BoltIcon,
+  GlobeAltIcon,
+  ArrowRightIcon,
+  SparklesIcon
+} from '@heroicons/react/24/outline';
 import { CONSTANTS } from '../types';
 
 interface LandingProps {
@@ -8,134 +19,315 @@ interface LandingProps {
 
 const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
   return (
-    <div className="min-h-screen bg-[#020617] text-white overflow-x-hidden relative">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/10 blur-[120px] rounded-full pointer-events-none" />
+    <div className="min-h-screen text-white overflow-x-hidden relative selection:bg-cyan-500/30 selection:text-cyan-200">
+      
+      {/* 3D Immersive Background - Neural Data Field */}
+      <div className="fixed inset-0 z-0 overflow-hidden flex items-center justify-center pointer-events-none">
+        <div className="relative w-[150vh] h-[150vh] perspective-2000 opacity-40">
+           {/* Rotating 3D Plane */}
+           <div className="w-full h-full transform-style-3d animate-[spin_120s_linear_infinite] flex items-center justify-center">
+              
+              {/* Tilted Plane Effect */}
+              <div className="absolute inset-0 transform rotate-x-[60deg] transform-style-3d">
+                  
+                  {/* Orbit Ring 1 (Outer) */}
+                  <div className="absolute top-[10%] left-[10%] right-[10%] bottom-[10%] border border-slate-700/30 rounded-full shadow-[0_0_50px_rgba(6,182,212,0.05)]"></div>
+                  
+                  {/* Orbit Ring 2 (Middle) */}
+                  <div className="absolute top-[25%] left-[25%] right-[25%] bottom-[25%] border border-slate-700/20 rounded-full border-dashed"></div>
+
+                  {/* Data Nodes Floating in 3D */}
+                  {/* Node 1 */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 transform-style-3d animate-[spin_20s_linear_infinite_reverse]">
+                      <div className="p-4 bg-slate-900/80 border border-cyan-500/30 rounded-xl transform rotate-x-[-60deg]">
+                          <GlobeAltIcon className="w-12 h-12 text-cyan-500/50" />
+                      </div>
+                  </div>
+
+                  {/* Node 2 */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 transform-style-3d animate-[spin_25s_linear_infinite_reverse]">
+                      <div className="p-4 bg-slate-900/80 border border-purple-500/30 rounded-xl transform rotate-x-[-60deg]">
+                          <BeakerIcon className="w-12 h-12 text-purple-500/50" />
+                      </div>
+                  </div>
+
+                  {/* Node 3 */}
+                  <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 transform-style-3d animate-[spin_30s_linear_infinite_reverse]">
+                      <div className="p-4 bg-slate-900/80 border border-blue-500/30 rounded-xl transform rotate-x-[-60deg]">
+                          <DocumentTextIcon className="w-12 h-12 text-blue-500/50" />
+                      </div>
+                  </div>
+
+                  {/* Node 4 */}
+                  <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 transform-style-3d animate-[spin_35s_linear_infinite_reverse]">
+                      <div className="p-4 bg-slate-900/80 border border-emerald-500/30 rounded-xl transform rotate-x-[-60deg]">
+                          <UserGroupIcon className="w-12 h-12 text-emerald-500/50" />
+                      </div>
+                  </div>
+                  
+                  {/* Central Core Connection Lines */}
+                  <svg className="absolute inset-0 w-full h-full opacity-10">
+                     <line x1="50%" y1="50%" x2="50%" y2="0" stroke="white" strokeWidth="2" />
+                     <line x1="50%" y1="50%" x2="50%" y2="100%" stroke="white" strokeWidth="2" />
+                     <line x1="50%" y1="50%" x2="0" y2="50%" stroke="white" strokeWidth="2" />
+                     <line x1="50%" y1="50%" x2="100%" y2="50%" stroke="white" strokeWidth="2" />
+                  </svg>
+              </div>
+
+              {/* Center Core (Floating above plane) */}
+              <div className="absolute z-10 transform translate-z-[50px]">
+                 <div className="relative w-40 h-40 bg-slate-900/50 backdrop-blur-sm rounded-full border border-cyan-500/30 flex items-center justify-center shadow-[0_0_100px_rgba(6,182,212,0.2)]">
+                     <CpuChipIcon className="w-20 h-20 text-white/80 animate-pulse" />
+                     <div className="absolute inset-0 border-t border-cyan-500/50 rounded-full animate-spin"></div>
+                 </div>
+              </div>
+
+           </div>
+        </div>
+      </div>
       
       {/* Nav */}
-      <nav className="relative z-10 flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full border border-cyan-500 flex items-center justify-center">
-            <CpuChipIcon className="w-5 h-5 text-cyan-400" />
+      <nav className="fixed top-0 w-full z-40 backdrop-blur-md border-b border-white/5 bg-[#030712]/80">
+        <div className="flex justify-between items-center px-6 md:px-8 py-4 max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <div className="relative w-8 h-8 flex items-center justify-center">
+              <CpuChipIcon className="relative w-6 h-6 text-cyan-400" />
+              <div className="absolute inset-0 border border-cyan-500/30 rounded blur-[1px]"></div>
+            </div>
+            <span className="font-display font-bold text-lg tracking-[0.15em] text-white group-hover:text-cyan-400 transition-colors">CLARA</span>
           </div>
-          <span className="font-display font-bold text-xl tracking-widest">CLARA</span>
-        </div>
-        <div className="hidden md:flex gap-8 text-sm text-slate-400 font-mono tracking-wide">
-          <a href="#" className="hover:text-cyan-400 transition-colors">ABOUT</a>
-          <a href="#" className="hover:text-cyan-400 transition-colors">FEATURES</a>
-          <a href="#" className="hover:text-cyan-400 transition-colors">TECH</a>
-          <a href="#" className="hover:text-cyan-400 transition-colors">CASES</a>
-        </div>
-        <button className="px-6 py-2 bg-white text-black font-bold text-sm rounded-full hover:bg-cyan-50 transition-colors">
-          GET STARTED
-        </button>
-      </nav>
-
-      {/* Hero */}
-      <div className="relative z-10 flex flex-col items-center text-center mt-20 px-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-950/20 text-cyan-400 text-xs font-mono mb-8">
-          <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
-          SYSTEM OPERATIONAL V1.0
-        </div>
-        
-        <h1 className="font-display text-5xl md:text-8xl font-black tracking-tighter mb-6 neon-text leading-tight">
-          MEDICAL<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">INTELLIGENCE</span>
-        </h1>
-        
-        <p className="max-w-2xl text-slate-400 text-lg md:text-xl leading-relaxed mb-12">
-          A specialized agentic framework bridging the gap between global medical evidence and clinical decision-making in Vietnam.
-        </p>
-
-        <div className="flex flex-col md:flex-row gap-4">
+          
+          <div className="hidden md:flex gap-10 text-[10px] text-slate-400 font-mono tracking-[0.2em]">
+            <button onClick={() => document.getElementById('about')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Mission</button>
+            <button onClick={() => document.getElementById('modules')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Modules</button>
+            <button onClick={() => document.getElementById('tech')?.scrollIntoView({behavior:'smooth'})} className="hover:text-cyan-400 transition-colors uppercase">Core</button>
+          </div>
+          
           <button 
             onClick={() => document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-md font-bold tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all"
+            className="group relative px-5 py-2 overflow-hidden bg-white/5 border border-white/10 rounded hover:border-cyan-500/50 transition-all"
           >
-            DISCOVER CLARA &rarr;
-          </button>
-          <button className="px-8 py-4 glass-panel rounded-md font-bold tracking-wide hover:bg-slate-800/50 transition-all border-slate-700">
-            VIEW ARCHITECTURE
+            <div className="absolute inset-0 bg-cyan-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            <span className="relative font-bold text-[10px] font-mono tracking-widest text-cyan-400 group-hover:text-cyan-200">INITIALIZE</span>
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Modules Section */}
-      <div id="modules" className="relative z-10 max-w-7xl mx-auto mt-32 px-4 pb-20">
-        <div className="flex items-center gap-2 mb-12 justify-center">
-            <span className="w-1 h-1 bg-cyan-500 rounded-full"></span>
-            <span className="text-cyan-500 text-xs font-mono tracking-[0.3em] uppercase">Core Modules</span>
-            <span className="w-1 h-1 bg-cyan-500 rounded-full"></span>
+      {/* Hero Section */}
+      <section className="relative z-10 min-h-[90vh] flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto pt-20">
+        
+        <div className="inline-flex items-center gap-3 px-3 py-1 rounded-sm border-x border-cyan-500/30 bg-cyan-950/30 text-cyan-400 text-[10px] font-mono mb-8 backdrop-blur-md tracking-[0.2em] shadow-lg">
+          <span>// SYSTEM OPERATIONAL</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
         </div>
         
-        <h2 className="font-display text-4xl md:text-5xl font-bold text-center mb-16">INTELLIGENT MODULES</h2>
+        <h1 className="font-display text-5xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.9] text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-200 to-slate-500 drop-shadow-2xl">
+          MEDICAL<br />
+          INTELLIGENCE
+        </h1>
+        
+        <p className="max-w-2xl text-slate-300 text-sm md:text-xl leading-relaxed mb-12 font-light tracking-wide drop-shadow-md bg-black/30 p-4 rounded-xl backdrop-blur-sm border border-white/5">
+          Bridging the gap between global medical evidence and clinical decision-making with agentic precision.
+        </p>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Research Module Card */}
-          <div 
-            onClick={() => onSelectModule('research', CONSTANTS.KEYS.RESEARCH)}
-            className="group glass-panel p-8 rounded-2xl hover:border-cyan-500/50 transition-all cursor-pointer relative overflow-hidden"
+        <div className="flex flex-col md:flex-row gap-6 w-full md:w-auto">
+          <button 
+            onClick={() => document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth' })}
+            className="group relative px-10 py-5 bg-cyan-600 hover:bg-cyan-500 transition-all rounded-sm shadow-[0_0_30px_rgba(8,145,178,0.4)] hover:shadow-[0_0_60px_rgba(6,182,212,0.6)] overflow-hidden"
           >
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-               <BeakerIcon className="w-32 h-32 text-cyan-500" />
-            </div>
-            <div className="w-12 h-12 rounded-lg bg-cyan-950 flex items-center justify-center mb-6 group-hover:bg-cyan-900 transition-colors">
-              <BeakerIcon className="w-6 h-6 text-cyan-400" />
-            </div>
-            <h3 className="font-display text-2xl font-bold mb-4">CLARA Research</h3>
-            <p className="text-slate-400 leading-relaxed mb-6 h-20">
-              An Agentic RAG system that autonomously plans, retrieves, and synthesizes medical evidence from trusted global sources like PubMed and ClinicalTrials.gov.
-            </p>
-            <div className="flex gap-2">
-              <span className="px-3 py-1 rounded bg-cyan-950/50 border border-cyan-900 text-cyan-400 text-xs font-mono">#PubMed</span>
-              <span className="px-3 py-1 rounded bg-cyan-950/50 border border-cyan-900 text-cyan-400 text-xs font-mono">#EvidenceBased</span>
-            </div>
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+            <span className="relative font-bold tracking-widest text-xs flex items-center justify-center gap-2 text-white">
+              ACCESS MODULES <ArrowRightIcon className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </button>
+          
+          <button 
+            onClick={() => document.getElementById('tech')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-10 py-5 border border-slate-600 hover:border-cyan-500/50 text-slate-300 hover:text-white transition-all rounded-sm font-bold tracking-widest text-xs bg-slate-900/80 backdrop-blur-md"
+          >
+             SYSTEM ARCHITECTURE
+          </button>
+        </div>
+      </section>
+
+      {/* Modules Section */}
+      <section id="modules" className="relative z-10 py-32 px-4 border-t border-slate-800/50 bg-[#030712]/90 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-4 mb-20">
+            <div className="h-px flex-1 bg-slate-800"></div>
+            <span className="font-display font-bold text-2xl md:text-4xl text-white">CORE MODULES</span>
+            <div className="h-px flex-1 bg-slate-800"></div>
           </div>
 
-          {/* Scribe Module Card */}
-          <div 
-            onClick={() => onSelectModule('scribe', CONSTANTS.KEYS.SCRIBE)}
-            className="group glass-panel p-8 rounded-2xl hover:border-purple-500/50 transition-all cursor-pointer relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-               <DocumentTextIcon className="w-32 h-32 text-purple-500" />
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
+            
+            {/* Research Card */}
+            <div 
+              onClick={() => onSelectModule('research', CONSTANTS.KEYS.RESEARCH)}
+              className="tech-card group p-8 md:p-12 cursor-pointer h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex justify-between items-start mb-8">
+                    <div className="w-16 h-16 rounded bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+                        <BeakerIcon className="w-8 h-8 text-cyan-400 group-hover:text-white" />
+                    </div>
+                    <div className="text-[10px] font-mono text-cyan-500/50 border border-cyan-500/20 px-2 py-1">MOD_01</div>
+                </div>
+
+                <h3 className="font-display text-3xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors">RESEARCH</h3>
+                <p className="text-slate-400 leading-relaxed mb-8 text-sm">
+                   Autonomous RAG agent. Navigates PubMed & ClinicalTrials.gov to answer complex clinical queries with verified citations.
+                </p>
+              </div>
+
+              <div>
+                <div className="grid grid-cols-2 gap-2 mb-8">
+                  {['Guideline Synthesis', 'Drug Interactions', 'Protocol Check', 'Citation Map'].map((tag) => (
+                    <div key={tag} className="px-3 py-2 border-l border-slate-700 bg-slate-900/30 text-slate-400 text-[10px] font-mono uppercase">
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="flex items-center gap-2 text-cyan-500 text-xs font-bold tracking-widest group-hover:gap-4 transition-all">
+                  INITIALIZE <ArrowRightIcon className="w-3 h-3" />
+                </div>
+              </div>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-purple-950/50 flex items-center justify-center mb-6 group-hover:bg-purple-900/50 transition-colors">
-              <DocumentTextIcon className="w-6 h-6 text-purple-400" />
-            </div>
-            <h3 className="font-display text-2xl font-bold mb-4">CLARA Scribe</h3>
-            <p className="text-slate-400 leading-relaxed mb-6 h-20">
-              Real-time clinical conversation processing. Converts audio into structured FHIR-compliant medical records while automatically redacting sensitive PII.
-            </p>
-            <div className="flex gap-2">
-              <span className="px-3 py-1 rounded bg-purple-950/30 border border-purple-900 text-purple-400 text-xs font-mono">#WhisperAI</span>
-              <span className="px-3 py-1 rounded bg-purple-950/30 border border-purple-900 text-purple-400 text-xs font-mono">#FHIR</span>
+
+            {/* Scribe Card */}
+            <div 
+              onClick={() => onSelectModule('scribe', CONSTANTS.KEYS.SCRIBE)}
+              className="tech-card group p-8 md:p-12 cursor-pointer h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex justify-between items-start mb-8">
+                    <div className="w-16 h-16 rounded bg-purple-500/10 border border-purple-500/20 flex items-center justify-center group-hover:bg-purple-500 group-hover:text-white transition-all duration-300">
+                        <DocumentTextIcon className="w-8 h-8 text-purple-400 group-hover:text-white" />
+                    </div>
+                    <div className="text-[10px] font-mono text-purple-500/50 border border-purple-500/20 px-2 py-1">MOD_02</div>
+                </div>
+
+                <h3 className="font-display text-3xl font-bold mb-4 text-white group-hover:text-purple-400 transition-colors">SCRIBE</h3>
+                <p className="text-slate-400 leading-relaxed mb-8 text-sm">
+                  Ambient clinical intelligence. Listens, redacts PII instantly, and generates structured SOAP notes in FHIR format.
+                </p>
+              </div>
+
+              <div>
+                <div className="grid grid-cols-2 gap-2 mb-8">
+                  {['Real-time ASR', 'PII Redaction', 'FHIR Output', 'Multi-Speaker'].map((tag) => (
+                    <div key={tag} className="px-3 py-2 border-l border-slate-700 bg-slate-900/30 text-slate-400 text-[10px] font-mono uppercase">
+                      {tag}
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="flex items-center gap-2 text-purple-500 text-xs font-bold tracking-widest group-hover:gap-4 transition-all">
+                  INITIALIZE <ArrowRightIcon className="w-3 h-3" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Footer / Tech Stack */}
-      <div className="border-t border-slate-800 bg-slate-950 py-12">
-         <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-sm text-slate-500 font-mono">
-            <div>
-               <h4 className="text-white mb-4 flex items-center gap-2">
-                  <ShieldCheckIcon className="w-4 h-4" /> Privacy Core
-               </h4>
-               <p>ISO/HIPAA compliant redaction engine ensures patient data safety.</p>
-            </div>
-            <div>
-               <h4 className="text-white mb-4 flex items-center gap-2">
-                  <CpuChipIcon className="w-4 h-4" /> Neural Processing
-               </h4>
-               <p>Advanced LLM orchestration for complex clinical query reasoning.</p>
-            </div>
-            <div className="text-right">
-               <p>&copy; 2025 PROJECT CLARA</p>
-               <p>All systems nominal.</p>
+      {/* Use Cases Section (Visual Grid) */}
+      <section id="cases" className="py-32 px-4 bg-[#050914] relative border-t border-slate-900">
+         <div className="max-w-7xl mx-auto relative z-10">
+            <h2 className="font-display text-2xl text-slate-500 font-bold mb-16 tracking-widest">DEPLOYMENT SCENARIOS</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Large Card */}
+                <div className="md:col-span-2 glass-panel p-8 md:p-10 relative overflow-hidden group border-t border-cyan-500/20">
+                    <div className="absolute top-0 right-0 p-12 opacity-5 rotate-12 group-hover:opacity-10 transition-opacity">
+                        <AcademicCapIcon className="w-64 h-64 text-white" />
+                    </div>
+                    <div className="relative z-10">
+                        <div className="text-cyan-500 font-mono text-xs mb-4">CASE STUDY: ONCOLOGY</div>
+                        <h3 className="font-display text-2xl font-bold mb-4">Complex Case Review</h3>
+                        <p className="text-slate-400 mb-8 max-w-lg text-sm leading-relaxed">
+                            Dr. Linh uses CLARA to cross-reference a patient's rare mutation with Phase 3 trials. CLARA summarizes inclusion criteria and potential interactions.
+                        </p>
+                        <div className="inline-flex items-center gap-4 text-xs font-mono text-white">
+                           <div className="px-3 py-1 bg-cyan-900/30 border border-cyan-700/50 rounded">85% FASTER REVIEW</div>
+                           <div className="px-3 py-1 bg-cyan-900/30 border border-cyan-700/50 rounded">VERIFIED CITATIONS</div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Vertical Card */}
+                <div className="md:row-span-2 glass-panel p-8 md:p-10 relative overflow-hidden group border-t border-purple-500/20 flex flex-col">
+                    <div className="text-purple-500 font-mono text-xs mb-4">CASE STUDY: GENERAL PRACTICE</div>
+                    <h3 className="font-display text-2xl font-bold mb-4">Automated Scribe</h3>
+                    <p className="text-slate-400 mb-8 flex-1 text-sm leading-relaxed">
+                        Dr. Nam activates CLARA Scribe. The system listens to the consultation in Vietnamese, filters small talk, and drafts a SOAP note.
+                    </p>
+                    <div className="mt-auto">
+                        <div className="w-full h-32 bg-slate-900/50 rounded border border-white/5 relative overflow-hidden flex items-end justify-around pb-2 px-2">
+                             {/* Fake Bar Chart */}
+                             <div className="w-4 bg-purple-900/50 h-[40%]"></div>
+                             <div className="w-4 bg-purple-900/50 h-[60%]"></div>
+                             <div className="w-4 bg-purple-900/50 h-[30%]"></div>
+                             <div className="w-4 bg-purple-500 h-[80%] shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
+                        </div>
+                        <div className="text-center mt-2 text-[10px] text-slate-500 font-mono">DOCUMENTATION EFFICIENCY</div>
+                    </div>
+                </div>
+
+                {/* Smaller Card */}
+                <div className="glass-panel p-8 relative overflow-hidden group border-t border-blue-500/20">
+                    <ShieldCheckIcon className="w-8 h-8 text-blue-500 mb-4" />
+                    <h3 className="font-display text-lg font-bold mb-2">Education</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">
+                        Students use CLARA to simulate diagnostic reasoning, asking "Why?" for every protocol step.
+                    </p>
+                </div>
+
+                 {/* Smaller Card */}
+                <div className="glass-panel p-8 relative overflow-hidden group border-t border-emerald-500/20">
+                    <BoltIcon className="w-8 h-8 text-emerald-500 mb-4" />
+                    <h3 className="font-display text-lg font-bold mb-2">Decision Support</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">
+                        Real-time alerts for drug contraindications based on patient history.
+                    </p>
+                </div>
             </div>
          </div>
-      </div>
+      </section>
+
+      {/* Footer / Tech */}
+      <section id="tech" className="py-20 bg-[#02040a] border-t border-slate-900 relative z-10">
+         <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="font-display text-xl font-bold mb-12 text-slate-600">SYSTEM ARCHITECTURE</h2>
+            
+            <div className="flex flex-wrap justify-center gap-4 md:gap-12 mb-20 opacity-70">
+                <div className="flex flex-col items-center gap-2">
+                    <div className="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center bg-slate-900"><UserGroupIcon className="w-5 h-5 text-slate-400" /></div>
+                    <span className="text-[10px] font-mono uppercase text-slate-500">Multimodal Input</span>
+                </div>
+                <div className="h-px w-8 bg-slate-800 self-center hidden md:block"></div>
+                <div className="flex flex-col items-center gap-2">
+                    <div className="w-12 h-12 rounded-full border border-cyan-900 flex items-center justify-center bg-cyan-950/20 shadow-[0_0_15px_rgba(6,182,212,0.2)]"><CpuChipIcon className="w-5 h-5 text-cyan-400" /></div>
+                    <span className="text-[10px] font-mono uppercase text-cyan-500">Agentic Core</span>
+                </div>
+                <div className="h-px w-8 bg-slate-800 self-center hidden md:block"></div>
+                <div className="flex flex-col items-center gap-2">
+                    <div className="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center bg-slate-900"><GlobeAltIcon className="w-5 h-5 text-slate-400" /></div>
+                    <span className="text-[10px] font-mono uppercase text-slate-500">Evidence Vector DB</span>
+                </div>
+                <div className="h-px w-8 bg-slate-800 self-center hidden md:block"></div>
+                <div className="flex flex-col items-center gap-2">
+                    <div className="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center bg-slate-900"><DocumentTextIcon className="w-5 h-5 text-slate-400" /></div>
+                    <span className="text-[10px] font-mono uppercase text-slate-500">FHIR Output</span>
+                </div>
+            </div>
+
+            <div className="text-slate-600 text-xs font-mono">
+               &copy; 2025 PROJECT CLARA. SECURE MEDICAL INTELLIGENCE.
+            </div>
+         </div>
+      </section>
     </div>
   );
 };
