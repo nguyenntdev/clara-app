@@ -195,7 +195,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
       })) || [];
 
       // Send to Dify
-      const response = await sendMessageToDify(apiKey, text, conversationId, difyFiles as any);
+      // Increase timeout for Scribe mode (360s), default for Research (300s)
+      const requestTimeout = mode === 'scribe' ? 360000 : 300000;
+      
+      const response = await sendMessageToDify(apiKey, text, conversationId, difyFiles as any, requestTimeout);
       
       setConversationId(response.conversation_id);
 
@@ -328,8 +331,30 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
          <ReactMarkdown 
            remarkPlugins={[remarkGfm]}
            components={{
-               // Styles are handled globally in index.html via Tailwind Typography plugin
-               // We just override specific custom components if needed, or rely on the global prose class
+               // Custom Table rendering for horizontal scroll on mobile
+               table: ({node, ...props}) => (
+                 <div className="overflow-x-auto my-4 rounded-lg border border-slate-700/50 bg-slate-900/30">
+                   <table className="w-full text-left border-collapse min-w-[500px] md:min-w-full" {...props} />
+                 </div>
+               ),
+               // Ensure links open in new tab
+               a: ({node, ...props}) => (
+                 <a target="_blank" rel="noopener noreferrer" {...props} />
+               ),
+               // Custom Code rendering
+               code: ({node, className, children, ...props}) => {
+                 const match = /language-(\w+)/.exec(className || '');
+                 const isInline = !match && !String(children).includes('\n');
+                 return isInline ? (
+                   <code className={className} {...props}>
+                     {children}
+                   </code>
+                 ) : (
+                   <code className={className} {...props}>
+                      {children}
+                   </code>
+                 );
+               }
            }}
          >
            {processed}

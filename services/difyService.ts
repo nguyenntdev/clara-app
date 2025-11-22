@@ -25,7 +25,7 @@ const fetchWithTimeout = async (resource: string, options: RequestInit & { timeo
   } catch (error: any) {
       clearTimeout(id);
       if (error.name === 'AbortError') {
-          throw new Error('Request timed out after 300 seconds');
+          throw new Error(`Request timed out after ${timeout / 1000} seconds`);
       }
       throw error;
   }
@@ -111,7 +111,8 @@ export const sendMessageToDify = async (
   apiKey: string,
   query: string,
   conversationId: string | null,
-  files: { type: string; transfer_method: string; url?: string; upload_file_id?: string }[] = []
+  files: { type: string; transfer_method: string; url?: string; upload_file_id?: string }[] = [],
+  timeout: number = 300000
 ) => {
   const url = `${CONSTANTS.API_ENDPOINT}/chat-messages`;
   
@@ -149,7 +150,8 @@ export const sendMessageToDify = async (
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
+      timeout: timeout
     });
 
     if (!response.ok) {
