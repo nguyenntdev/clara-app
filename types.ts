@@ -5,6 +5,7 @@ export interface Message {
   timestamp: number;
   files?: UploadedFile[];
   suggestedQuestions?: string[];
+  feedback?: 'like' | 'dislike' | null;
 }
 
 export interface UploadedFile {

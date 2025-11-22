@@ -337,33 +337,37 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
 
                   <div className="relative overflow-hidden rounded-lg aspect-[16/9] md:aspect-[21/9] bg-slate-900">
                       <img 
-                          src="team.jpg" 
+                          src="https://i.ibb.co/DPTm2SB7/image.jpg" 
                           onError={(e) => {
                             e.currentTarget.src = 'https://placehold.co/1200x600/020617/38bdf8?text=CLARA+TEAM&font=roboto';
                             e.currentTarget.onerror = null; // Prevent infinite loop
                           }}
-                          alt="CLARA Team: Nguyen Ngoc Thien, Vu Van An, Nguyen Hai Duy, Trinh Minh Quang" 
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" 
+                          alt="CLARA Team: Trinh Minh Quang, Vu Van An, Nguyen Ngoc Thien, Nguyen Hai Duy" 
+                          className="w-full h-full object-cover opacity-100" 
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-90"></div>
                       
                       <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                              {/* 1. Trinh Minh Quang */}
                               <div className="text-center md:text-left group/member">
-                                  <div className="text-cyan-400 font-mono text-[10px] mb-2 tracking-widest border-b border-cyan-500/20 pb-1 inline-block">LEAD ENGINEER</div>
-                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-cyan-300 transition-colors">Nguyen Ngoc Thien</div>
+                                  <div className="text-emerald-400 font-mono text-[10px] mb-2 tracking-widest border-b border-emerald-500/20 pb-1 inline-block">PRODUCT DESIGN</div>
+                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-emerald-300 transition-colors">Trinh Minh Quang</div>
                               </div>
+                              {/* 2. Vu Van An */}
                               <div className="text-center md:text-left group/member">
                                   <div className="text-purple-400 font-mono text-[10px] mb-2 tracking-widest border-b border-purple-500/20 pb-1 inline-block">AI RESEARCHER</div>
                                   <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-purple-300 transition-colors">Vu Van An</div>
                               </div>
+                              {/* 3. Nguyen Ngoc Thien */}
+                              <div className="text-center md:text-left group/member">
+                                  <div className="text-cyan-400 font-mono text-[10px] mb-2 tracking-widest border-b border-cyan-500/20 pb-1 inline-block">LEAD ENGINEER</div>
+                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-cyan-300 transition-colors">Nguyen Ngoc Thien</div>
+                              </div>
+                              {/* 4. Nguyen Hai Duy */}
                               <div className="text-center md:text-left group/member">
                                   <div className="text-blue-400 font-mono text-[10px] mb-2 tracking-widest border-b border-blue-500/20 pb-1 inline-block">FULLSTACK DEV</div>
                                   <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-blue-300 transition-colors">Nguyen Hai Duy</div>
-                              </div>
-                              <div className="text-center md:text-left group/member">
-                                  <div className="text-emerald-400 font-mono text-[10px] mb-2 tracking-widest border-b border-emerald-500/20 pb-1 inline-block">PRODUCT DESIGN</div>
-                                  <div className="font-display font-bold text-base md:text-lg text-white group-hover/member:text-emerald-300 transition-colors">Trinh Minh Quang</div>
                               </div>
                           </div>
                       </div>

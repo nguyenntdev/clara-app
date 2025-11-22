@@ -95,10 +95,11 @@ export const fetchHistory = async (apiKey: string, conversationId: string): Prom
             // Assistant message
             if (item.answer) {
                  messages.push({
-                    id: `a_${item.id}`,
+                    id: item.id, // Keep original ID for feedback
                     role: 'assistant',
                     content: item.answer,
-                    timestamp: item.created_at * 1000 + 1 // Ensure slightly after
+                    timestamp: item.created_at * 1000 + 1, // Ensure slightly after
+                    feedback: item.feedback?.rating // Map existing feedback if any
                 });
             }
         }
@@ -250,4 +251,27 @@ export const uploadFileToDify = async (apiKey: string, file: File, user: string)
     console.error('Upload Error:', error);
     throw error;
   }
+};
+
+export const sendMessageFeedback = async (
+    apiKey: string,
+    messageId: string,
+    rating: 'like' | 'dislike',
+    user: string
+) => {
+    const url = `${CONSTANTS.API_ENDPOINT}/messages/${messageId}/feedbacks`;
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ rating, user })
+        });
+        if (!response.ok) throw new Error('Failed to send feedback');
+        return await response.json();
+    } catch (error) {
+        console.error('Feedback Error:', error);
+    }
 };

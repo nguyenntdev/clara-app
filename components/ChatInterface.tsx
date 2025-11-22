@@ -13,12 +13,14 @@ import {
   PhotoIcon, 
   TrashIcon, 
   ArrowLeftIcon,
-  CpuChipIcon
+  CpuChipIcon,
+  HandThumbUpIcon,
+  HandThumbDownIcon
 } from '@heroicons/react/24/outline';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Message, UploadedFile, TTSSettings } from '../types';
-import { sendMessageToDify, uploadFileToDify, fetchAppParams, fetchHistory } from '../services/difyService';
+import { sendMessageToDify, uploadFileToDify, fetchAppParams, fetchHistory, sendMessageFeedback } from '../services/difyService';
 
 interface ChatInterfaceProps {
   mode: 'research' | 'scribe';
@@ -272,6 +274,21 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
     }
   };
 
+  const handleFeedback = async (messageId: string, rating: 'like' | 'dislike') => {
+      // Optimistic Update
+      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, feedback: rating } : m));
+      
+      try {
+          const userId = localStorage.getItem('clara_user_id') || 'user_1';
+          // Only attempt API call if it looks like a real Dify ID (uuid-ish) and not a local 'welcome'
+          if (messageId !== 'welcome' && !messageId.startsWith('error_')) {
+              await sendMessageFeedback(apiKey, messageId, rating, userId);
+          }
+      } catch (e) {
+          console.error("Feedback failed", e);
+      }
+  };
+
   const toggleRecording = () => {
     if (isRecording) {
       recognitionRef.current?.stop();
@@ -484,7 +501,21 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                   </div>
 
                   {msg.role === 'assistant' && (
-                     <div className="absolute -bottom-3 -right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                     <div className="absolute -bottom-3 -right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                         {/* Feedback Buttons */}
+                         <button 
+                            onClick={() => handleFeedback(msg.id, 'like')} 
+                            className={`bg-slate-900 border border-slate-700 p-1.5 rounded transition-colors ${msg.feedback === 'like' ? 'text-emerald-400 border-emerald-900' : 'text-slate-400 hover:text-white'}`}
+                         >
+                            <HandThumbUpIcon className="w-3 h-3" />
+                         </button>
+                         <button 
+                            onClick={() => handleFeedback(msg.id, 'dislike')} 
+                            className={`bg-slate-900 border border-slate-700 p-1.5 rounded transition-colors ${msg.feedback === 'dislike' ? 'text-red-400 border-red-900' : 'text-slate-400 hover:text-white'}`}
+                         >
+                            <HandThumbDownIcon className="w-3 h-3" />
+                         </button>
+                         {/* TTS Button */}
                          <button onClick={() => speak(msg.content)} className="bg-slate-900 border border-slate-700 text-slate-400 hover:text-white p-1.5 rounded"><SpeakerWaveIcon className="w-3 h-3" /></button>
                      </div>
                   )}

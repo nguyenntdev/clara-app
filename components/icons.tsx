@@ -11,7 +11,9 @@ import {
   DocumentTextIcon,
   BeakerIcon,
   ShieldCheckIcon,
-  CpuChipIcon
+  CpuChipIcon,
+  HandThumbUpIcon,
+  HandThumbDownIcon
 } from '@heroicons/react/24/outline';
 
 // Re-exporting for cleaner imports in other files if needed, 
@@ -29,5 +31,7 @@ export {
   DocumentTextIcon,
   BeakerIcon,
   ShieldCheckIcon,
-  CpuChipIcon
+  CpuChipIcon,
+  HandThumbUpIcon,
+  HandThumbDownIcon
 };
