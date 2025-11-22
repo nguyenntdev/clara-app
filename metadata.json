@@ -1,0 +1,7 @@
+{
+  "name": "CLARA Medical Intelligence",
+  "description": "A specialized agentic framework bridging the gap between global medical evidence and clinical decision-making.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

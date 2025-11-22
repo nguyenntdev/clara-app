@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>CLARA - Medical Intelligence</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #020617; /* Slate 950 */
+        color: #e2e8f0;
+      }
+      .font-display {
+        font-family: 'Orbitron', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(30, 41, 59, 0.5);
+      }
+      .neon-text {
+        text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+      }
+      .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+      }
+      /* Markdown Styles Override */
+      .prose {
+        max-width: none;
+        color: #cbd5e1; /* slate-300 */
+      }
+      .prose strong {
+        color: #22d3ee; /* cyan-400 */
+        font-weight: 700;
+      }
+      .prose h1, .prose h2, .prose h3, .prose h4 {
+        color: #f1f5f9; /* slate-100 */
+        font-family: 'Orbitron', sans-serif;
+        margin-top: 1.5em;
+        margin-bottom: 0.8em;
+      }
+      .prose a {
+        color: #60a5fa; /* blue-400 */
+        text-decoration: none;
+        border-bottom: 1px border-blue-400;
+      }
+      .prose a:hover {
+        color: #93c5fd; /* blue-300 */
+      }
+      .prose code {
+        color: #f472b6; /* pink-400 */
+        background-color: #0f172a; /* slate-900 */
+        padding: 0.1em 0.3em;
+        border-radius: 0.25rem;
+        font-weight: 400;
+      }
+      .prose pre {
+        background-color: #0f172a; /* slate-900 */
+        border: 1px solid #1e293b; /* slate-800 */
+      }
+      .prose pre code {
+        color: inherit;
+        background-color: transparent;
+        padding: 0;
+      }
+      .prose ul > li::marker {
+        color: #22d3ee; /* cyan-400 */
+      }
+      .prose blockquote {
+        border-left-color: #22d3ee; /* cyan-400 */
+        color: #94a3b8; /* slate-400 */
+        font-style: italic;
+      }
+      .prose table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 1em 0;
+      }
+      .prose th {
+        color: #22d3ee;
+        border-bottom: 1px solid #334155;
+        padding: 0.75rem;
+        text-align: left;
+      }
+      .prose td {
+        border-bottom: 1px solid #1e293b;
+        padding: 0.75rem;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@heroicons/react/": "https://aistudiocdn.com/@heroicons/react@^2.2.0/",
+    "remark-gfm": "https://aistudiocdn.com/remark-gfm@^4.0.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
