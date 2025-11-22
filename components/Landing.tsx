@@ -336,13 +336,12 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
                   <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500/50 translate-x-1 translate-y-1"></div>
 
                   <div className="relative overflow-hidden rounded-lg aspect-[16/9] md:aspect-[21/9] bg-slate-900">
-                      {/* 
-                         IMPORTANT: 
-                         To display the team photo, please rename your file to 'team.jpg' 
-                         and place it in the public root folder of the application.
-                      */}
                       <img 
-                          src="/image.jpg" 
+                          src="team.jpg" 
+                          onError={(e) => {
+                            e.currentTarget.src = 'https://placehold.co/1200x600/020617/38bdf8?text=CLARA+TEAM&font=roboto';
+                            e.currentTarget.onerror = null; // Prevent infinite loop
+                          }}
                           alt="CLARA Team: Nguyen Ngoc Thien, Vu Van An, Nguyen Hai Duy, Trinh Minh Quang" 
                           className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700 grayscale group-hover:grayscale-0" 
                       />

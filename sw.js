@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'clara-v1';
+const CACHE_NAME = 'clara-v2';
 const urlsToCache = [
   '/',
   '/index.html',
