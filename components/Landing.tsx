@@ -3,15 +3,17 @@ import {
   BeakerIcon, 
   DocumentTextIcon, 
   CpuChipIcon, 
-  ShieldCheckIcon,
-  UserGroupIcon,
-  AcademicCapIcon,
-  BoltIcon,
-  GlobeAltIcon,
-  ArrowRightIcon,
-  SparklesIcon,
-  BuildingLibraryIcon,
-  CodeBracketIcon
+  ShieldCheckIcon, 
+  UserGroupIcon, 
+  AcademicCapIcon, 
+  BoltIcon, 
+  GlobeAltIcon, 
+  ArrowRightIcon, 
+  SparklesIcon, 
+  BuildingLibraryIcon, 
+  CodeBracketIcon,
+  SignalIcon,
+  ClipboardDocumentCheckIcon
 } from '@heroicons/react/24/outline';
 import { CONSTANTS } from '../types';
 
@@ -314,6 +316,24 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
                     <h3 className="font-display text-lg font-bold mb-2">Decision Support</h3>
                     <p className="text-slate-400 text-xs leading-relaxed">
                         Real-time alerts for drug contraindications based on patient history.
+                    </p>
+                </div>
+
+                {/* New Card: Remote Triage */}
+                <div className="glass-panel p-8 relative overflow-hidden group border-t border-orange-500/20">
+                    <SignalIcon className="w-8 h-8 text-orange-500 mb-4" />
+                    <h3 className="font-display text-lg font-bold mb-2">Remote Triage</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">
+                        Analyzes patient-reported symptoms to prioritize urgency and suggest referrals.
+                    </p>
+                </div>
+
+                 {/* New Card: Trial Matching */}
+                <div className="glass-panel p-8 relative overflow-hidden group border-t border-rose-500/20 md:col-span-2">
+                    <ClipboardDocumentCheckIcon className="w-8 h-8 text-rose-500 mb-4" />
+                    <h3 className="font-display text-lg font-bold mb-2">Clinical Trial Matching</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">
+                        Automatically scans patient EMR data against global inclusion criteria to identify candidates for novel therapies and active studies.
                     </p>
                 </div>
             </div>
