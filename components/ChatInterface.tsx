@@ -117,31 +117,56 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
       }
   }, [conversationId, messages, mode]);
 
+  // Auto-scroll logic with debounce for layout shifts
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    // Scroll immediately
+    scrollToBottom();
+    
+    // Ensure scroll happens after paint for heavy markdown/images
+    const timeout = setTimeout(scrollToBottom, 150);
+    
+    return () => clearTimeout(timeout);
   }, [messages, isLoading, loadingText]);
 
   // Dynamic Loading Text Effect
   useEffect(() => {
     let interval: any;
     if (isLoading) {
-      const steps = [
+      const researchSteps = [
         "ESTABLISHING SECURE UPLINK...",
         "PARSING CLINICAL CONTEXT...",
-        "QUERYING MEDICAL KNOWLEDGE...",
-        "CROSS-REFERENCING GUIDELINES...",
-        "SYNTHESIZING EVIDENCE...",
-        "FORMATTING OUTPUT..."
+        "RETRIEVING MEDICAL LITERATURE...",
+        "ANALYZING CLINICAL TRIALS...",
+        "CROSS-REFERENCING PROTOCOLS...",
+        "SYNTHESIZING CITATIONS...",
+        "GENERATING EVIDENCE SUMMARY..."
       ];
+      
+      const scribeSteps = [
+        "UPLOADING AUDIO STREAM...",
+        "ANALYZING SPECTROGRAM...",
+        "RECOGNIZING SPEECH PATTERNS...",
+        "IDENTIFYING CLINICAL ENTITIES...",
+        "REDACTING PII...",
+        "MAPPING TO SNOMED CT...",
+        "STRUCTURING FHIR RECORD..."
+      ];
+
+      const steps = mode === 'research' ? researchSteps : scribeSteps;
+      
       let i = 0;
       setLoadingText(steps[0]);
       interval = setInterval(() => {
         i = (i + 1) % steps.length;
         setLoadingText(steps[i]);
-      }, 3000); // Cycle every 3 seconds
+      }, 4000); // Cycle every 4 seconds to be readable
     }
     return () => clearInterval(interval);
-  }, [isLoading]);
+  }, [isLoading, mode]);
 
   // Load voices
   useEffect(() => {
@@ -221,8 +246,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
       })) || [];
 
       // Send to Dify
-      // Increase timeout for Scribe mode (900s / 15 mins), Research (600s / 10 mins)
-      const requestTimeout = mode === 'scribe' ? 900000 : 600000;
+      // Increase timeout for Scribe mode (1200s / 20 mins), Research (900s / 15 mins)
+      const requestTimeout = mode === 'scribe' ? 1200000 : 900000;
       
       const response = await sendMessageToDify(apiKey, text, conversationId, difyFiles as any, requestTimeout);
       
@@ -397,8 +422,9 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
               
               {/* Loading Overlay for Uploads */}
               {f.isUploading && (
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm z-10 transition-all">
-                  <ArrowPathIcon className="w-6 h-6 text-cyan-400 animate-spin" />
+                <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center backdrop-blur-sm z-10 transition-all">
+                  <ArrowPathIcon className="w-5 h-5 text-cyan-400 animate-spin mb-1" />
+                  <span className="text-[8px] font-mono text-cyan-500 tracking-wider">UPLOADING</span>
                 </div>
               )}
 
@@ -433,7 +459,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ mode, apiKey, onExit }) =
                 <button 
                 onClick={() => setFiles(files.filter(file => file.id !== f.id))}
                 disabled={f.isUploading}
-                className="absolute -top-1 -right-1 bg-red-500 rounded-full p-0.5 text-white shadow-sm hover:scale-110 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                className="absolute -top-1 -right-1 bg-red-500 rounded-full p-0.5 text-white shadow-sm hover:scale-110 transition-transform disabled:opacity-50 disabled:cursor-not-allowed z-20"
                 >
                 <XMarkIcon className="w-3 h-3" />
                 </button>

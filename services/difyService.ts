@@ -10,9 +10,9 @@ const getUserId = () => {
   return userId;
 };
 
-// Timeout helper (Default 600s / 10 mins)
+// Timeout helper (Default 1200s / 20 mins to handle long audio/research tasks)
 const fetchWithTimeout = async (resource: string, options: RequestInit & { timeout?: number } = {}) => {
-  const { timeout = 600000, ...rest } = options;
+  const { timeout = 1200000, ...rest } = options;
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -38,7 +38,8 @@ export const fetchAppParams = async (apiKey: string): Promise<AppParameters> => 
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${apiKey}`
-            }
+            },
+            timeout: 30000 // Fast timeout for params
         });
         if (!response.ok) throw new Error('Failed to fetch app parameters');
         return await response.json();
@@ -63,7 +64,8 @@ export const fetchHistory = async (apiKey: string, conversationId: string): Prom
              method: 'GET',
             headers: {
                 'Authorization': `Bearer ${apiKey}`
-            }
+            },
+            timeout: 30000 // Fast timeout for history
         });
         if (!response.ok) return [];
         const data = await response.json();
@@ -112,7 +114,7 @@ export const sendMessageToDify = async (
   query: string,
   conversationId: string | null,
   files: { type: string; transfer_method: string; url?: string; upload_file_id?: string }[] = [],
-  timeout: number = 600000
+  timeout: number = 1200000
 ) => {
   const url = `${CONSTANTS.API_ENDPOINT}/chat-messages`;
   
@@ -129,14 +131,10 @@ export const sendMessageToDify = async (
   const body = {
     inputs: {}, 
     query: finalQuery,
-    response_mode: 'blocking', 
+    response_mode: 'streaming', // Use streaming to avoid Cloudflare 524 Timeouts
     conversation_id: conversationId || "",
     user: getUserId(),
     files: files.map(f => ({
-      // Actually, for Dify v1, 'type' should be 'image' for vision, or handled by tools. 
-      // If we are uploading to a knowledge base or tool, it handles differently.
-      // For safety in this generic client, if it's an image, send 'image'. If document, Dify usually takes it as context if configured.
-      // Let's pass the type as is if supported, else 'image' is the safest 'file' type key for Dify Chat unless using 'document' feature.
       type: 'image', // Forcing image type structure for file attachment compatibility in simple chat mode
       transfer_method: f.transfer_method, 
       upload_file_id: f.upload_file_id
@@ -159,7 +157,68 @@ export const sendMessageToDify = async (
       throw new Error(err.message || 'Failed to send message');
     }
 
-    return await response.json();
+    // Parse Streaming Response (Server-Sent Events)
+    // We accumulate the stream to return a single "finished" response to the UI
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder();
+    
+    if (!reader) {
+        // Fallback if no body (unlikely for 200 OK)
+        return {
+            id: Date.now().toString(),
+            answer: "Error: No response stream received.",
+            conversation_id: conversationId,
+            created_at: Date.now() / 1000
+        };
+    }
+
+    let fullAnswer = '';
+    let resultConversationId = conversationId;
+    let resultId = '';
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      // Keep the last partial line in the buffer
+      buffer = lines.pop() || '';
+
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        if (line.startsWith('data: ')) {
+          const jsonStr = line.slice(6); // Remove 'data: ' prefix
+          if (jsonStr === '[DONE]') continue;
+
+          try {
+            const data = JSON.parse(jsonStr);
+            
+            // Accumulate answer tokens
+            if (data.event === 'message' || data.event === 'agent_message') {
+              fullAnswer += data.answer;
+              if (data.conversation_id) resultConversationId = data.conversation_id;
+              if (data.id) resultId = data.id;
+            } else if (data.event === 'error') {
+               throw new Error(data.message);
+            }
+          } catch (e) {
+            console.warn("Stream parse error", e);
+          }
+        }
+      }
+    }
+
+    return {
+        id: resultId || Date.now().toString(),
+        answer: fullAnswer,
+        conversation_id: resultConversationId,
+        created_at: Date.now() / 1000,
+        event: 'message_end',
+        task_id: ''
+    };
+
   } catch (error) {
     console.error('Dify API Error:', error);
     throw error;
@@ -178,7 +237,8 @@ export const uploadFileToDify = async (apiKey: string, file: File, user: string)
       headers: {
         'Authorization': `Bearer ${apiKey}`
       },
-      body: formData
+      body: formData,
+      timeout: 120000 // 2 minutes for upload
     });
 
     if (!response.ok) {
