@@ -144,6 +144,14 @@
         animation: scan-vertical 3s linear infinite;
       }
 
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .animate-scanline {
+        animation: shimmer 1.5s infinite linear;
+      }
+
       /* 3D Classes */
       .perspective-2000 { perspective: 2000px; }
       .transform-style-3d { transform-style: preserve-3d; }
@@ -169,7 +177,8 @@
     "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
     "@heroicons/react/": "https://aistudiocdn.com/@heroicons/react@^2.2.0/",
-    "remark-gfm": "https://aistudiocdn.com/remark-gfm@^4.0.0"
+    "remark-gfm": "https://aistudiocdn.com/remark-gfm@^4.0.0",
+    "@google/genai": "https://esm.run/@google/genai"
   }
 }
 </script>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Landing from './components/Landing';
 import ChatInterface from './components/ChatInterface';
+import PulseInterface from './components/PulseInterface';
 import { AppState } from './types';
 
 const App: React.FC = () => {
@@ -9,7 +10,7 @@ const App: React.FC = () => {
     apiKey: null
   });
 
-  const handleSelectModule = (mode: 'research' | 'scribe', key: string) => {
+  const handleSelectModule = (mode: 'research' | 'scribe' | 'pulse', key: string) => {
     setState({
       currentView: mode,
       apiKey: key
@@ -40,6 +41,13 @@ const App: React.FC = () => {
       {state.currentView === 'scribe' && state.apiKey && (
         <ChatInterface 
           mode="scribe" 
+          apiKey={state.apiKey} 
+          onExit={handleExit} 
+        />
+      )}
+
+      {state.currentView === 'pulse' && state.apiKey && (
+        <PulseInterface 
           apiKey={state.apiKey} 
           onExit={handleExit} 
         />

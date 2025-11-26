@@ -13,12 +13,13 @@ import {
   BuildingLibraryIcon, 
   CodeBracketIcon,
   SignalIcon,
-  ClipboardDocumentCheckIcon
+  ClipboardDocumentCheckIcon,
+  HeartIcon
 } from '@heroicons/react/24/outline';
 import { CONSTANTS } from '../types';
 
 interface LandingProps {
-  onSelectModule: (mode: 'research' | 'scribe', key: string) => void;
+  onSelectModule: (mode: 'research' | 'scribe' | 'pulse', key: string) => void;
 }
 
 const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
@@ -185,12 +186,12 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
             <div className="h-px flex-1 bg-slate-800"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-8">
             
             {/* Research Card */}
             <div 
               onClick={() => onSelectModule('research', CONSTANTS.KEYS.RESEARCH)}
-              className="tech-card group p-8 md:p-12 cursor-pointer h-full flex flex-col justify-between"
+              className="tech-card group p-8 cursor-pointer h-full flex flex-col justify-between"
             >
               <div>
                 <div className="flex justify-between items-start mb-8">
@@ -200,21 +201,13 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
                     <div className="text-[10px] font-mono text-cyan-500/50 border border-cyan-500/20 px-2 py-1">MOD_01</div>
                 </div>
 
-                <h3 className="font-display text-3xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors">RESEARCH</h3>
-                <p className="text-slate-400 leading-relaxed mb-8 text-sm">
+                <h3 className="font-display text-2xl font-bold mb-4 text-white group-hover:text-cyan-400 transition-colors">RESEARCH</h3>
+                <p className="text-slate-400 leading-relaxed mb-8 text-xs">
                    Autonomous RAG agent. Navigates PubMed & ClinicalTrials.gov to answer complex clinical queries with verified citations.
                 </p>
               </div>
 
               <div>
-                <div className="grid grid-cols-2 gap-2 mb-8">
-                  {['Guideline Synthesis', 'Drug Interactions', 'Protocol Check', 'Citation Map'].map((tag) => (
-                    <div key={tag} className="px-3 py-2 border-l border-slate-700 bg-slate-900/30 text-slate-400 text-[10px] font-mono uppercase">
-                      {tag}
-                    </div>
-                  ))}
-                </div>
-                
                 <div className="flex items-center gap-2 text-cyan-500 text-xs font-bold tracking-widest group-hover:gap-4 transition-all">
                   INITIALIZE <ArrowRightIcon className="w-3 h-3" />
                 </div>
@@ -224,7 +217,7 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
             {/* Scribe Card */}
             <div 
               onClick={() => onSelectModule('scribe', CONSTANTS.KEYS.SCRIBE)}
-              className="tech-card group p-8 md:p-12 cursor-pointer h-full flex flex-col justify-between"
+              className="tech-card group p-8 cursor-pointer h-full flex flex-col justify-between"
             >
               <div>
                 <div className="flex justify-between items-start mb-8">
@@ -234,26 +227,45 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
                     <div className="text-[10px] font-mono text-purple-500/50 border border-purple-500/20 px-2 py-1">MOD_02</div>
                 </div>
 
-                <h3 className="font-display text-3xl font-bold mb-4 text-white group-hover:text-purple-400 transition-colors">SCRIBE</h3>
-                <p className="text-slate-400 leading-relaxed mb-8 text-sm">
+                <h3 className="font-display text-2xl font-bold mb-4 text-white group-hover:text-purple-400 transition-colors">SCRIBE</h3>
+                <p className="text-slate-400 leading-relaxed mb-8 text-xs">
                   Ambient clinical intelligence. Listens, redacts PII instantly, and generates structured SOAP notes in FHIR format.
                 </p>
               </div>
 
               <div>
-                <div className="grid grid-cols-2 gap-2 mb-8">
-                  {['Real-time ASR', 'PII Redaction', 'FHIR Output', 'Multi-Speaker'].map((tag) => (
-                    <div key={tag} className="px-3 py-2 border-l border-slate-700 bg-slate-900/30 text-slate-400 text-[10px] font-mono uppercase">
-                      {tag}
-                    </div>
-                  ))}
-                </div>
-                
                 <div className="flex items-center gap-2 text-purple-500 text-xs font-bold tracking-widest group-hover:gap-4 transition-all">
                   INITIALIZE <ArrowRightIcon className="w-3 h-3" />
                 </div>
               </div>
             </div>
+
+            {/* Pulse Card (New) */}
+            <div 
+              onClick={() => onSelectModule('pulse', CONSTANTS.KEYS.PULSE)}
+              className="tech-card group p-8 cursor-pointer h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex justify-between items-start mb-8">
+                    <div className="w-16 h-16 rounded bg-rose-500/10 border border-rose-500/20 flex items-center justify-center group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
+                        <HeartIcon className="w-8 h-8 text-rose-400 group-hover:text-white" />
+                    </div>
+                    <div className="text-[10px] font-mono text-rose-500/50 border border-rose-500/20 px-2 py-1">MOD_03</div>
+                </div>
+
+                <h3 className="font-display text-2xl font-bold mb-4 text-white group-hover:text-rose-400 transition-colors">CLARA PULSE</h3>
+                <p className="text-slate-400 leading-relaxed mb-8 text-xs">
+                   Personal health companion. Real-time, low-latency voice conversations for wellness advice, diet planning, and symptom checking.
+                </p>
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 text-rose-500 text-xs font-bold tracking-widest group-hover:gap-4 transition-all">
+                  INITIALIZE <ArrowRightIcon className="w-3 h-3" />
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -362,7 +374,7 @@ const Landing: React.FC<LandingProps> = ({ onSelectModule }) => {
 
                   <div className="relative overflow-hidden rounded-lg aspect-[16/9] md:aspect-[21/9] bg-slate-900">
                       <img 
-                          src="https://i.ibb.co/DPTm2SB7/image.jpg" 
+                          src="team.jpg" 
                           onError={(e) => {
                             e.currentTarget.src = 'https://placehold.co/1200x600/020617/38bdf8?text=CLARA+TEAM&font=roboto';
                             e.currentTarget.onerror = null; // Prevent infinite loop

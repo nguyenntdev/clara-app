@@ -18,7 +18,7 @@ export interface UploadedFile {
 }
 
 export interface AppState {
-  currentView: 'landing' | 'research' | 'scribe';
+  currentView: 'landing' | 'research' | 'scribe' | 'pulse';
   apiKey: string | null;
 }
 
@@ -68,6 +68,7 @@ export const CONSTANTS = {
   API_ENDPOINT: 'https://dify.thiennn.icu/v1',
   KEYS: {
     RESEARCH: 'app-PvUMjA7ardT6ccfrEMmnfIPG',
-    SCRIBE: 'app-vBOnBtyJY0KyTk3pbzt3dlNB'
+    SCRIBE: 'app-vBOnBtyJY0KyTk3pbzt3dlNB',
+    PULSE: 'AIzaSyCT4rbiapDIN9_Bfwkc461X4RW3VPoy45w'
   }
 };
