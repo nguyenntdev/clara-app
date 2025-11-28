@@ -98,7 +98,8 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
   // Audio Context Refs
   const inputContextRef = useRef<AudioContext | null>(null);
   const outputContextRef = useRef<AudioContext | null>(null);
-  const sessionRef = useRef<any>(null);
+  const sessionRef = useRef<any>(null); // Promise of session
+  const activeSessionRef = useRef<any>(null); // Actual resolved session object
   const processorRef = useRef<ScriptProcessorNode | null>(null); // Keep reference to prevent GC
   
   // Playback cursor
@@ -129,13 +130,12 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
       const ai = new GoogleGenAI({ apiKey: apiKey });
       
       // 1. Setup Audio Contexts
-      // NOTE: We do NOT force a sample rate here. We let the browser decide the native hardware rate.
-      // Forcing it often causes silence or chipmunk effects if the hardware doesn't support it.
       const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 }); // Output is usually fixed at 24k from Gemini
+      const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
       
-      await inputCtx.resume();
-      await outputCtx.resume();
+      // Explicit resume to handle browser autoplay policies
+      if (inputCtx.state === 'suspended') await inputCtx.resume();
+      if (outputCtx.state === 'suspended') await outputCtx.resume();
 
       inputContextRef.current = inputCtx;
       outputContextRef.current = outputCtx;
@@ -147,11 +147,13 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
             audio: {
                 echoCancellation: true,
                 noiseSuppression: true,
-                autoGainControl: true
+                autoGainControl: true,
+                sampleRate: inputCtx.sampleRate // Try to match context rate
             } 
         });
       } catch (e) {
-          alert("Microphone access denied. Please allow microphone permissions.");
+          console.error(e);
+          alert("Microphone access denied. Please allow microphone permissions in your browser settings.");
           setStatus("MIC ACCESS DENIED");
           return;
       }
@@ -182,7 +184,7 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
       const sessionPromise = ai.live.connect({
         model: 'gemini-2.5-flash-native-audio-preview-09-2025',
         callbacks: {
-          onopen: () => {
+          onopen: async () => {
             console.log("Connected to Gemini Live");
             setStatus("LIVE CONNECTION ESTABLISHED");
             setIsConnected(true);
@@ -192,17 +194,10 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
             userAccRef.current = '';
             modelAccRef.current = '';
             sentimentRef.current = 'neutral';
-
-            // Start sending audio chunks
-            scriptProcessor.onaudioprocess = (e) => {
-               const inputData = e.inputBuffer.getChannelData(0);
-               // Pass the ACTUAL sample rate of the context
-               const pcmBlob = createBlob(inputData, inputCtx.sampleRate);
-               
-               sessionPromise.then(session => {
-                  session.sendRealtimeInput({ media: pcmBlob });
-               });
-            };
+            
+            // Resolve the session and store it for the audio loop
+            const session = await sessionPromise;
+            activeSessionRef.current = session;
           },
           onmessage: async (msg: LiveServerMessage) => {
             const content = msg.serverContent;
@@ -269,11 +264,14 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
             console.log("Disconnected");
             setStatus("CONNECTION TERMINATED");
             setIsConnected(false);
+            activeSessionRef.current = null;
             processorRef.current = null;
           },
           onerror: (e) => {
             console.error("Live API Error", e);
             setStatus("CONNECTION ERROR");
+            setIsConnected(false);
+            alert("Connection Error. Please check your API key or internet connection.");
           }
         },
         config: {
@@ -288,10 +286,21 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
       });
       
       sessionRef.current = sessionPromise;
+      
+      // Start sending audio chunks ONLY when session is active
+      scriptProcessor.onaudioprocess = (e) => {
+         if (!activeSessionRef.current) return;
+         
+         const inputData = e.inputBuffer.getChannelData(0);
+         const pcmBlob = createBlob(inputData, inputCtx.sampleRate);
+         
+         activeSessionRef.current.sendRealtimeInput({ media: pcmBlob });
+      };
 
     } catch (err) {
       console.error("Failed to start session", err);
       setStatus("INITIALIZATION FAILED");
+      alert("Failed to initialize. Check console for details.");
     }
   };
 
@@ -306,6 +315,7 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
      if (inputContextRef.current) inputContextRef.current.close();
      if (outputContextRef.current) outputContextRef.current.close();
      
+     activeSessionRef.current = null;
      setIsConnected(false);
      setStatus("SYSTEM IDLE");
   };
@@ -326,10 +336,6 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
     }
 
     const draw = () => {
-      if (!analyserRef.current && isConnected) {
-         // Fallback animation if analyser not ready
-      }
-      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -362,7 +368,6 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
           for (let i = 0; i < bufferLength; i += 4) {
              const v = dataArray[i] / 255.0;
              const height = v * 80;
-             const angle = (i / bufferLength) * Math.PI * 2;
              
              ctx.rotate( (Math.PI * 2) / (bufferLength / 4) );
              
@@ -390,7 +395,7 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
           for (let i = 0; i < bufferLength; i++) {
               const v = timeArray[i] / 128.0;
               const angle = (i / bufferLength) * Math.PI * 2;
-              const r = radius + (v - 1) * 20;
+              const r = radius + (v - 1) * 30; // Increased sensitivity
               const x = centerX + Math.cos(angle) * r;
               const y = centerY + Math.sin(angle) * r;
               
@@ -404,12 +409,12 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
           // 3. Core Pulse
           const avgVolume = dataArray.reduce((a,b) => a+b) / bufferLength;
           ctx.beginPath();
-          ctx.arc(centerX, centerY, 20 + avgVolume/5, 0, Math.PI * 2);
-          ctx.fillStyle = themeColorAlpha(0.3 + avgVolume/200);
+          ctx.arc(centerX, centerY, 20 + avgVolume/3, 0, Math.PI * 2); // Increased sensitivity
+          ctx.fillStyle = themeColorAlpha(0.3 + avgVolume/150);
           ctx.fill();
           
           // 4. Particles emitting from core
-          if (avgVolume > 20) {
+          if (avgVolume > 10) { // Lower threshold
               const pIndex = Math.floor(Math.random() * particles.length);
               if (particles[pIndex].life <= 0) {
                   const angle = Math.random() * Math.PI * 2;
