@@ -162,8 +162,8 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
       
       // Analyser for Visualizer
       const analyser = inputCtx.createAnalyser();
-      analyser.fftSize = 512;
-      analyser.smoothingTimeConstant = 0.8;
+      analyser.fftSize = 1024; // Increased for better resolution
+      analyser.smoothingTimeConstant = 0.6; // More responsive
       source.connect(analyser);
       analyserRef.current = analyser;
 
@@ -331,12 +331,15 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
     
     // Particle System
     const particles: {x: number, y: number, vx: number, vy: number, life: number}[] = [];
-    for(let i=0; i<20; i++) {
+    for(let i=0; i<30; i++) {
         particles.push({x: 0, y:0, vx: 0, vy: 0, life: 0});
     }
 
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Trail Effect: Fill with transparent background instead of clearing
+      ctx.fillStyle = 'rgba(2, 4, 10, 0.2)'; // Deep dark blue with opacity
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       
@@ -361,41 +364,58 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
           rotation += 0.005;
 
           // 1. Frequency Turbine (Outer)
+          const bars = 64; // Reduced for clearer bars
+          const step = Math.floor(bufferLength / bars);
+          
           ctx.save();
           ctx.translate(centerX, centerY);
           ctx.rotate(rotation);
           
-          for (let i = 0; i < bufferLength; i += 4) {
-             const v = dataArray[i] / 255.0;
-             const height = v * 80;
+          for (let i = 0; i < bars; i++) {
+             const dataIndex = i * step;
+             const v = dataArray[dataIndex] / 255.0;
+             const height = v * 100;
              
-             ctx.rotate( (Math.PI * 2) / (bufferLength / 4) );
+             const angle = (i / bars) * Math.PI * 2;
              
+             ctx.save();
+             ctx.rotate(angle);
+             ctx.fillStyle = themeColorAlpha(0.4 + v * 0.6);
+             
+             // Draw bar radiating out
              ctx.beginPath();
-             ctx.fillStyle = themeColorAlpha(0.2 + v * 0.8);
-             ctx.rect(60, -1, height, 2);
+             ctx.rect(70, -2, height, 3);
              ctx.fill();
              
-             if (v > 0.5) {
+             // Draw dot at end if loud
+             if (v > 0.4) {
                  ctx.fillStyle = '#fff';
-                 ctx.rect(60 + height, -1, 2, 2);
+                 ctx.beginPath();
+                 ctx.arc(70 + height + 5, 0, 1.5, 0, Math.PI*2);
                  ctx.fill();
              }
+             ctx.restore();
           }
           ctx.restore();
 
-          // 2. Oscilloscope Ring (Middle)
+          // 2. Oscilloscope Ring (Middle) - Dual Layer Distorted Circle
+          
+          // Layer A: Primary Color, Heavy Glow
           ctx.beginPath();
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 3;
           ctx.strokeStyle = themeColor;
-          ctx.shadowBlur = 15;
+          ctx.shadowBlur = 20;
           ctx.shadowColor = themeColor;
           
           const radius = 50;
           for (let i = 0; i < bufferLength; i++) {
-              const v = timeArray[i] / 128.0;
+              const v = timeArray[i] / 128.0; // 128 is silence (1.0)
               const angle = (i / bufferLength) * Math.PI * 2;
-              const r = radius + (v - 1) * 30; // Increased sensitivity
+              
+              // Amplify deviation from 1.0
+              const distortion = (v - 1) * 60; 
+              
+              const r = radius + distortion;
               const x = centerX + Math.cos(angle) * r;
               const y = centerY + Math.sin(angle) * r;
               
@@ -404,24 +424,44 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
           }
           ctx.closePath();
           ctx.stroke();
+          
+          // Layer B: White Thin Line, Less Amplitude, No Glow (Wireframe feel)
+          ctx.beginPath();
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
           ctx.shadowBlur = 0;
+          
+          for (let i = 0; i < bufferLength; i++) {
+              const v = timeArray[i] / 128.0;
+              const angle = (i / bufferLength) * Math.PI * 2;
+              const distortion = (v - 1) * 50; // Slightly less distortion
+              const r = radius + distortion;
+              const x = centerX + Math.cos(angle) * r;
+              const y = centerY + Math.sin(angle) * r;
+              
+              if (i===0) ctx.moveTo(x, y);
+              else ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.stroke();
+
 
           // 3. Core Pulse
           const avgVolume = dataArray.reduce((a,b) => a+b) / bufferLength;
           ctx.beginPath();
-          ctx.arc(centerX, centerY, 20 + avgVolume/3, 0, Math.PI * 2); // Increased sensitivity
+          ctx.arc(centerX, centerY, 20 + avgVolume/3, 0, Math.PI * 2); 
           ctx.fillStyle = themeColorAlpha(0.3 + avgVolume/150);
           ctx.fill();
           
           // 4. Particles emitting from core
-          if (avgVolume > 10) { // Lower threshold
+          if (avgVolume > 10) { 
               const pIndex = Math.floor(Math.random() * particles.length);
               if (particles[pIndex].life <= 0) {
                   const angle = Math.random() * Math.PI * 2;
                   particles[pIndex] = {
                       x: centerX, y: centerY,
-                      vx: Math.cos(angle) * 2,
-                      vy: Math.sin(angle) * 2,
+                      vx: Math.cos(angle) * (1 + Math.random()),
+                      vy: Math.sin(angle) * (1 + Math.random()),
                       life: 1.0
                   };
               }
@@ -460,14 +500,14 @@ const PulseInterface: React.FC<PulseInterfaceProps> = ({ apiKey, onExit }) => {
 
       // HUD Reticles (Static)
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
       ctx.lineWidth = 1;
       ctx.arc(centerX, centerY, 140, 0, Math.PI * 2);
       ctx.stroke();
 
       // Crosshairs
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
       ctx.moveTo(centerX - 150, centerY);
       ctx.lineTo(centerX - 130, centerY);
       ctx.moveTo(centerX + 130, centerY);
