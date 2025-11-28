@@ -58,7 +58,8 @@ export const fetchAppParams = async (apiKey: string): Promise<AppParameters> => 
 };
 
 export const fetchHistory = async (apiKey: string, conversationId: string): Promise<Message[]> => {
-    const url = `${CONSTANTS.API_ENDPOINT}/messages?user=${getUserId()}&conversation_id=${conversationId}&limit=20`;
+    // Increased limit to 100 to retrieve better context
+    const url = `${CONSTANTS.API_ENDPOINT}/messages?user=${getUserId()}&conversation_id=${conversationId}&limit=100`;
     try {
         const response = await fetchWithTimeout(url, {
              method: 'GET',
@@ -67,12 +68,15 @@ export const fetchHistory = async (apiKey: string, conversationId: string): Prom
             },
             timeout: 30000 // Fast timeout for history
         });
-        if (!response.ok) return [];
+        
+        if (!response.ok) {
+            console.warn(`History fetch failed with status: ${response.status}`);
+            return [];
+        }
+
         const data = await response.json();
         
         // Map Dify messages to local Message format
-        // Dify returns { data: [...] } where items have query (user) and answer (bot)
-        // We need to flatten this into our message list
         const messages: Message[] = [];
         // Iterate reverse because they often come newest first, we want oldest first
         for (let i = data.data.length - 1; i >= 0; i--) {
@@ -105,7 +109,8 @@ export const fetchHistory = async (apiKey: string, conversationId: string): Prom
         }
         return messages;
     } catch (error) {
-        console.error('History fetch error', error);
+        console.error('History fetch error (Offline or API fail):', error);
+        // Return empty array to trigger localStorage fallback in UI
         return [];
     }
 };
@@ -119,8 +124,6 @@ export const sendMessageToDify = async (
 ) => {
   const url = `${CONSTANTS.API_ENDPOINT}/chat-messages`;
   
-  // Fix for "contents are required" error from some LLMs (like Gemini)
-  // If query is empty but we have files, provide a default prompt description.
   let finalQuery = query;
   if (!finalQuery.trim() && files.length > 0) {
       const fileTypes = files.map(f => f.type);
@@ -136,7 +139,7 @@ export const sendMessageToDify = async (
     conversation_id: conversationId || "",
     user: getUserId(),
     files: files.map(f => ({
-      type: 'image', // Forcing image type structure for file attachment compatibility in simple chat mode
+      type: 'image',
       transfer_method: f.transfer_method, 
       upload_file_id: f.upload_file_id
     }))
@@ -154,17 +157,14 @@ export const sendMessageToDify = async (
     });
 
     if (!response.ok) {
-      const err = await response.json();
+      const err = await response.json().catch(() => ({ message: 'Network response was not ok' }));
       throw new Error(err.message || 'Failed to send message');
     }
 
-    // Parse Streaming Response (Server-Sent Events)
-    // We accumulate the stream to return a single "finished" response to the UI
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
     
     if (!reader) {
-        // Fallback if no body (unlikely for 200 OK)
         return {
             id: Date.now().toString(),
             answer: "Error: No response stream received.",
@@ -184,19 +184,16 @@ export const sendMessageToDify = async (
 
       buffer += decoder.decode(value, { stream: true });
       const lines = buffer.split('\n');
-      // Keep the last partial line in the buffer
       buffer = lines.pop() || '';
 
       for (const line of lines) {
         if (!line.trim()) continue;
         if (line.startsWith('data: ')) {
-          const jsonStr = line.slice(6); // Remove 'data: ' prefix
+          const jsonStr = line.slice(6);
           if (jsonStr === '[DONE]') continue;
 
           try {
             const data = JSON.parse(jsonStr);
-            
-            // Accumulate answer tokens
             if (data.event === 'message' || data.event === 'agent_message') {
               fullAnswer += data.answer;
               if (data.conversation_id) resultConversationId = data.conversation_id;
